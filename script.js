@@ -115,4 +115,12 @@ function loadShoppingList() {
     });
 }
 
-// Nova função para pesquisar o item
+// Função para pesquisar o item no Google
+function searchForItem(item) {
+    const searchUrl = `https://www.google.com/search?q=preço+${encodeURIComponent(item)}`;
+    window.open(searchUrl, '_blank'); // Abre uma nova aba com a pesquisa no Google
+}
+
+// Carregar as listas ao iniciar
+loadDebts();
+loadShoppingList();
