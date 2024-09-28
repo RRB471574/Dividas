@@ -1,66 +1,79 @@
-let totalDebt = 0; // Variável para armazenar o total das dívidas
-
-// Carregar dívidas do localStorage quando a página é carregada
-document.addEventListener('DOMContentLoaded', loadDebts);
-
-document.getElementById('debt-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const creditor = document.getElementById('creditor').value;
-    const amount = parseFloat(document.getElementById('amount').value); // Parse para número
-    const dueDate = document.getElementById('due-date').value;
-    
-    addDebt(creditor, amount, dueDate);
-    
-    this.reset();
-});
-
-function addDebt(creditor, amount, dueDate) {
-    const debtList = document.getElementById('debt-list');
-    
-    const li = document.createElement('li');
-    li.textContent = `${creditor} - R$ ${amount.toFixed(2)} - Vence em ${dueDate}`;
-    
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remover';
-    removeButton.onclick = function() {
-        totalDebt -= amount; // Subtrai o valor da dívida total
-        updateTotalDebt();
-        debtList.removeChild(li);
-        removeDebtFromStorage(creditor, amount, dueDate);
-    };
-    
-    li.appendChild(removeButton);
-    debtList.appendChild(li);
-    
-    totalDebt += amount; // Adiciona o valor da nova dívida ao total
-    updateTotalDebt();
-    saveDebtToStorage(creditor, amount, dueDate); // Salva a nova dívida no localStorage
+function showTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.style.display = 'none'; // Esconde todas as abas
+    });
+    document.getElementById(tabName).style.display = 'block'; // Mostra a aba selecionada
 }
 
-function updateTotalDebt() {
-    const totalDebtElement = document.getElementById('total-debt');
-    totalDebtElement.textContent = `Total de Dívidas: R$ ${totalDebt.toFixed(2)}`; // Atualiza o texto com o total
+// Funções para Gerenciar Dívidas
+function addDebt() {
+    const description = document.getElementById('debtDescription').value;
+    const amount = parseFloat(document.getElementById('debtAmount').value);
+    if (description && !isNaN(amount)) {
+        const debts = JSON.parse(localStorage.getItem('debts')) || [];
+        debts.push({ description, amount });
+        localStorage.setItem('debts', JSON.stringify(debts));
+        document.getElementById('debtDescription').value = '';
+        document.getElementById('debtAmount').value = '';
+        loadDebts();
+    } else {
+        alert('Preencha todos os campos corretamente.');
+    }
 }
 
-// Função para salvar dívida no localStorage
-function saveDebtToStorage(creditor, amount, dueDate) {
-    const debts = JSON.parse(localStorage.getItem('debts')) || [];
-    debts.push({ creditor, amount, dueDate });
-    localStorage.setItem('debts', JSON.stringify(debts));
-}
-
-// Função para remover dívida do localStorage
-function removeDebtFromStorage(creditor, amount, dueDate) {
-    const debts = JSON.parse(localStorage.getItem('debts')) || [];
-    const updatedDebts = debts.filter(debt => !(debt.creditor === creditor && debt.amount === amount && debt.dueDate === dueDate));
-    localStorage.setItem('debts', JSON.stringify(updatedDebts));
-}
-
-// Função para carregar dívidas do localStorage
 function loadDebts() {
+    const debtList = document.getElementById('debtList');
+    debtList.innerHTML = ''; // Limpa a lista atual
     const debts = JSON.parse(localStorage.getItem('debts')) || [];
-    debts.forEach(debt => {
-        addDebt(debt.creditor, debt.amount, debt.dueDate);
+    debts.forEach((debt, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${debt.description}: R$ ${debt.amount.toFixed(2)}`;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remover';
+        removeButton.onclick = () => {
+            debts.splice(index, 1);
+            localStorage.setItem('debts', JSON.stringify(debts));
+            loadDebts();
+        };
+        li.appendChild(removeButton);
+        debtList.appendChild(li);
     });
 }
+
+// Funções para Lista de Compras
+function addItem() {
+    const itemDescription = document.getElementById('itemDescription').value;
+    if (itemDescription) {
+        const shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+        shoppingList.push(itemDescription);
+        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+        document.getElementById('itemDescription').value = '';
+        loadShoppingList();
+    } else {
+        alert('Por favor, insira a descrição do item.');
+    }
+}
+
+function loadShoppingList() {
+    const shoppingList = document.getElementById('shoppingList');
+    shoppingList.innerHTML = ''; // Limpa a lista atual
+    const items = JSON.parse(localStorage.getItem('shoppingList')) || [];
+    items.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remover';
+        removeButton.onclick = () => {
+            items.splice(index, 1);
+            localStorage.setItem('shoppingList', JSON.stringify(items));
+            loadShoppingList();
+        };
+        li.appendChild(removeButton);
+        shoppingList.appendChild(li);
+    });
+}
+
+// Carregar as listas ao iniciar
+loadDebts();
+loadShoppingList();
