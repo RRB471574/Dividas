@@ -10,12 +10,15 @@ function showTab(tabName) {
 function addDebt() {
     const description = document.getElementById('debtDescription').value;
     const amount = parseFloat(document.getElementById('debtAmount').value);
-    if (description && !isNaN(amount)) {
+    const dueDate = document.getElementById('debtDueDate').value;
+
+    if (description && !isNaN(amount) && dueDate) {
         const debts = JSON.parse(localStorage.getItem('debts')) || [];
-        debts.push({ description, amount });
+        debts.push({ description, amount, dueDate });
         localStorage.setItem('debts', JSON.stringify(debts));
         document.getElementById('debtDescription').value = '';
         document.getElementById('debtAmount').value = '';
+        document.getElementById('debtDueDate').value = '';
         loadDebts();
     } else {
         alert('Preencha todos os campos corretamente.');
@@ -26,9 +29,11 @@ function loadDebts() {
     const debtList = document.getElementById('debtList');
     debtList.innerHTML = ''; // Limpa a lista atual
     const debts = JSON.parse(localStorage.getItem('debts')) || [];
+    let total = 0;
+
     debts.forEach((debt, index) => {
         const li = document.createElement('li');
-        li.textContent = `${debt.description}: R$ ${debt.amount.toFixed(2)}`;
+        li.textContent = `${debt.description}: R$ ${debt.amount.toFixed(2)} (Vencimento: ${debt.dueDate})`;
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remover';
         removeButton.onclick = () => {
@@ -38,7 +43,37 @@ function loadDebts() {
         };
         li.appendChild(removeButton);
         debtList.appendChild(li);
+        total += debt.amount; // Soma o valor da dívida
     });
+
+    document.getElementById('totalDebts').textContent = total.toFixed(2); // Atualiza o total das dívidas
+}
+
+// Função para calcular o plano de pagamento
+function calculatePaymentPlan() {
+    const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
+    const debts = JSON.parse(localStorage.getItem('debts')) || [];
+    const totalDebt = debts.reduce((sum, debt) => sum + debt.amount, 0);
+    
+    const paymentPlanList = document.getElementById('paymentPlan');
+    paymentPlanList.innerHTML = ''; // Limpa a lista do plano de pagamento
+
+    if (!isNaN(monthlyIncome) && monthlyIncome > 0) {
+        let remainingDebt = totalDebt;
+        const monthlyPayment = monthlyIncome > totalDebt ? totalDebt : monthlyIncome;
+        const months = Math.ceil(remainingDebt / monthlyPayment);
+
+        for (let i = 1; i <= months; i++) {
+            const li = document.createElement('li');
+            li.textContent = `Mês ${i}: Pagar R$ ${monthlyPayment.toFixed(2)}`;
+            paymentPlanList.appendChild(li);
+            remainingDebt -= monthlyPayment;
+
+            if (remainingDebt <= 0) break; // Se a dívida foi paga
+        }
+    } else {
+        alert('Por favor, insira um valor válido de renda mensal.');
+    }
 }
 
 // Funções para Lista de Compras
