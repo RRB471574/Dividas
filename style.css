@@ -1,55 +1,58 @@
-<!doctype html>
-<html>
- <head><style type="text/css" id="dcoder_stylesheet">body {
+body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 600px;
-    margin: auto;
     padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f4f4f4;
 }
 
 h1 {
     text-align: center;
 }
 
-form {
+.tabs {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.tab-button:hover {
+    background-color: #0056b3;
+}
+
+.tab-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 input {
     padding: 10px;
+    margin: 5px;
+    width: calc(100% - 22px);
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 button {
     padding: 10px;
+    border: none;
     background-color: #28a745;
     color: white;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
     background-color: #218838;
-}
-
-.tips {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #e9ecef;
-    border-radius: 4px;
 }
 
 ul {
@@ -58,14 +61,8 @@ ul {
 }
 
 li {
-    padding: 5px 0;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e9ecef;
+    border-radius: 3px;
 }
-</style></head> 
- <body> 
-  <h1> Hello </h1> 
-  <div>
-    This is a html example from Dcoder, 
-   <br> have fun. :) 
-  </div> 
- 
-</body></html>
