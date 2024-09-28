@@ -16,15 +16,15 @@
 
     <div id="debts" class="tab-content">
         <h2>Gerenciar Dívidas</h2>
-        <input type="text" id="debtDescription" placeholder="Descrição da Dívida">
-        <input type="number" id="debtAmount" placeholder="Valor da Dívida">
+        <input type="text" id="debtDescription" placeholder="Descrição da Dívida" required>
+        <input type="number" id="debtAmount" placeholder="Valor da Dívida" required>
         <button onclick="addDebt()">Adicionar Dívida</button>
         <ul id="debtList"></ul>
     </div>
 
     <div id="shopping-list" class="tab-content" style="display: none;">
         <h2>Lista de Compras</h2>
-        <input type="text" id="itemDescription" placeholder="Descrição do Item">
+        <input type="text" id="itemDescription" placeholder="Descrição do Item" required>
         <button onclick="addItem()">Adicionar Item</button>
         <ul id="shoppingList"></ul>
     </div>
