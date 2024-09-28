@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Dívidas</title>
+    <title>Gerenciador de Dívidas e Lista de Compras</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Gestão de Dívidas</h1>
-        <form id="debt-form">
-            <input type="text" id="creditor" placeholder="Credor" required>
-            <input type="number" id="amount" placeholder="Valor (R$)" required>
-            <input type="date" id="due-date" required>
-            <button type="submit">Adicionar Dívida</button>
-        </form>
-        
-        <h2>Dívidas</h2>
-        <div id="total-debt">Total de Dívidas: R$ 0.00</div> <!-- Exibição do total de dívidas -->
-        <ul id="debt-list"></ul>
-        
-        <h2>Dicas para Pagar em Dia</h2>
-        <div class="tips">
-            <ul>
-                <li>Crie um cronograma de pagamento.</li>
-                <li>Priorize dívidas com juros altos.</li>
-                <li>Considere o pagamento automático.</li>
-                <li>Reserve um valor mensal para dívidas.</li>
-                <li>Revise seu orçamento regularmente.</li>
-            </ul>
-        </div>
+    <h1>Gerenciador de Dívidas e Lista de Compras</h1>
+    
+    <div class="tabs">
+        <button class="tab-button" onclick="showTab('debts')">Dívidas</button>
+        <button class="tab-button" onclick="showTab('shopping-list')">Lista de Compras</button>
+    </div>
+
+    <div id="debts" class="tab-content">
+        <h2>Gerenciar Dívidas</h2>
+        <input type="text" id="debtDescription" placeholder="Descrição da Dívida">
+        <input type="number" id="debtAmount" placeholder="Valor da Dívida">
+        <button onclick="addDebt()">Adicionar Dívida</button>
+        <ul id="debtList"></ul>
+    </div>
+
+    <div id="shopping-list" class="tab-content" style="display: none;">
+        <h2>Lista de Compras</h2>
+        <input type="text" id="itemDescription" placeholder="Descrição do Item">
+        <button onclick="addItem()">Adicionar Item</button>
+        <ul id="shoppingList"></ul>
     </div>
 
     <script src="script.js"></script>
