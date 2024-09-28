@@ -3,39 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Dívidas e Lista de Compras</title>
+    <title>Gestão de Dívidas e Lista de Compras</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Gerenciador de Dívidas e Lista de Compras</h1>
-    
-    <div class="tabs">
-        <button class="tab-button" onclick="showTab('debts')">Dívidas</button>
-        <button class="tab-button" onclick="showTab('shopping-list')">Lista de Compras</button>
-    </div>
+    <header>
+        <h1>Gestão de Dívidas e Compras</h1>
+        <nav>
+            <button onclick="showTab('debtManager')">Dívidas</button>
+            <button onclick="showTab('shoppingListManager')">Lista de Compras</button>
+        </nav>
+    </header>
 
-    <div id="debts" class="tab-content">
-        <h2>Gerenciar Dívidas</h2>
-        <input type="text" id="debtDescription" placeholder="Descrição da Dívida" required>
-        <input type="number" id="debtAmount" placeholder="Valor da Dívida" required>
-        <input type="date" id="debtDueDate" required>
-        <button onclick="addDebt()">Adicionar Dívida</button>
-        <h3>Total das Dívidas: R$ <span id="totalDebts">0.00</span></h3>
+    <main>
+        <!-- Gerenciador de Dívidas -->
+        <section id="debtManager" class="tab-content">
+            <h2>Gerenciamento de Dívidas</h2>
+            <form>
+                <input type="text" id="debtDescription" placeholder="Descrição da dívida">
+                <input type="number" id="debtAmount" placeholder="Valor (R$)">
+                <input type="date" id="debtDueDate" placeholder="Data de Vencimento">
+                <button type="button" onclick="addDebt()">Adicionar Dívida</button>
+            </form>
 
-        <h3>Plano de Pagamento</h3>
-        <input type="number" id="monthlyIncome" placeholder="Quanto você vai receber no mês" required>
-        <button onclick="calculatePaymentPlan()">Calcular Plano de Pagamento</button>
-        <ul id="paymentPlan"></ul>
+            <h3>Dívidas Atuais:</h3>
+            <ul id="debtList"></ul>
+            <p>Total de Dívidas: R$ <span id="totalDebts">0.00</span></p>
 
-        <ul id="debtList"></ul>
-    </div>
+            <h3>Calcular Plano de Pagamento</h3>
+            <input type="number" id="monthlyIncome" placeholder="Quanto você vai receber no mês?">
+            <button type="button" onclick="calculatePaymentPlan()">Calcular Plano de Pagamento</button>
 
-    <div id="shopping-list" class="tab-content" style="display: none;">
-        <h2>Lista de Compras</h2>
-        <input type="text" id="itemDescription" placeholder="Descrição do Item" required>
-        <button onclick="addItem()">Adicionar Item</button>
-        <ul id="shoppingList"></ul>
-    </div>
+            <h4>Plano de Pagamento:</h4>
+            <ul id="paymentPlan"></ul>
+        </section>
+
+        <!-- Gerenciador de Lista de Compras -->
+        <section id="shoppingListManager" class="tab-content" style="display: none;">
+            <h2>Lista de Compras</h2>
+            <input type="text" id="itemDescription" placeholder="Nome do item">
+            <button type="button" onclick="addItem()">Adicionar Item</button>
+
+            <h3>Itens da Lista:</h3>
+            <ul id="shoppingList"></ul>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
