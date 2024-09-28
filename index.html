@@ -1,54 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Dívidas e Lista de Compras</title>
+    <title>Dubson - Gestão de Dívidas e Compras</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Gestão de Dívidas e Compras</h1>
+        <div class="header-logo">
+            <img src="logo.png" alt="Dubson Logo">
+        </div>
         <nav>
-            <button onclick="showTab('debtManager')">Dívidas</button>
-            <button onclick="showTab('shoppingListManager')">Lista de Compras</button>
+            <ul>
+                <li><button onclick="showTab('debts')">Dívidas</button></li>
+                <li><button onclick="showTab('shopping')">Lista de Compras</button></li>
+                <li><button onclick="showTab('offers')">Ofertas</button></li>
+            </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Gerenciador de Dívidas -->
-        <section id="debtManager" class="tab-content">
-            <h2>Gerenciamento de Dívidas</h2>
-            <form>
-                <input type="text" id="debtDescription" placeholder="Descrição da dívida">
-                <input type="number" id="debtAmount" placeholder="Valor (R$)">
-                <input type="date" id="debtDueDate" placeholder="Data de Vencimento">
-                <button type="button" onclick="addDebt()">Adicionar Dívida</button>
-            </form>
-
-            <h3>Dívidas Atuais:</h3>
-            <ul id="debtList"></ul>
-            <p>Total de Dívidas: R$ <span id="totalDebts">0.00</span></p>
-
-            <h3>Calcular Plano de Pagamento</h3>
-            <input type="number" id="monthlyIncome" placeholder="Quanto você vai receber no mês?">
-            <button type="button" onclick="calculatePaymentPlan()">Calcular Plano de Pagamento</button>
-
-            <h4>Plano de Pagamento:</h4>
-            <ul id="paymentPlan"></ul>
-        </section>
-
-        <!-- Gerenciador de Lista de Compras -->
-        <section id="shoppingListManager" class="tab-content" style="display: none;">
-            <h2>Lista de Compras</h2>
-            <input type="text" id="itemDescription" placeholder="Nome do item">
-            <button type="button" onclick="addItem()">Adicionar Item</button>
-
-            <h3>Itens da Lista:</h3>
-            <ul id="shoppingList"></ul>
-        </section>
-    </main>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        <section id="debts" class="tab-content">
+            <h2>Gerenciador de Dívidas</h2>
+            <label for="debtDescription">Descrição:</label>
+            <i
