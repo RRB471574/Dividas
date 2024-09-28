@@ -90,6 +90,7 @@ function addItem() {
         localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
         document.getElementById('itemDescription').value = '';
         loadShoppingList();
+        searchForItem(itemDescription); // Abre a pesquisa ao adicionar o item
     } else {
         alert('Por favor, insira a descrição do item.');
     }
@@ -114,6 +115,4 @@ function loadShoppingList() {
     });
 }
 
-// Carregar as listas ao iniciar
-loadDebts();
-loadShoppingList();
+// Nova função para pesquisar o item
