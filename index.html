@@ -18,7 +18,15 @@
         <h2>Gerenciar Dívidas</h2>
         <input type="text" id="debtDescription" placeholder="Descrição da Dívida" required>
         <input type="number" id="debtAmount" placeholder="Valor da Dívida" required>
+        <input type="date" id="debtDueDate" required>
         <button onclick="addDebt()">Adicionar Dívida</button>
+        <h3>Total das Dívidas: R$ <span id="totalDebts">0.00</span></h3>
+
+        <h3>Plano de Pagamento</h3>
+        <input type="number" id="monthlyIncome" placeholder="Quanto você vai receber no mês" required>
+        <button onclick="calculatePaymentPlan()">Calcular Plano de Pagamento</button>
+        <ul id="paymentPlan"></ul>
+
         <ul id="debtList"></ul>
     </div>
 
