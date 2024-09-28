@@ -59,8 +59,13 @@ function calculatePaymentPlan() {
     paymentPlanList.innerHTML = ''; // Limpa a lista do plano de pagamento
 
     if (!isNaN(monthlyIncome) && monthlyIncome > 0) {
+        if (totalDebt === 0) {
+            paymentPlanList.innerHTML = '<li>Nenhuma dívida registrada.</li>';
+            return;
+        }
+        
         let remainingDebt = totalDebt;
-        const monthlyPayment = monthlyIncome > totalDebt ? totalDebt : monthlyIncome;
+        const monthlyPayment = Math.min(monthlyIncome, remainingDebt);
         const months = Math.ceil(remainingDebt / monthlyPayment);
 
         for (let i = 1; i <= months; i++) {
