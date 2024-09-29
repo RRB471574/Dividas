@@ -1,90 +1,94 @@
 let totalDebt = 0;
 let debts = [];
-let debtToEdit = null;
+let debtChart; // Variável para armazenar o gráfico
 
-// Carregar dívidas do LocalStorage ao carregar a página
-window.onload = function() {
-    loadDebtsFromLocalStorage();
-    updateTotalDebt();
-};
-
-// Adicionar dívida ao enviar o formulário
+// Adicionar dívida
 document.getElementById('debtForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
     const debtName = document.getElementById('debtName').value;
     const debtAmount = parseFloat(document.getElementById('debtAmount').value);
+    const debtDueDate = document.getElementById('debtDueDate').value;
 
-    if (debtName && !isNaN(debtAmount)) {
-        addDebt(debtName, debtAmount);
-        saveDebtToLocalStorage(debtName, debtAmount);
-        document.getElementById('debtName').value = '';
-        document.getElementById('debtAmount').value = '';
+    if (debtName && !isNaN(debtAmount) && debtDueDate) {
+        addDebt(debtName, debtAmount, debtDueDate);
+        updateTotalDebt();
+        updateChart();
+        document.getElementById('debtForm').reset();
     }
 });
 
-// Função para adicionar a dívida à lista na página
-function addDebt(name, amount) {
+// Função para adicionar dívida à lista
+function addDebt(name, amount, dueDate) {
+    debts.push({ name, amount, dueDate });
     const debtList = document.getElementById('debtList');
-    const debtItem = document.createElement('li');
+    const listItem = document.createElement('li');
+    listItem.innerText = `${name} - R$ ${amount.toFixed(2)} - Vencimento: ${new Date(dueDate).toLocaleDateString()}`;
 
-    debtItem.innerHTML = `${name} - R$ ${amount.toFixed(2)} 
-                          <button onclick="editDebt('${name}', ${amount})" class="edit-btn">✏️</button> 
-                          <button onclick="removeDebt('${name}', ${amount})">🗑️</button>`;
-    debtList.appendChild(debtItem);
+    // Botão para remover dívida
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'Remover';
+    removeButton.className = 'remove-btn';
+    removeButton.onclick = function() {
+        removeDebt(debts.indexOf(debts.find(debt => debt.name === name && debt.amount === amount)));
+    };
 
-    totalDebt += amount;
-    updateTotalDebt();
+    listItem.appendChild(removeButton);
+    debtList.appendChild(listItem);
 }
 
-// Atualizar o total de dívidas na interface
-function updateTotalDebt() {
-    document.getElementById('totalDebt').innerText = `R$ ${totalDebt.toFixed(2)}`;
-}
-
-// Salvar dívidas no LocalStorage
-function saveDebtToLocalStorage(name, amount) {
-    const debt = { name, amount };
-    debts.push(debt);
-    localStorage.setItem('debts', JSON.stringify(debts));
-}
-
-// Carregar dívidas do LocalStorage
-function loadDebtsFromLocalStorage() {
-    const storedDebts = localStorage.getItem('debts');
-    if (storedDebts) {
-        debts = JSON.parse(storedDebts);
-        debts.forEach(debt => {
-            addDebt(debt.name, debt.amount);
-        });
+// Função para remover dívida
+function removeDebt(index) {
+    if (index > -1) {
+        debts.splice(index, 1);
+        updateTotalDebt();
+        updateChart();
+        renderDebtList();
     }
 }
 
-// Remover uma dívida e atualizar o LocalStorage
-function removeDebt(name, amount) {
-    debts = debts.filter(debt => debt.name !== name || debt.amount !== amount);
-    localStorage.setItem('debts', JSON.stringify(debts));
-
-    totalDebt -= amount;
-    updateTotalDebt();
-    updateDebtList();
+// Atualizar total de dívidas
+function updateTotalDebt() {
+    totalDebt = debts.reduce((total, debt) => total + debt.amount, 0);
+    document.getElementById('totalDebt').innerText = `R$ ${totalDebt.toFixed(2)}`;
 }
 
-// Atualizar a lista de dívidas na página
-function updateDebtList() {
+// Renderizar lista de dívidas
+function renderDebtList() {
     const debtList = document.getElementById('debtList');
-    debtList.innerHTML = ''; // Limpar a lista atual
-
+    debtList.innerHTML = '';
     debts.forEach(debt => {
-        addDebt(debt.name, debt.amount);
+        addDebt(debt.name, debt.amount, debt.dueDate);
     });
 }
 
-// Função para editar a dívida
-function editDebt(name, amount) {
-    // Preencher o modal com os dados da dívida
-    document.getElementById('editDebtName').value = name;
-    document.getElementById('editDebtAmount').value = amount;
+// Função para atualizar o gráfico
+function updateChart() {
+    const labels = debts.map(debt => debt.name);
+    const data = debts.map(debt => debt.amount);
 
-    // Mostrar o modal
-   
+    if (debtChart) {
+        debtChart.destroy(); // Destrói o gráfico anterior, se existir
+    }
+
+    const ctx = document.getElementById('debtChart').getContext('2d');
+    debtChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Valor das Dívidas',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
