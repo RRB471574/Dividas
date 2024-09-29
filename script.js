@@ -26,7 +26,8 @@ document.getElementById('debtForm').addEventListener('submit', function(event) {
 function addDebt(name, amount) {
     const debtList = document.getElementById('debtList');
     const debtItem = document.createElement('li');
-    debtItem.innerHTML = `${name} - R$ ${amount.toFixed(2)}`;
+
+    debtItem.innerHTML = `${name} - R$ ${amount.toFixed(2)} <button onclick="removeDebt('${name}', ${amount})">Remover</button>`;
     debtList.appendChild(debtItem);
 
     totalDebt += amount;
@@ -54,4 +55,24 @@ function loadDebtsFromLocalStorage() {
             addDebt(debt.name, debt.amount);
         });
     }
+}
+
+// Remover uma dívida e atualizar o LocalStorage
+function removeDebt(name, amount) {
+    debts = debts.filter(debt => debt.name !== name || debt.amount !== amount);
+    localStorage.setItem('debts', JSON.stringify(debts));
+
+    totalDebt -= amount;
+    updateTotalDebt();
+    updateDebtList();
+}
+
+// Atualizar a lista de dívidas na página
+function updateDebtList() {
+    const debtList = document.getElementById('debtList');
+    debtList.innerHTML = ''; // Limpar a lista atual
+
+    debts.forEach(debt => {
+        addDebt(debt.name, debt.amount);
+    });
 }
