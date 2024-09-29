@@ -1,5 +1,6 @@
 let totalDebt = 0;
 let debts = [];
+let debtToEdit = null;
 
 // Carregar dívidas do LocalStorage ao carregar a página
 window.onload = function() {
@@ -27,7 +28,9 @@ function addDebt(name, amount) {
     const debtList = document.getElementById('debtList');
     const debtItem = document.createElement('li');
 
-    debtItem.innerHTML = `${name} - R$ ${amount.toFixed(2)} <button onclick="removeDebt('${name}', ${amount})">Remover</button>`;
+    debtItem.innerHTML = `${name} - R$ ${amount.toFixed(2)} 
+                          <button onclick="editDebt('${name}', ${amount})" class="edit-btn">Editar</button> 
+                          <button onclick="removeDebt('${name}', ${amount})">Remover</button>`;
     debtList.appendChild(debtItem);
 
     totalDebt += amount;
@@ -77,12 +80,5 @@ function updateDebtList() {
     });
 }
 
-// Remover todas as dívidas
-document.getElementById('clearAllDebts').addEventListener('click', function() {
-    debts = [];
-    localStorage.removeItem('debts');
-
-    totalDebt = 0;
-    updateTotalDebt();
-    updateDebtList();
-});
+// Modal de Edição
+const modal = document.getElementById
