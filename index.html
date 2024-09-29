@@ -6,11 +6,42 @@
     <title>Controle de Dívidas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/2.9.4/Chart.min.js"></script>
+    <style>
+        /* Estilos de animação */
+        button {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        #debtList li {
+            transition: transform 0.3s ease;
+        }
+
+        .debt-remove {
+            display: none; /* Ocultar inicialmente */
+        }
+
+        .fade-out {
+            animation: fadeIn 0.5s ease-in;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1 class="mt-5">Controle de Dívidas</h1>
-
         <form id="debtForm" class="mt-4">
             <div class="form-group">
                 <input type="text" class="form-control" id="debtName" placeholder="Nome da Dívida" required>
@@ -28,20 +59,16 @@
         </form>
 
         <ul id="debtList" class="mt-4 list-group"></ul>
-
         <h3 class="mt-5">Total de Dívidas: <span id="totalDebt">R$ 0.00</span></h3>
-
         <canvas id="debtChart" class="mt-5"></canvas>
-
         <div class="mt-5">
             <button id="removeAllDebts" class="btn btn-danger">Remover Todas as Dívidas</button>
         </div>
     </div>
 
     <script>
-        let debts = []; // Array para armazenar as dívidas
+        let debts = [];
 
-        // Função para atualizar a lista de dívidas
         function updateDebtList() {
             const debtList = document.getElementById('debtList');
             debtList.innerHTML = '';
@@ -49,28 +76,31 @@
 
             debts.forEach((debt, index) => {
                 const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.className = 'list-group-item d-flex justify-content-between align-items-center fade-in';
                 li.innerText = `${debt.name} - R$ ${debt.amount.toFixed(2)} - Vencimento: ${debt.dueDate}`;
+                
                 const removeBtn = document.createElement('button');
                 removeBtn.innerText = 'Remover';
                 removeBtn.className = 'btn btn-danger btn-sm';
                 removeBtn.onclick = () => {
-                    debts.splice(index, 1); // Remove a dívida do array
-                    updateDebtList(); // Atualiza a lista
-                    updateChart(); // Atualiza o gráfico
+                    li.classList.remove('fade-in');
+                    li.classList.add('fade-out');
+                    setTimeout(() => {
+                        debts.splice(index, 1);
+                        updateDebtList();
+                    }, 300); // Tempo para animação
                 };
+                
                 li.appendChild(removeBtn);
                 debtList.appendChild(li);
-                totalDebt += debt.amount; // Soma o total
+                totalDebt += debt.amount;
             });
 
-            // Atualiza o total em Dívidas
             document.getElementById('totalDebt').innerText = `R$ ${totalDebt.toFixed(2)}`;
         }
 
-        // Função para adicionar nova dívida
         document.getElementById('debtForm').onsubmit = function(event) {
-            event.preventDefault(); // Impede o envio do formulário
+            event.preventDefault();
             const debtName = document.getElementById('debtName').value;
             const debtAmount = parseFloat(document.getElementById('debtAmount').value);
             const debtDueDate = document.getElementById('debtDueDate').value;
@@ -78,50 +108,18 @@
 
             if (debtName && !isNaN(debtAmount) && debtDueDate) {
                 debts.push({ name: debtName, amount: debtAmount, dueDate: debtDueDate, notificationDays });
-                updateDebtList(); // Atualiza a lista
-                updateChart(); // Atualiza o gráfico
+                updateDebtList();
             }
 
-            // Limpa os campos do formulário
             document.getElementById('debtName').value = '';
             document.getElementById('debtAmount').value = '';
             document.getElementById('debtDueDate').value = '';
-            document.getElementById('notificationDays').value = ''; // Limpa o campo de dias
+            document.getElementById('notificationDays').value = '';
         };
 
-        // Função para atualizar o gráfico
-        function updateChart() {
-            const ctx = document.getElementById('debtChart').getContext('2d');
-            const labels = debts.map(debt => debt.name);
-            const data = debts.map(debt => debt.amount);
-
-            const chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Dívidas',
-                        data: data,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-
-        // Função para remover todas as dívidas
         document.getElementById('removeAllDebts').onclick = function() {
             debts = [];
             updateDebtList();
-            updateChart();
         };
     </script>
 </body>
