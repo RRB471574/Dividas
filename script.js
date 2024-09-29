@@ -29,8 +29,8 @@ function addDebt(name, amount) {
     const debtItem = document.createElement('li');
 
     debtItem.innerHTML = `${name} - R$ ${amount.toFixed(2)} 
-                          <button onclick="editDebt('${name}', ${amount})" class="edit-btn">Editar</button> 
-                          <button onclick="removeDebt('${name}', ${amount})">Remover</button>`;
+                          <button onclick="editDebt('${name}', ${amount})" class="edit-btn">✏️</button> 
+                          <button onclick="removeDebt('${name}', ${amount}')">🗑️</button>`;
     debtList.appendChild(debtItem);
 
     totalDebt += amount;
@@ -80,5 +80,43 @@ function updateDebtList() {
     });
 }
 
-// Modal de Edição
-const modal = document.getElementById
+// Função para editar a dívida
+function editDebt(name, amount) {
+    // Preencher o modal com os dados da dívida
+    document.getElementById('editDebtName').value = name;
+    document.getElementById('editDebtAmount').value = amount;
+
+    // Mostrar o modal
+    document.getElementById('editModal').style.display = 'block';
+    debtToEdit = { name, amount };
+}
+
+// Fechar o modal
+document.querySelector('.close').onclick = function() {
+    document.getElementById('editModal').style.display = 'none';
+}
+
+// Salvar as alterações da dívida editada
+document.getElementById('editDebtForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const updatedName = document.getElementById('editDebtName').value;
+    const updatedAmount = parseFloat(document.getElementById('editDebtAmount').value);
+
+    if (debtToEdit) {
+        // Atualizar a dívida
+        removeDebt(debtToEdit.name, debtToEdit.amount);
+        addDebt(updatedName, updatedAmount);
+        debtToEdit = null;
+        document.getElementById('editModal').style.display = 'none';
+    }
+});
+
+// Botão para remover todas as dívidas
+document.getElementById('clearAllDebts').addEventListener('click', function() {
+    debts = [];
+    totalDebt = 0;
+    updateTotalDebt();
+    updateDebtList();
+    localStorage.removeItem('debts');
+});
