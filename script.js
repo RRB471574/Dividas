@@ -76,3 +76,13 @@ function updateDebtList() {
         addDebt(debt.name, debt.amount);
     });
 }
+
+// Remover todas as dívidas
+document.getElementById('clearAllDebts').addEventListener('click', function() {
+    debts = [];
+    localStorage.removeItem('debts');
+
+    totalDebt = 0;
+    updateTotalDebt();
+    updateDebtList();
+});
