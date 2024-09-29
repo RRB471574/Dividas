@@ -24,9 +24,6 @@
             <div class="form-group">
                 <input type="number" class="form-control" id="notificationDays" placeholder="Notificar em (dias)" min="0" required>
             </div>
-            <div class="form-group">
-                <input type="email" class="form-control" id="userEmail" placeholder="Seu e-mail" required>
-            </div>
             <button type="submit" class="btn btn-primary">Adicionar Dívida</button>
         </form>
 
@@ -65,39 +62,10 @@
                 li.appendChild(removeBtn);
                 debtList.appendChild(li);
                 totalDebt += debt.amount; // Soma o total
-
-                // Calcula a diferença em dias até o vencimento
-                const today = new Date();
-                const dueDate = new Date(debt.dueDate);
-                const diffTime = dueDate - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                // Configura a notificação se a dívida está dentro do limite de dias
-                if (diffDays <= debt.notificationDays && diffDays >= 0) {
-                    sendEmailNotification(debt);
-                }
             });
 
             // Atualiza o total em Dívidas
             document.getElementById('totalDebt').innerText = `R$ ${totalDebt.toFixed(2)}`;
-        }
-
-        // Função para enviar notificação por e-mail
-        function sendEmailNotification(debt) {
-            fetch('http://localhost:3000/send-notification', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: debt.userEmail,
-                    debtName: debt.name,
-                    dueDate: debt.dueDate
-                })
-            })
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error('Erro ao enviar notificação:', error));
         }
 
         // Função para adicionar nova dívida
@@ -107,10 +75,9 @@
             const debtAmount = parseFloat(document.getElementById('debtAmount').value);
             const debtDueDate = document.getElementById('debtDueDate').value;
             const notificationDays = parseInt(document.getElementById('notificationDays').value) || 0;
-            const userEmail = document.getElementById('userEmail').value; // novo campo para o e-mail
 
-            if (debtName && !isNaN(debtAmount) && debtDueDate && userEmail) {
-                debts.push({ name: debtName, amount: debtAmount, dueDate: debtDueDate, notificationDays, userEmail });
+            if (debtName && !isNaN(debtAmount) && debtDueDate) {
+                debts.push({ name: debtName, amount: debtAmount, dueDate: debtDueDate, notificationDays });
                 updateDebtList(); // Atualiza a lista
                 updateChart(); // Atualiza o gráfico
             }
@@ -120,7 +87,6 @@
             document.getElementById('debtAmount').value = '';
             document.getElementById('debtDueDate').value = '';
             document.getElementById('notificationDays').value = ''; // Limpa o campo de dias
-            document.getElementById('userEmail').value = ''; // Limpa o campo de e-mail
         };
 
         // Função para atualizar o gráfico
