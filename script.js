@@ -76,3 +76,9 @@ document.getElementById('debtForm').onsubmit = function(event) {
     document.getElementById('debtAmount').value = '';
     document.getElementById('debtDueDate').value = '';
 };
+
+// Função para mostrar/ocultar a seção de ajuda
+document.getElementById('helpLink').onclick = function(event) {
+    event.preventDefault(); // Previne o comportamento padrão do link
+    const ajudaSection = document.getElementById('ajuda');
+    ajudaSection.style.display = ajudaSection.style.display === 'none' || ajudaSection.style.display ===
