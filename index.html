@@ -4,53 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Dívidas</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        body {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        #debtList {
+            list-style-type: none;
+            padding: 0;
+        }
+        #debtList li {
+            padding: 8px;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .remove-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+        #totalDebt {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        #debtChart {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Controle de Dívidas</h1>
         </header>
-
-        <section id="add-debt-section">
-            <h2>Adicionar Nova Dívida</h2>
-            <form id="debtForm">
-                <div class="input-group">
-                    <input type="text" id="debtName" placeholder="Nome da dívida" required>
-                    <input type="number" id="debtAmount" placeholder="Valor (R$)" required>
+        <section>
+            <form id="debtForm" class="form-inline">
+                <div class="form-group mx-sm-2">
+                    <input type="text" class="form-control" id="debtName" placeholder="Nome da Dívida" required>
                 </div>
-                <button type="submit" class="add-btn">Adicionar <i class="fas fa-plus"></i></button>
+                <div class="form-group mx-sm-2">
+                    <input type="number" class="form-control" id="debtAmount" placeholder="Valor (R$)" required>
+                </div>
+                <div class="form-group mx-sm-2">
+                    <input type="date" class="form-control" id="debtDueDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Dívida</button>
             </form>
         </section>
-
-        <section id="debt-list-section">
-            <h2>Dívidas Atuais</h2>
+        <section id="debtListSection">
+            <h2>Dívidas</h2>
             <ul id="debtList"></ul>
         </section>
-
-        <section id="total-debt-section">
-            <h2>Total em Dívidas</h2>
-            <p id="totalDebt">R$ 0,00</p>
+        <section>
+            <p>Total em Dívidas: <span id="totalDebt">R$ 0,00</span></p>
         </section>
-
-        <div class="action-buttons">
-            <button id="clearAllDebts" class="clear-btn">Remover Todas as Dívidas <i class="fas fa-trash"></i></button>
-        </div>
+        <section>
+            <canvas id="debtChart" width="400" height="200"></canvas>
+        </section>
     </div>
-
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Editar Dívida</h2>
-            <form id="editDebtForm">
-                <input type="text" id="editDebtName" placeholder="Nome da dívida" required>
-                <input type="number" id="editDebtAmount" placeholder="Valor (R$)" required>
-                <button type="submit" class="edit-btn">Salvar Alterações <i class="fas fa-save"></i></button>
-            </form>
-        </div>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
