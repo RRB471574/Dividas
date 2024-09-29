@@ -44,6 +44,22 @@
         #debtChart {
             margin: 20px 0;
         }
+        #ajuda {
+            display: none; /* Esconder a seção de ajuda inicialmente */
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .help-title {
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: underline;
+        }
+        .help-list {
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -64,7 +80,7 @@
                     <a class="nav-link" href="#debtChart">Gráfico</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#ajuda">Ajuda</a>
+                    <a class="nav-link" href="#" id="helpLink">Ajuda</a>
                 </li>
             </ul>
         </div>
@@ -99,9 +115,9 @@
             <canvas id="debtChart" width="400" height="200"></canvas>
         </section>
         <section id="ajuda">
-            <h2>Ajuda</h2>
+            <h2 class="help-title">Ajuda</h2>
             <p>Bem-vindo ao Controle de Dívidas! Aqui estão algumas dicas para você:</p>
-            <ul>
+            <ul class="help-list">
                 <li>Use o formulário para adicionar novas dívidas.</li>
                 <li>Veja sua lista de dívidas e o total atualizado.</li>
                 <li>Utilize o gráfico para visualizar suas dívidas de forma mais clara.</li>
