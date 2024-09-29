@@ -7,17 +7,16 @@
 }
 
 body {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fff;
+    color: #333;
 }
 
 .container {
-    background-color: #ffffff20;
-    backdrop-filter: blur(10px);
+    background-color: #fff;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -29,11 +28,13 @@ body {
 h1 {
     margin-bottom: 20px;
     font-size: 2em;
+    color: #333;
 }
 
 h2 {
     margin-bottom: 10px;
     font-size: 1.5em;
+    color: #333;
 }
 
 form {
@@ -44,7 +45,7 @@ input {
     padding: 10px;
     width: 100%;
     margin-bottom: 10px;
-    border: none;
+    border: 2px solid #ccc;
     border-radius: 8px;
     font-size: 1em;
 }
@@ -82,8 +83,8 @@ ul {
 }
 
 li {
-    background-color: #ffffff80;
-    backdrop-filter: blur(5px);
+    background-color: #f1f1f1;
+    border: 2px solid #ccc;
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 10px;
@@ -98,6 +99,8 @@ li button {
     color: white;
     padding: 5px 10px;
     border-radius: 8px;
+    border: none;
+    cursor: pointer;
 }
 
 li button:hover {
@@ -107,6 +110,7 @@ li button:hover {
 #totalDebt {
     font-size: 1.5em;
     font-weight: bold;
+    color: #333;
 }
 
 @media (max-width: 600px) {
