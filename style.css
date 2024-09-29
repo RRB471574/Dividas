@@ -69,6 +69,19 @@ li {
     border-radius: 4px;
 }
 
+li button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+li button:hover {
+    background-color: #c82333;
+}
+
 #totalDebt {
     text-align: center;
     font-size: 1.5em;
