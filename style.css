@@ -11,6 +11,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -20,6 +22,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+    margin: 20px;
 }
 
 h1, h2 {
@@ -39,6 +42,7 @@ input {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 button {
@@ -48,6 +52,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
@@ -57,6 +62,7 @@ button:hover {
 ul {
     list-style: none;
     margin-top: 20px;
+    padding: 0;
 }
 
 li {
@@ -76,6 +82,7 @@ li button {
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 li button:hover {
@@ -87,4 +94,40 @@ li button:hover {
     font-size: 1.5em;
     font-weight: bold;
     margin-top: 10px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 600px) {
+    body {
+        height: auto;
+        padding: 20px;
+    }
+
+    .container {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    li {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    li button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    h1, h2 {
+        font-size: 20px;
+    }
+
+    #totalDebt {
+        font-size: 1.2em;
+    }
 }
