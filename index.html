@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             margin: 20px;
@@ -89,4 +90,25 @@
         </section>
         <section id="debtListSection">
             <h2>Dívidas</h2>
-      
+            <ul id="debtList"></ul>
+        </section>
+        <section>
+            <p>Total em Dívidas: <span id="totalDebt">R$ 0,00</span></p>
+        </section>
+        <section>
+            <canvas id="debtChart" width="400" height="200"></canvas>
+        </section>
+        <section id="ajuda">
+            <h2>Ajuda</h2>
+            <p>Bem-vindo ao Controle de Dívidas! Aqui estão algumas dicas para você:</p>
+            <ul>
+                <li>Use o formulário para adicionar novas dívidas.</li>
+                <li>Veja sua lista de dívidas e o total atualizado.</li>
+                <li>Utilize o gráfico para visualizar suas dívidas de forma mais clara.</li>
+                <li>Para remover uma dívida, clique no botão de remover ao lado da dívida.</li>
+            </ul>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
