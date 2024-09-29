@@ -24,6 +24,20 @@
         </div>
         <button id="clearAllDebts" class="clear-btn">Remover Todas as Dívidas</button>
     </div>
+
+    <!-- Modal de Edição -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Dívida</h2>
+            <form id="editDebtForm">
+                <input type="text" id="editDebtName" placeholder="Nome da dívida" required>
+                <input type="number" id="editDebtAmount" placeholder="Valor (R$)" required>
+                <button type="submit" class="edit-btn">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
