@@ -5,39 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Dívidas</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Incluindo biblioteca de ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Controle de Dívidas</h1>
-        <form id="debtForm">
-            <input type="text" id="debtName" placeholder="Nome da dívida" required>
-            <input type="number" id="debtAmount" placeholder="Valor (R$)" required>
-            <button type="submit" class="add-btn">Adicionar Dívida</button>
-        </form>
-        <div>
-            <h2>Dívidas</h2>
-            <ul id="debtList"></ul>
-        </div>
-        <div>
-            <h2>Total em Dívidas</h2>
-            <p id="totalDebt">R$ 0,00</p>
-        </div>
-        <button id="clearAllDebts" class="clear-btn">Remover Todas as Dívidas</button>
-    </div>
+        <header>
+            <h1>Controle de Dívidas</h1>
+        </header>
 
-    <!-- Modal de Edição -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Editar Dívida</h2>
-            <form id="editDebtForm">
-                <input type="text" id="editDebtName" placeholder="Nome da dívida" required>
-                <input type="number" id="editDebtAmount" placeholder="Valor (R$)" required>
-                <button type="submit" class="edit-btn">Salvar Alterações</button>
+        <!-- Seção de Adicionar Dívidas -->
+        <section id="add-debt-section">
+            <h2>Adicionar Nova Dívida</h2>
+            <form id="debtForm">
+                <div class="input-group">
+                    <input type="text" id="debtName" placeholder="Nome da dívida" required>
+                    <input type="number" id="debtAmount" placeholder="Valor (R$)" required>
+                </div>
+                <button type="submit" class="add-btn">Adicionar <i class="fas fa-plus"></i></button>
             </form>
-        </div>
-    </div>
+        </section>
 
-    <script src="script.js"></script>
-</body>
-</html>
+        <!-- Seção de Dívidas -->
+        <section id="debt-lis
