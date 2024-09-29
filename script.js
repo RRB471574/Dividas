@@ -1,83 +1,49 @@
-let totalDebt = 0;
-let debts = [];
-let debtChart; // Variável para armazenar o gráfico
+let debts = []; // Array para armazenar as dívidas
 
-$(document).ready(function() {
-    // Adicionar dívida
-    $('#debtForm').on('submit', function(event) {
-        event.preventDefault();
-        const debtName = $('#debtName').val();
-        const debtAmount = parseFloat($('#debtAmount').val());
-        const debtDueDate = $('#debtDueDate').val();
+// Função para atualizar a lista de dívidas
+function updateDebtList() {
+    const debtList = document.getElementById('debtList');
+    debtList.innerHTML = '';
+    let totalDebt = 0;
 
-        if (debtName && !isNaN(debtAmount) && debtDueDate) {
-            addDebt(debtName, debtAmount, debtDueDate);
-            updateTotalDebt();
-            updateChart();
-            $('#debtForm')[0].reset(); // Reseta o formulário
-        }
-    });
-});
-
-// Função para adicionar dívida à lista
-function addDebt(name, amount, dueDate) {
-    debts.push({ name, amount, dueDate });
-    const debtList = $('#debtList');
-    const listItem = $(`<li>${name} - R$ ${amount.toFixed(2)} - Vencimento: ${new Date(dueDate).toLocaleDateString()}</li>`);
-    
-    // Botão para remover dívida
-    const removeButton = $('<button>Remover</button>').addClass('remove-btn');
-    removeButton.on('click', function() {
-        removeDebt(debts.indexOf(debts.find(debt => debt.name === name && debt.amount === amount)));
+    debts.forEach((debt, index) => {
+        const li = document.createElement('li');
+        li.innerText = `${debt.name} - R$ ${debt.amount.toFixed(2)} - Vencimento: ${debt.dueDate}`;
+        const removeBtn = document.createElement('button');
+        removeBtn.innerText = 'Remover';
+        removeBtn.className = 'remove-btn';
+        removeBtn.onclick = () => {
+            debts.splice(index, 1); // Remove a dívida do array
+            updateDebtList(); // Atualiza a lista
+            updateChart(); // Atualiza o gráfico
+        };
+        li.appendChild(removeBtn);
+        debtList.appendChild(li);
+        totalDebt += debt.amount; // Soma o total
     });
 
-    listItem.append(removeButton);
-    debtList.append(listItem);
-}
-
-// Função para remover dívida
-function removeDebt(index) {
-    if (index > -1) {
-        debts.splice(index, 1);
-        updateTotalDebt();
-        updateChart();
-        renderDebtList();
-    }
-}
-
-// Atualizar total de dívidas
-function updateTotalDebt() {
-    totalDebt = debts.reduce((total, debt) => total + debt.amount, 0);
-    $('#totalDebt').text(`R$ ${totalDebt.toFixed(2)}`);
-}
-
-// Renderizar lista de dívidas
-function renderDebtList() {
-    const debtList = $('#debtList');
-    debtList.empty(); // Limpa a lista antes de renderizar
-    debts.forEach(debt => {
-        addDebt(debt.name, debt.amount, debt.dueDate);
-    });
+    // Atualiza o total em Dívidas
+    document.getElementById('totalDebt').innerText = `R$ ${totalDebt.toFixed(2)}`;
 }
 
 // Função para atualizar o gráfico
 function updateChart() {
+    const ctx = document.getElementById('debtChart').getContext('2d');
     const labels = debts.map(debt => debt.name);
     const data = debts.map(debt => debt.amount);
 
-    if (debtChart) {
-        debtChart.destroy(); // Destrói o gráfico anterior, se existir
+    if (window.debtChart) {
+        window.debtChart.destroy(); // Destrói o gráfico anterior se existir
     }
 
-    const ctx = $('#debtChart')[0].getContext('2d');
-    debtChart = new Chart(ctx, {
-        type: 'bar',
+    window.debtChart = new Chart(ctx, {
+        type: 'bar', // Tipo do gráfico
         data: {
             labels: labels,
             datasets: [{
-                label: 'Valor das Dívidas',
+                label: 'Dívidas',
                 data: data,
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
@@ -91,3 +57,22 @@ function updateChart() {
         }
     });
 }
+
+// Função para adicionar nova dívida
+document.getElementById('debtForm').onsubmit = function(event) {
+    event.preventDefault(); // Impede o envio do formulário
+    const debtName = document.getElementById('debtName').value;
+    const debtAmount = parseFloat(document.getElementById('debtAmount').value);
+    const debtDueDate = document.getElementById('debtDueDate').value;
+
+    if (debtName && !isNaN(debtAmount) && debtDueDate) {
+        debts.push({ name: debtName, amount: debtAmount, dueDate: debtDueDate });
+        updateDebtList(); // Atualiza a lista
+        updateChart(); // Atualiza o gráfico
+    }
+
+    // Limpa os campos do formulário
+    document.getElementById('debtName').value = '';
+    document.getElementById('debtAmount').value = '';
+    document.getElementById('debtDueDate').value = '';
+};
