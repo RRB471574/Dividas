@@ -5,41 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Dívidas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/2.9.4/Chart.min.js"></script>
-    <style>
-        /* Estilos de animação */
-        button {
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        #debtList li {
-            transition: transform 0.3s ease;
-        }
-
-        .debt-remove {
-            display: none; /* Ocultar inicialmente */
-        }
-
-        .fade-out {
-            animation: fadeIn 0.5s ease-in;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link para o CSS -->
 </head>
-<body>
+<body data-aos="fade-in">
     <div class="container">
         <h1 class="mt-5">Controle de Dívidas</h1>
         <form id="debtForm" class="mt-4">
@@ -66,61 +36,8 @@
         </div>
     </div>
 
-    <script>
-        let debts = [];
-
-        function updateDebtList() {
-            const debtList = document.getElementById('debtList');
-            debtList.innerHTML = '';
-            let totalDebt = 0;
-
-            debts.forEach((debt, index) => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center fade-in';
-                li.innerText = `${debt.name} - R$ ${debt.amount.toFixed(2)} - Vencimento: ${debt.dueDate}`;
-                
-                const removeBtn = document.createElement('button');
-                removeBtn.innerText = 'Remover';
-                removeBtn.className = 'btn btn-danger btn-sm';
-                removeBtn.onclick = () => {
-                    li.classList.remove('fade-in');
-                    li.classList.add('fade-out');
-                    setTimeout(() => {
-                        debts.splice(index, 1);
-                        updateDebtList();
-                    }, 300); // Tempo para animação
-                };
-                
-                li.appendChild(removeBtn);
-                debtList.appendChild(li);
-                totalDebt += debt.amount;
-            });
-
-            document.getElementById('totalDebt').innerText = `R$ ${totalDebt.toFixed(2)}`;
-        }
-
-        document.getElementById('debtForm').onsubmit = function(event) {
-            event.preventDefault();
-            const debtName = document.getElementById('debtName').value;
-            const debtAmount = parseFloat(document.getElementById('debtAmount').value);
-            const debtDueDate = document.getElementById('debtDueDate').value;
-            const notificationDays = parseInt(document.getElementById('notificationDays').value) || 0;
-
-            if (debtName && !isNaN(debtAmount) && debtDueDate) {
-                debts.push({ name: debtName, amount: debtAmount, dueDate: debtDueDate, notificationDays });
-                updateDebtList();
-            }
-
-            document.getElementById('debtName').value = '';
-            document.getElementById('debtAmount').value = '';
-            document.getElementById('debtDueDate').value = '';
-            document.getElementById('notificationDays').value = '';
-        };
-
-        document.getElementById('removeAllDebts').onclick = function() {
-            debts = [];
-            updateDebtList();
-        };
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+    <script src="script.js"></script> <!-- Link para o JavaScript -->
 </body>
 </html>
