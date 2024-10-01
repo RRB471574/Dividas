@@ -3,41 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Dívidas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
-    <link rel="stylesheet" href="styles.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <title>Meu Site no GitHub Pages</title>
 </head>
-<body data-aos="fade-in">
-    <div class="container">
-        <h1 class="mt-5">Controle de Dívidas</h1>
-        <form id="debtForm" class="mt-4">
-            <div class="form-group">
-                <input type="text" class="form-control" id="debtName" placeholder="Nome da Dívida" required>
-            </div>
-            <div class="form-group">
-                <input type="number" class="form-control" id="debtAmount" placeholder="Valor da Dívida" min="0" required>
-            </div>
-            <div class="form-group">
-                <input type="date" class="form-control" id="debtDueDate" required>
-            </div>
-            <div class="form-group">
-                <input type="number" class="form-control" id="notificationDays" placeholder="Notificar em (dias)" min="0" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Adicionar Dívida</button>
-        </form>
-
-        <ul id="debtList" class="mt-4 list-group"></ul>
-        <h3 class="mt-5">Total de Dívidas: <span id="totalDebt">R$ 0.00</span></h3>
-        <canvas id="debtChart" class="mt-5"></canvas>
-        <div class="mt-5">
-            <button id="removeAllDebts" class="btn btn-danger">Remover Todas as Dívidas</button>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
-    <script src="script.js"></script> <!-- Link para o JavaScript -->
+<body>
+    <header>
+        <h1>Bem-vindo ao Meu Site!</h1>
+        <p>Este é um site hospedado no GitHub Pages.</p>
+    </header>
+    <main>
+        <h2>Sobre</h2>
+        <p>Este site é um exemplo simples de como usar o GitHub Pages para hospedar um site estático.</p>
+        <button id="alertButton">Clique aqui!</button>
+    </main>
+    <footer>
+        <p>&copy; 2024 Meu Nome</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
