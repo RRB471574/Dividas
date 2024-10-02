@@ -32,4 +32,4 @@ document.getElementById('logout-button').addEventListener('click', () => {
 });
 
 // Executar
-exibirDividas();
+document.addEventListener('DOMContentLoaded', exibirDividas); // Aguarda o carregamento do DOM
