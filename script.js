@@ -33,7 +33,6 @@ document.getElementById("registerForm").addEventListener("submit", (event) => {
             alert("Registro bem-sucedido!");
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
             console.error("Erro ao registrar:", errorMessage);
             alert("Erro de registro: " + errorMessage);
@@ -53,9 +52,9 @@ document.getElementById("loginForm").addEventListener("submit", (event) => {
             console.log("Usuário autenticado:", user);
             alert("Login bem-sucedido!");
             // Redirecionar para a página de dívidas ou outra ação
+            window.location.href = 'pagina-de-dividas.html'; // Redireciona após login
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
             console.error("Erro ao fazer login:", errorMessage);
             alert("Erro de login: " + errorMessage);
