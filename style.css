@@ -1,27 +1,28 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    padding: 20px;
     margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
 }
 
 h1 {
-    text-align: center;
+    color: #333;
 }
 
 form {
-    max-width: 300px;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
 }
 
 input {
-    width: 100%;
+    margin-bottom: 10px;
     padding: 10px;
-    margin: 5px 0;
+    font-size: 16px;
 }
 
 button {
-    width: 100%;
     padding: 10px;
     background-color: #4CAF50;
     color: white;
