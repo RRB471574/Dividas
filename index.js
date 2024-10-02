@@ -1,3 +1,7 @@
+// Importando as funções necessárias do Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
 // Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
@@ -9,41 +13,51 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Inicializa o Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const analytics = firebase.analytics();
+// Inicializando o Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Registro de usuário
+// Função para registrar um novo usuário
 document.getElementById('register-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    auth.createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            console.log("Usuário registrado:", userCredential.user);
-            window.location.href = 'pagina-de-dividas.html'; // Redireciona para a página de dívidas
+            // Registro bem-sucedido
+            console.log('Usuário registrado:', userCredential.user);
+            // Redirecionar para a página de dívidas
+            window.location.href = 'pagina-de-dividas.html';
         })
         .catch((error) => {
-            console.error("Erro ao registrar:", error);
+            console.error('Erro ao registrar:', error);
         });
 });
 
-// Login de usuário
+// Função para fazer login
 document.getElementById('login-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            console.log("Usuário logado:", userCredential.user);
-            window.location.href = 'pagina-de-dividas.html'; // Redireciona para a página de dívidas
+            // Login bem-sucedido
+            console.log('Usuário logado:', userCredential.user);
+            // Redirecionar para a página de dívidas
+            window.location.href = 'pagina-de-dividas.html';
         })
         .catch((error) => {
-            console.error("Erro ao fazer login:", error);
+            console.error('Erro ao fazer login:', error);
         });
+});
+
+// Verificar o estado de autenticação do usuário
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.getElementById('user-info').innerText = `Bem-vindo, ${user.email}`;
+    } else {
+        document.getElementById('user-info').innerText = 'Não autenticado';
+    }
 });
