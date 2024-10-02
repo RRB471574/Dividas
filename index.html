@@ -1,77 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Dívidas</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Bem-vindo ao Controle de Dívidas</h1>
-
-    <!-- Formulário de Login -->
-    <div id="login-form">
-        <h2>Login</h2>
-        <input type="email" id="email" placeholder="E-mail" required>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
         <input type="password" id="password" placeholder="Senha" required>
-        <button onclick="login()">Entrar</button>
-        <button onclick="register()">Registrar</button>
-    </div>
+        <button type="submit">Entrar</button>
+    </form>
+    <p>Não tem uma conta? <a href="#" id="registerLink">Registrar</a></p>
 
-    <!-- Firebase CDN -->
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
-
-    <script>
-        // Verifica se o Firebase foi carregado
-        if (typeof firebase !== 'undefined') {
-            console.log('Firebase carregado corretamente.');
-        } else {
-            console.log('Erro ao carregar o Firebase.');
-        }
-
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-            authDomain: "dividas1-fed53.firebaseapp.com",
-            projectId: "dividas1-fed53",
-            storageBucket: "dividas1-fed53.appspot.com",
-            messagingSenderId: "350859669404",
-            appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-            measurementId: "G-7HGSN6TC3Y"
-        };
-
-        // Inicialize o Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Função de Login
-        function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    alert("Login bem-sucedido!");
-                    window.location.href = "dividas.html";  // Redireciona para a página de dívidas após o login
-                })
-                .catch((error) => {
-                    alert("Erro ao fazer login: " + error.message);
-                });
-        }
-
-        // Função de Registro
-        function register() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    alert("Registro bem-sucedido!");
-                    window.location.href = "dividas.html";  // Redireciona para a página de dívidas após o registro
-                })
-                .catch((error) => {
-                    alert("Erro ao registrar: " + error.message);
-                });
-        }
-    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
