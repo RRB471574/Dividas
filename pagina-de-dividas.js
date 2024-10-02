@@ -1,27 +1,32 @@
 // pagina-de-dividas.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-// Inicializa o Firebase
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-
+// Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-    authDomain: "dividas1-fed53.firebaseapp.com",
-    projectId: "dividas1-fed53",
-    storageBucket: "dividas1-fed53.appspot.com",
-    messagingSenderId: "350859669404",
-    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
+    apiKey: "sua-api-key",
+    authDomain: "seu-auth-domain",
+    projectId: "seu-project-id",
+    storageBucket: "seu-storage-bucket",
+    messagingSenderId: "seu-messaging-sender-id",
+    appId: "seu-app-id"
 };
 
-// Inicializa o Firebase
+// Inicialize o Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Verifica se o usuário está autenticado
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        document.getElementById('dividasList').innerText = `Usuário autenticado: ${user.email}`;
-    } else {
-        window.location.href = "index.html"; // Redireciona para a página de login se não estiver autenticado
-    }
-});
+// Função para listar dívidas
+async function listarDividas() {
+    const debtsList = document.getElementById("debtsList");
+    const debtsCol = collection(db, "dividas");
+    const debtSnapshot = await getDocs(debtsCol);
+    debtSnapshot.forEach(doc => {
+        const li = document.createElement("li");
+        li.innerText = `${doc.id}: ${JSON.stringify(doc.data())}`;
+        debtsList.appendChild(li);
+    });
+}
+
+// Chama a função para listar dívidas
+listarDividas();
