@@ -1,19 +1,22 @@
-// script.js
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-// Configuração do Firebase
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "sua-api-key",
-    authDomain: "seu-auth-domain",
-    projectId: "seu-project-id",
-    storageBucket: "seu-storage-bucket",
-    messagingSenderId: "seu-messaging-sender-id",
-    appId: "seu-app-id"
+    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
+    authDomain: "dividas1-fed53.firebaseapp.com",
+    projectId: "dividas1-fed53",
+    storageBucket: "dividas1-fed53.appspot.com",
+    messagingSenderId: "350859669404",
+    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
+    measurementId: "G-7HGSN6TC3Y"
 };
 
-// Inicialize o Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 // Função para registrar um usuário
@@ -25,18 +28,36 @@ document.getElementById("registerForm").addEventListener("submit", (event) => {
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Usuário registrado com sucesso
             const user = userCredential.user;
             console.log("Usuário registrado:", user);
+            alert("Registro bem-sucedido!");
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.error("Erro ao registrar:", errorMessage);
+            alert("Erro de registro: " + errorMessage);
+        });
+});
 
-            if (errorCode === 'auth/email-already-in-use') {
-                alert("Este e-mail já está em uso. Por favor, tente outro.");
-            } else {
-                console.error("Erro ao registrar:", errorMessage);
-            }
+// Função para fazer login
+document.getElementById("loginForm").addEventListener("submit", (event) => {
+    event.preventDefault(); // Evita o envio do formulário
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log("Usuário autenticado:", user);
+            alert("Login bem-sucedido!");
+            // Redirecionar para a página de dívidas ou outra ação
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error("Erro ao fazer login:", errorMessage);
+            alert("Erro de login: " + errorMessage);
         });
 });
