@@ -20,7 +20,6 @@ const db = getDatabase(app);
 
 // Função para salvar dívida
 function salvarDivida(nome, valor, vencimento) {
-    console.log("Tentando salvar dívida:", { nome, valor, vencimento }); // Debug
     const dividasRef = ref(db, 'dividas/');
     const novaDividaRef = push(dividasRef);
     
@@ -80,10 +79,10 @@ document.getElementById('addDebtButton').addEventListener('click', () => {
     const valor = parseFloat(prompt('Valor da dívida:'));
     const vencimento = prompt('Data de vencimento (dd/mm/yyyy):');
 
-    if (nome && !isNaN(valor) && vencimento) {
+    if (nome && valor && vencimento) {
         salvarDivida(nome, valor, vencimento);
     } else {
-        alert('Por favor, preencha todos os campos corretamente.');
+        alert('Por favor, preencha todos os campos.');
     }
 });
 
