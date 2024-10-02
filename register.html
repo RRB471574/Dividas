@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Registrar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Registrar</h1>
     <form id="registerForm">
-        <input type="email" name="email" placeholder="E-mail" required>
+        <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Senha" required>
         <button type="submit">Registrar</button>
+        <p id="error-message" class="error-message"></p>
     </form>
-    <p id="error-message" style="color: red;"></p> <!-- Mensagem de erro -->
+
+    <p>Já tem uma conta? <a href="index.html">Login</a></p>
+
     <script type="module" src="register.js"></script>
 </body>
 </html>
