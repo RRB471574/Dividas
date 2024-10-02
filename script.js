@@ -1,4 +1,4 @@
-// Firebase Config
+// Inicialize o Firebase sem usar 'import' ou 'export'
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -9,8 +9,9 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+// Inicialize o app Firebase
+firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 
 document.getElementById("login-form").addEventListener("submit", (e) => {
@@ -21,7 +22,6 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
 
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // Usuário autenticado com sucesso
             window.location.href = "pagina-de-dividas.html";
         })
         .catch((error) => {
