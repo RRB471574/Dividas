@@ -1,5 +1,6 @@
 // register.js
 
+// Importar funções do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
@@ -18,26 +19,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Manipulador de envio do formulário
-document.getElementById("registerForm").addEventListener("submit", (e) => {
-    e.preventDefault(); // Impede o envio padrão do formulário
+// Executa o código após o DOM estar completamente carregado
+document.addEventListener("DOMContentLoaded", () => {
+    // Manipulador de envio do formulário
+    document.getElementById("registerForm").addEventListener("submit", (e) => {
+        e.preventDefault(); // Impede o envio padrão do formulário
 
-    const email = document.getElementById("registerEmail").value;
-    const password = document.getElementById("registerPassword").value;
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
 
-    // Chama a função de registro
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Registro bem-sucedido
-            const user = userCredential.user;
-            console.log("Usuário registrado:", user);
-            alert("Registro bem-sucedido! Você pode fazer login agora.");
-            window.location.href = "index.html"; // Redireciona para a página de login
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error("Erro ao registrar:", errorCode, errorMessage);
-            alert("Erro ao registrar: " + errorMessage);
-        });
+        // Chama a função de criação de usuário
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Registro bem-sucedido
+                const user = userCredential.user;
+                console.log("Usuário registrado:", user);
+
+                // Redireciona para a página de login
+                window.location.href = "index.html";
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Erro de registro:", errorCode, errorMessage);
+                alert("Erro ao registrar: " + errorMessage);
+            });
+    });
 });
