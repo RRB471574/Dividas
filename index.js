@@ -25,9 +25,7 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Registro bem-sucedido
             console.log('Usuário registrado:', userCredential.user);
-            // Redirecionar para a página de dívidas
             window.location.href = 'pagina-de-dividas.html';
         })
         .catch((error) => {
@@ -43,9 +41,7 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
 
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Login bem-sucedido
             console.log('Usuário logado:', userCredential.user);
-            // Redirecionar para a página de dívidas
             window.location.href = 'pagina-de-dividas.html';
         })
         .catch((error) => {
@@ -57,7 +53,5 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         document.getElementById('user-info').innerText = `Bem-vindo, ${user.email}`;
-    } else {
-        document.getElementById('user-info').innerText = 'Não autenticado';
     }
 });
