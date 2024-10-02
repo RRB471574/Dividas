@@ -16,19 +16,25 @@
     </header>
 
     <section id="auth">
-        <h2>Login</h2>
-        <input type="email" id="email" placeholder="E-mail" required>
-        <input type="password" id="senha" placeholder="Senha" required>
-        <button id="loginButton">Login</button>
+        <h2>Registro</h2>
+        <input type="email" id="email" placeholder="Digite seu e-mail" required>
+        <input type="password" id="senha" placeholder="Digite sua senha" required>
         <button id="registerButton">Registrar</button>
     </section>
 
-    <section id="overview" style="display: none;">
+    <section id="overview">
         <h2>Resumo Geral</h2>
         <p>Total de Dívidas: <span id="totalDividas">R$ 0,00</span></p>
+        <p>Dívidas Pagas: <span id="dividasPagas">0</span></p>
     </section>
 
-    <section id="detailedDebts" style="display: none;">
+    <section id="detailedDebts">
         <h2>Detalhes das Dívidas</h2>
         <ul id="debtList"></ul>
-        <⬤
+        <button id="addDebtButton">Adicionar Nova Dívida</button>
+    </section>
+
+    <!-- Script do App -->
+    <script src="script.js"></script>
+</body>
+</html>
