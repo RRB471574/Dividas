@@ -1,4 +1,8 @@
-// Your web app's Firebase configuration
+// Importando as funções necessárias do Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
+// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -9,26 +13,22 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+// Inicializando o Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Handle registration form submission
-document.getElementById("registerForm").addEventListener("submit", (e) => {
+// Função para registrar um novo usuário
+document.getElementById('register-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById("registerEmail").value;
-    const password = document.getElementById("registerPassword").value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    auth.createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Account created successfully
-            const user = userCredential.user;
-            console.log("User registered:", user);
-            alert("Conta criada com sucesso! Você pode fazer login agora.");
-            window.location.href = "index.html"; // Redirecionar para a página de login
+            console.log('Usuário registrado:', userCredential.user);
+            window.location.href = 'pagina-de-dividas.html';
         })
         .catch((error) => {
-            console.error("Error creating user:", error);
-            alert("Erro ao criar conta: " + error.message);
+            console.error('Erro ao registrar:', error);
         });
 });
