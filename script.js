@@ -1,9 +1,9 @@
 // Importando e inicializando o Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-// Configurações do Firebase (substitua pelos dados do seu projeto)
+// Configurações do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -20,11 +20,34 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+// Função para registrar um novo usuário
+function registrarUsuario(email, senha) {
+    createUserWithEmailAndPassword(auth, email, senha)
+        .then((userCredential) => {
+            const user = userCredential.user;
+
+            // Enviar e-mail de verificação
+            sendEmailVerification(user)
+                .then(() => {
+                    console.log('E-mail de verificação enviado para:', user.email);
+                    alert('E-mail de verificação enviado! Verifique sua caixa de entrada.');
+                })
+                .catch((error) => {
+                    console.error('Erro ao enviar o e-mail de verificação:', error);
+                });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Erro ao registrar usuário:', errorCode, errorMessage);
+        });
+}
+
 // Função para salvar dívida
 function salvarDivida(nome, valor, vencimento) {
     const dividasRef = ref(db, 'dividas/');
     const novaDividaRef = push(dividasRef);
-    
+
     set(novaDividaRef, {
         nome: nome,
         valor: valor,
@@ -88,50 +111,17 @@ document.getElementById('addDebtButton').addEventListener('click', () => {
     }
 });
 
-// Função para registrar um novo usuário
+// Evento para registrar novo usuário
 document.getElementById('registerButton').addEventListener('click', () => {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('emailInput').value;
+    const senha = document.getElementById('passwordInput').value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-
-            // Enviar email de verificação
-            sendEmailVerification(user)
-                .then(() => {
-                    document.getElementById('authMessage').textContent = 'Usuário registrado com sucesso! Verifique seu email para confirmar a conta.';
-                    console.log('Email de verificação enviado:', user.email);
-                })
-                .catch((error) => {
-                    document.getElementById('authMessage').textContent = 'Erro ao enviar email de verificação: ' + error.message;
-                    console.error('Erro ao enviar email de verificação:', error);
-                });
-
-            listarDividas();  // Carrega as dívidas
-        })
-        .catch((error) => {
-            document.getElementById('authMessage').textContent = error.message;
-            console.error('Erro ao registrar usuário:', error);
-        });
+    if (email && senha) {
+        registrarUsuario(email, senha);
+    } else {
+        alert('Por favor, preencha todos os campos.');
+    }
 });
 
-// Função para fazer login do usuário
-document.getElementById('loginButton').addEventListener('click', () => {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log('Usuário logado:', user);
-            listarDividas();  // Carrega as dívidas após login
-        })
-        .catch((error) => {
-            document.getElementById('authMessage').textContent = error.message;
-            console.error('Erro ao fazer login:', error);
-        });
-});
-
-// Monitorar o estado de autenticação
-onAuthStateChanged(auth, (user) =>
+// Carregar a lista de dívidas ao iniciar
+listarDividas();
