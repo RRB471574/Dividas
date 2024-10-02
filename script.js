@@ -1,4 +1,4 @@
-// Inicialize o Firebase sem usar 'import' ou 'export'
+// Inicialize o Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -22,6 +22,7 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
 
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
+            // Redirecionar para a página de dívidas
             window.location.href = "pagina-de-dividas.html";
         })
         .catch((error) => {
