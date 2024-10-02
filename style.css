@@ -1,24 +1,16 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
-    padding: 20px;
+    margin: 20px;
 }
 
 h1 {
-    color: #5a5a5a;
+    color: #333;
 }
 
-button {
-    padding: 10px 15px;
-    margin: 5px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
+form {
+    margin-bottom: 20px;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
+input {
+    display: block;
+    margin-bottom
