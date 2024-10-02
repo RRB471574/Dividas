@@ -1,7 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
-// Your web app's Firebase configuration
+// Firebase Config
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -13,27 +10,26 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-document.getElementById("registerForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-
+document.getElementById("register-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            console.log("Usuário registrado:", userCredential.user);
-            alert("Registro bem-sucedido!");
-            window.location.href = 'index.html';  // Redireciona para a página principal após o registro
+            // Usuário registrado com sucesso
+            window.location.href = "index.html";
         })
         .catch((error) => {
             if (error.code === 'auth/email-already-in-use') {
                 alert("Este e-mail já está em uso. Por favor, tente outro.");
             } else {
-                console.error("Erro ao registrar:", error.message);
-                alert("Erro de registro: " + error.message);
+                console.error("Erro ao registrar:", error);
+                alert("Erro ao registrar: " + error.message);
             }
         });
 });
