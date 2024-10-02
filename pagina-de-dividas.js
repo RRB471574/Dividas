@@ -1,35 +1,25 @@
-// Importando as funções necessárias do Firebase
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+// pagina-de-dividas.js
 
-// Inicializando o Firebase
-const auth = getAuth();
-
-// Exemplo de dívidas
+// Exemplo de dados de dívidas
 const dividas = [
-    { nome: "Cartão de crédito", valor: 1250.43 },
+    { nome: "Santander", valor: 373.87 },
+    { nome: "Mercado Pago Duda", valor: 146.17 },
+    { nome: "Will", valor: 560 },
+    { nome: "Jeito", valor: 60 },
+    { nome: "Nubank", valor: 44.54 },
+    { nome: "Mercado Pago Robson", valor: 30.78 },
+    { nome: "Nubank Robson", valor: 139.61 },
+    { nome: "Água", valor: 65.40 },
     { nome: "Aluguel", valor: 500 },
-    { nome: "Conta de luz", valor: 47.06 },
+    { nome: "Internet", valor: 100 },
+    { nome: "Luz", valor: 100 },
+    { nome: "Gato", valor: 100 }
 ];
 
-// Função para exibir dívidas
-function exibirDividas() {
-    const dividasContainer = document.getElementById('dividas');
-    dividas.forEach(divida => {
-        const dividaDiv = document.createElement('div');
-        dividaDiv.innerText = `${divida.nome}: R$ ${divida.valor.toFixed(2)}`;
-        dividasContainer.appendChild(dividaDiv);
-    });
-}
-
-// Logout
-document.getElementById('logout-button').addEventListener('click', () => {
-    signOut(auth).then(() => {
-        console.log('Usuário deslogado');
-        window.location.href = 'index.html'; // Redirecionar para a página de login
-    }).catch((error) => {
-        console.error('Erro ao deslogar:', error);
-    });
+// Exibir dívidas
+const dividasContainer = document.getElementById('dividas');
+dividas.forEach(divida => {
+    const div = document.createElement('div');
+    div.textContent = `${divida.nome}: R$ ${divida.valor.toFixed(2)}`;
+    dividasContainer.appendChild(div);
 });
-
-// Executar
-document.addEventListener('DOMContentLoaded', exibirDividas); // Aguarda o carregamento do DOM
