@@ -4,14 +4,14 @@ import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstati
 
 // Configurações do Firebase (substitua pelos dados do seu projeto)
 const firebaseConfig = {
-  apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-  authDomain: "dividas1-fed53.firebaseapp.com",
-  projectId: "dividas1-fed53",
-  storageBucket: "dividas1-fed53.appspot.com",
-  messagingSenderId: "350859669404",
-  appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-  measurementId: "G-7HGSN6TC3Y",
-  databaseURL: "https://dividas1-fed53-default-rtdb.firebaseio.com/"
+    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
+    authDomain: "dividas1-fed53.firebaseapp.com",
+    projectId: "dividas1-fed53",
+    storageBucket: "dividas1-fed53.appspot.com",
+    messagingSenderId: "350859669404",
+    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
+    measurementId: "G-7HGSN6TC3Y",
+    databaseURL: "https://dividas1-fed53-default-rtdb.firebaseio.com/"
 };
 
 // Inicializar o Firebase
@@ -20,6 +20,7 @@ const db = getDatabase(app);
 
 // Função para salvar dívida
 function salvarDivida(nome, valor, vencimento) {
+    console.log("Tentando salvar dívida:", { nome, valor, vencimento }); // Debug
     const dividasRef = ref(db, 'dividas/');
     const novaDividaRef = push(dividasRef);
     
@@ -79,10 +80,10 @@ document.getElementById('addDebtButton').addEventListener('click', () => {
     const valor = parseFloat(prompt('Valor da dívida:'));
     const vencimento = prompt('Data de vencimento (dd/mm/yyyy):');
 
-    if (nome && valor && vencimento) {
+    if (nome && !isNaN(valor) && vencimento) {
         salvarDivida(nome, valor, vencimento);
     } else {
-        alert('Por favor, preencha todos os campos.');
+        alert('Por favor, preencha todos os campos corretamente.');
     }
 });
 
