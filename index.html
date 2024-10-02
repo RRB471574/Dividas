@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Dívidas</title>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Login</h1>
     <form id="loginForm">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Senha" required>
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Senha" required>
         <button type="submit">Entrar</button>
     </form>
-    <p>Não tem uma conta? <a href="#" id="registerLink">Registrar</a></p>
+    <p>Ainda não tem uma conta? <a href="register.html">Registrar</a></p>
 
-    <script type="module" src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
