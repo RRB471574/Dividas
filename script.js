@@ -1,9 +1,9 @@
 // Importando e inicializando o Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, set, push, onValue, remove } from "firebase/database";
 
-// Configurações do Firebase (substitua pelos dados do seu projeto)
+// Configurações do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -65,9 +65,22 @@ function toggleAuthSections(isAuthVisible) {
     document.getElementById('detailedDebts').style.display = isAuthVisible ? 'none' : 'block';
 }
 
+// Monitorar o estado de autenticação
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log('Usuário está autenticado:', user);
+        toggleAuthSections(false);
+        listarDividas();
+    } else {
+        console.log('Nenhum usuário autenticado.');
+        toggleAuthSections(true);
+    }
+});
+
 // Função para salvar dívida
 function salvarDivida(nome, valor, vencimento) {
-    const dividasRef = ref(db, 'dividas/');
+    const userId = auth.currentUser.uid;  // Obtém o ID do usuário autenticado
+    const dividasRef = ref(db, `dividas/${userId}/`);
     const novaDividaRef = push(dividasRef);
     
     set(novaDividaRef, {
@@ -84,7 +97,8 @@ function salvarDivida(nome, valor, vencimento) {
 
 // Função para listar dívidas
 function listarDividas() {
-    const dividasRef = ref(db, 'dividas/');
+    const userId = auth.currentUser.uid;  // Obtém o ID do usuário autenticado
+    const dividasRef = ref(db, `dividas/${userId}/`);
 
     onValue(dividasRef, (snapshot) => {
         const listaDividas = document.getElementById('debtList');
@@ -110,7 +124,8 @@ function listarDividas() {
 
 // Função para remover dívida
 function removerDivida(id) {
-    const dividaRef = ref(db, 'dividas/' + id);
+    const userId = auth.currentUser.uid;  // Obtém o ID do usuário autenticado
+    const dividaRef = ref(db, `dividas/${userId}/${id}`);
 
     remove(dividaRef).then(() => {
         console.log('Dívida removida com sucesso!');
