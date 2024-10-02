@@ -18,19 +18,17 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Função para registrar um novo usuário
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('register-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+document.getElementById('register-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log('Usuário registrado:', userCredential.user);
-                window.location.href = 'pagina-de-dividas.html';
-            })
-            .catch((error) => {
-                console.error('Erro ao registrar:', error);
-            });
-    });
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log('Usuário registrado:', userCredential.user);
+            window.location.href = 'pagina-de-dividas.html';
+        })
+        .catch((error) => {
+            console.error('Erro ao registrar:', error);
+        });
 });
