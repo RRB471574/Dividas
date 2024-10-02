@@ -1,5 +1,6 @@
 // Importando e inicializando o Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
 // Configurações do Firebase (substitua pelos dados do seu projeto)
@@ -16,7 +17,53 @@ const firebaseConfig = {
 
 // Inicializar o Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
+
+// Função para registrar um novo usuário
+document.getElementById('registerButton').addEventListener('click', () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            document.getElementById('authMessage').textContent = 'Usuário registrado com sucesso!';
+            console.log('Usuário registrado:', user);
+            toggleAuthSections(false);  // Esconde as seções de autenticação
+            listarDividas();  // Carrega as dívidas
+        })
+        .catch((error) => {
+            document.getElementById('authMessage').textContent = error.message;
+            console.error('Erro ao registrar usuário:', error);
+        });
+});
+
+// Função para login
+document.getElementById('loginButton').addEventListener('click', () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            document.getElementById('authMessage').textContent = 'Usuário logado com sucesso!';
+            console.log('Usuário logado:', user);
+            toggleAuthSections(false);  // Esconde as seções de autenticação
+            listarDividas();  // Carrega as dívidas
+        })
+        .catch((error) => {
+            document.getElementById('authMessage').textContent = error.message;
+            console.error('Erro ao fazer login:', error);
+        });
+});
+
+// Função para mostrar/ocultar seções
+function toggleAuthSections(isAuthVisible) {
+    document.getElementById('auth').style.display = isAuthVisible ? 'block' : 'none';
+    document.getElementById('overview').style.display = isAuthVisible ? 'none' : 'block';
+    document.getElementById('detailedDebts').style.display = isAuthVisible ? 'none' : 'block';
+}
 
 // Função para salvar dívida
 function salvarDivida(nome, valor, vencimento) {
@@ -85,6 +132,3 @@ document.getElementById('addDebtButton').addEventListener('click', () => {
         alert('Por favor, preencha todos os campos.');
     }
 });
-
-// Carregar a lista de dívidas ao iniciar
-listarDividas();
