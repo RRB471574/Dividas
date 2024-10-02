@@ -8,30 +8,31 @@ body {
 header {
     background-color: #4CAF50;
     color: white;
-    padding: 15px;
+    padding: 1rem; /* Usando rem para melhor responsividade */
     text-align: center;
 }
 
 h1, h2 {
-    margin: 10px 0;
+    margin: 0.5rem 0; /* Usando rem para melhor responsividade */
 }
 
 #overview, #detailedDebts {
-    margin: 20px;
-    padding: 20px;
+    margin: 1rem; /* Usando rem para melhor responsividade */
+    padding: 1rem; /* Usando rem para melhor responsividade */
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 0.5rem 1rem; /* Usando rem para melhor responsividade */
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 1rem; /* Usando rem para melhor responsividade */
+    transition: background-color 0.3s ease; /* Efeito de transição */
 }
 
 button:hover {
@@ -45,11 +46,11 @@ ul {
 
 li {
     background-color: #f1f1f1;
-    margin: 10px 0;
-    padding: 10px;
+    margin: 0.5rem 0; /* Usando rem para melhor responsividade */
+    padding: 0.5rem; /* Usando rem para melhor responsividade */
     border-radius: 5px;
 }
 
 li span {
-    margin-right: 10px;
+    margin-right: 0.5rem; /* Usando rem para melhor responsividade */
 }
