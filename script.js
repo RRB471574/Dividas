@@ -1,9 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
@@ -16,21 +10,21 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const app = firebase.initializeApp(firebaseConfig);
+const analytics = firebase.analytics(app);
 
 // Initialize Auth and Firestore
-const auth = getAuth();
-const db = getFirestore();
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 // Function to register a new user
 async function registerUser(email, password) {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
-    
+
     // Send email verification
-    await sendEmailVerification(user);
+    await user.sendEmailVerification();
     alert("Verifique seu email para confirmar a conta.");
   } catch (error) {
     console.error("Error registering user: ", error);
@@ -41,7 +35,7 @@ async function registerUser(email, password) {
 // Function to add a new debt
 async function addDebt(userId, debtAmount) {
   try {
-    const docRef = await addDoc(collection(db, "dividas"), {
+    const docRef = await db.collection("dividas").add({
       userId: userId,
       amount: debtAmount,
       createdAt: new Date()
@@ -60,7 +54,11 @@ document.getElementById("registerButton").addEventListener("click", async () => 
 });
 
 document.getElementById("addDebtButton").addEventListener("click", async () => {
-  const userId = auth.currentUser.uid;
-  const debtAmount = document.getElementById("debtInput").value;
-  await addDebt(userId, debtAmount);
+  const userId = auth.currentUser ? auth.currentUser.uid : null;
+  if (userId) {
+    const debtAmount = document.getElementById("debtInput").value;
+    await addDebt(userId, debtAmount);
+  } else {
+    alert("Você precisa estar logado para adicionar uma dívida.");
+  }
 });
