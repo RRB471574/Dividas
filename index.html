@@ -5,32 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador de Dívidas</title>
     <link rel="stylesheet" href="styles.css">
-    
     <!-- Scripts do Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js"></script>
 </head>
 <body>
     <header>
         <h1>Gerenciador de Dívidas</h1>
     </header>
 
-    <main>
-        <section id="overview">
-            <h2>Resumo Geral</h2>
-            <p>Total de Dívidas: <span id="totalDividas">R$ 0,00</span></p>
-            <p>Dívidas Pagas: <span id="dividasPagas">0</span></p>
-        </section>
+    <section id="overview">
+        <h2>Resumo Geral</h2>
+        <p>Total de Dívidas: <span id="totalDividas">R$ 0,00</span></p>
+        <p>Dívidas Pagas: <span id="dividasPagas">0</span></p>
+    </section>
 
-        <section id="detailedDebts">
-            <h2>Detalhes das Dívidas</h2>
-            <ul id="debtList">
-                <!-- As dívidas serão listadas aqui dinamicamente -->
-            </ul>
-            <button id="addDebtButton">Adicionar Nova Dívida</button>
-        </section>
-    </main>
+    <section id="detailedDebts">
+        <h2>Detalhes das Dívidas</h2>
+        <ul id="debtList">
+            <!-- As dívidas serão listadas aqui dinamicamente -->
+        </ul>
+        <button id="addDebtButton">Adicionar Nova Dívida</button>
+    </section>
 
     <!-- Script do App -->
     <script src="script.js"></script>
