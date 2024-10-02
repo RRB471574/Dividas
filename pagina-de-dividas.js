@@ -1,6 +1,17 @@
-// Adicione a lógica para gerenciar dívidas aqui
-// Por exemplo, você pode carregar e exibir a lista de dívidas
+// Lógica para manipulação de dívidas (este é um exemplo básico)
+document.addEventListener("DOMContentLoaded", () => {
+    const debtList = document.getElementById("debtList");
 
-console.log("Página de Dívidas carregada.");
+    // Exemplo de dívida - aqui você deve pegar as dívidas do Firebase ou do seu backend
+    const debts = [
+        { name: "Aluguel", amount: "500,00" },
+        { name: "Conta de Luz", amount: "100,00" },
+        { name: "Conta de Água", amount: "65,40" },
+    ];
 
-// Aqui você pode adicionar a lógica para buscar e mostrar as dívidas do usuário
+    debts.forEach(debt => {
+        const debtItem = document.createElement("div");
+        debtItem.textContent = `${debt.name}: R$ ${debt.amount}`;
+        debtList.appendChild(debtItem);
+    });
+});
