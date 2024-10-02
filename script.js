@@ -1,7 +1,7 @@
 // Importando e inicializando o Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
 // Configurações do Firebase
 const firebaseConfig = {
@@ -15,38 +15,48 @@ const firebaseConfig = {
     databaseURL: "https://dividas1-fed53-default-rtdb.firebaseio.com/"
 };
 
-// Inicializar o Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getDatabase(app);
+const auth = getAuth(app);
 
-// Função para registrar um novo usuário
-function registrarUsuario(email, senha) {
+// Funções de Autenticação
+document.getElementById('registerButton').addEventListener('click', () => {
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
     createUserWithEmailAndPassword(auth, email, senha)
         .then((userCredential) => {
-            const user = userCredential.user;
-
-            // Enviar e-mail de verificação
-            sendEmailVerification(user)
-                .then(() => {
-                    console.log('E-mail de verificação enviado para:', user.email);
-                    alert('E-mail de verificação enviado! Verifique sua caixa de entrada.');
-                })
-                .catch((error) => {
-                    console.error('Erro ao enviar o e-mail de verificação:', error);
-                });
+            sendEmailVerification(userCredential.user).then(() => {
+                alert("Verifique seu e-mail para confirmar a conta.");
+            });
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error('Erro ao registrar usuário:', errorCode, errorMessage);
-            alert('Erro ao registrar: ' + errorMessage);
+            console.error('Erro ao registrar:', error);
         });
-}
+});
+
+document.getElementById('loginButton').addEventListener('click', () => {
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    signInWithEmailAndPassword(auth, email, senha)
+        .then(() => {
+            console.log("Login bem-sucedido!");
+            document.getElementById('auth').style.display = 'none';
+            document.getElementById('overview').style.display = 'block';
+            document.getElementById('detailedDebts').style.display = 'block';
+            listarDividas();  // Carregar dívidas ao fazer login
+        })
+        .catch((error) => {
+            console.error('Erro ao fazer login:', error);
+        });
+});
 
 // Função para salvar dívida
 function salvarDivida(nome, valor, vencimento) {
-    const dividasRef = ref(db, 'dividas/');
+    const usuarioId = auth.currentUser.uid;  // ID do usuário autenticado
+    const dividasRef = ref(db, 'dividas/' + usuarioId);
     const novaDividaRef = push(dividasRef);
 
     set(novaDividaRef, {
@@ -63,7 +73,8 @@ function salvarDivida(nome, valor, vencimento) {
 
 // Função para listar dívidas
 function listarDividas() {
-    const dividasRef = ref(db, 'dividas/');
+    const usuarioId = auth.currentUser.uid;  // ID do usuário autenticado
+    const dividasRef = ref(db, 'dividas/' + usuarioId);
 
     onValue(dividasRef, (snapshot) => {
         const listaDividas = document.getElementById('debtList');
@@ -89,7 +100,8 @@ function listarDividas() {
 
 // Função para remover dívida
 function removerDivida(id) {
-    const dividaRef = ref(db, 'dividas/' + id);
+    const usuarioId = auth.currentUser.uid;  // ID do usuário autenticado
+    const dividaRef = ref(db, 'dividas/' + usuarioId + '/' + id);
 
     remove(dividaRef).then(() => {
         console.log('Dívida removida com sucesso!');
@@ -112,17 +124,11 @@ document.getElementById('addDebtButton').addEventListener('click', () => {
     }
 });
 
-// Evento para registrar novo usuário
-document.getElementById('registerButton').addEventListener('click', () => {
-    const email = document.getElementById('emailInput').value;
-    const senha = document.getElementById('passwordInput').value;
-
-    if (email && senha) {
-        registrarUsuario(email, senha);
-    } else {
-        alert('Por favor, preencha todos os campos.');
-    }
-});
-
-// Carregar a lista de dívidas ao iniciar
-listarDividas();
+// Monitorar estado de autenticação
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log('Usuário autenticado:', user.email);
+        document.getElementById('auth').style.display = 'none';
+        document.getElementById('overview').style.display = 'block';
+        document.getElementById('detailedDebts').style.display = 'block';
+        listarDividas();  // Car
