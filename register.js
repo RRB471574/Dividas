@@ -1,5 +1,3 @@
-// register.js
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -28,10 +26,14 @@ document.getElementById("registerForm").addEventListener("submit", (event) => {
         .then((userCredential) => {
             console.log("Usuário registrado:", userCredential.user);
             alert("Registro bem-sucedido!");
-            window.location.href = 'index.html';
+            window.location.href = 'index.html';  // Redireciona para a página principal após o registro
         })
         .catch((error) => {
-            console.error("Erro ao registrar:", error.message);
-            alert("Erro de registro: " + error.message);
+            if (error.code === 'auth/email-already-in-use') {
+                alert("Este e-mail já está em uso. Por favor, tente outro.");
+            } else {
+                console.error("Erro ao registrar:", error.message);
+                alert("Erro de registro: " + error.message);
+            }
         });
 });
