@@ -1,11 +1,9 @@
-<script type="module">
-  // Importar as funções necessárias do Firebase
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-  // Configuração do Firebase
-  const firebaseConfig = {
+// Your web app's Firebase configuration
+const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
     projectId: "dividas1-fed53",
@@ -13,30 +11,44 @@
     messagingSenderId: "350859669404",
     appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
     measurementId: "G-7HGSN6TC3Y"
-  };
+};
 
-  // Inicializa o Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getFirestore(app); // Inicializa Firestore
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-  // Lida com o envio do formulário
-  document.getElementById("meuFormulario").addEventListener("submit", async function(event) {
-      event.preventDefault(); // Previne o comportamento padrão do formulário
+// Handle registration form submission
+const registerForm = document.getElementById('register-form');
+const errorMessage = document.getElementById('error-message');
+const successMessage = document.getElementById('success-message');
 
-      const formData = new FormData(this);
-      const dados = Object.fromEntries(formData); // Converte FormData para um objeto
+registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = registerForm.email.value;
+    const password = registerForm.password.value;
 
-      try {
-          // Adiciona os dados ao Firestore
-          const docRef = await addDoc(collection(db, "usuarios"), dados);
-          console.log("Documento escrito com ID: ", docRef.id);
-          
-          // Redireciona para a página de confirmação
-          window.location.href = "URL_DE_CONFIRMACAO"; // Substitua pela sua URL de confirmação
-      } catch (error) {
-          console.error("Erro ao enviar o formulário: ", error);
-          alert("Houve um erro ao enviar o formulário. Tente novamente mais tarde.");
-      }
-  });
-</script>
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Registration successful
+            console.log('User registered:', userCredential.user);
+            successMessage.textContent = 'Registro bem-sucedido! Verifique seu e-mail para confirmar a conta!';
+            errorMessage.textContent = '';
+
+            // Send verification email
+            sendEmailVerification(userCredential.user)
+                .then(() => {
+                    // Email sent
+                    console.log('Email de verificação enviado!');
+                })
+                .catch((error) => {
+                    console.error('Erro ao enviar o e-mail de verificação:', error);
+                });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMsg = error.message;
+            errorMessage.textContent = errorMsg;
+            successMessage.textContent = '';
+            console.error(`Error: ${errorCode}, ${errorMsg}`);
+        });
+});
