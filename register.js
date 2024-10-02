@@ -21,28 +21,35 @@ const auth = getAuth(app);
 
 // Executa o código após o DOM estar completamente carregado
 document.addEventListener("DOMContentLoaded", () => {
-    // Manipulador de envio do formulário
-    document.getElementById("registerForm").addEventListener("submit", (e) => {
-        e.preventDefault(); // Impede o envio padrão do formulário
+    const registerForm = document.getElementById("registerForm");
+    const errorMessage = document.getElementById("error-message"); // Elemento para exibir mensagens de erro
 
-        const email = document.getElementById("registerEmail").value;
-        const password = document.getElementById("registerPassword").value;
+    registerForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Previne o envio padrão do formulário
 
-        // Chama a função de criação de usuário
+        const email = registerForm.email.value;
+        const password = registerForm.password.value;
+
+        // Tenta criar um novo usuário
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Registro bem-sucedido
-                const user = userCredential.user;
-                console.log("Usuário registrado:", user);
-
-                // Redireciona para a página de login
-                window.location.href = "index.html";
+                console.log("Usuário registrado:", userCredential.user);
+                // Redireciona para a página de dívidas ou para onde desejar
+                window.location.href = "pagina-de-dividas.html";
             })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error("Erro de registro:", errorCode, errorMessage);
-                alert("Erro ao registrar: " + errorMessage);
+                const errorMessageText = error.message;
+
+                console.error("Erro de registro:", errorMessageText);
+
+                // Verifica se o erro é de e-mail já em uso
+                if (errorCode === "auth/email-already-in-use") {
+                    errorMessage.textContent = "Este e-mail já está em uso. Por favor, tente outro.";
+                } else {
+                    errorMessage.textContent = "Erro ao registrar: " + errorMessageText;
+                }
             });
     });
 });
