@@ -51,7 +51,8 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
 
 // Verificar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
+    const userInfo = document.getElementById('user-info');
     if (user) {
-        document.getElementById('user-info').innerText = `Bem-vindo, ${user.email}`;
+        userInfo.innerText = `Bem-vindo, ${user.email}`;
     }
 });
