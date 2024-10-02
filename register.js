@@ -1,7 +1,8 @@
 // register.js
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+// Inicializa o Firebase
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
@@ -10,38 +11,42 @@ const firebaseConfig = {
     storageBucket: "dividas1-fed53.appspot.com",
     messagingSenderId: "350859669404",
     appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-    measurementId: "G-7HGSN6TC3Y"
 };
 
+// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-document.addEventListener("DOMContentLoaded", () => {
-    const registerForm = document.getElementById("registerForm");
-    const errorMessage = document.getElementById("error-message");
+// Seleciona os elementos do DOM
+const registerForm = document.getElementById('registerForm');
+const errorMessage = document.getElementById('errorMessage');
 
-    registerForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+// Adiciona o evento de submit no formulário de registro
+registerForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // Previne o envio do formulário
 
-        const email = registerForm.querySelector('input[name="email"]').value;
-        const password = registerForm.querySelector('input[name="password"]').value;
+    const email = registerForm.email.value;
+    const password = registerForm.password.value;
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log("Usuário registrado:", userCredential.user);
-                window.location.href = "pagina-de-dividas.html";
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessageText = error.message;
+    // Tenta registrar o usuário
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Registro bem-sucedido, redireciona para a página de dívidas
+            window.location.href = "pagina-de-dividas.html";
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            let errorMsg = '';
 
-                console.error("Erro de registro:", errorMessageText);
-                
-                if (errorCode === "auth/email-already-in-use") {
-                    errorMessage.textContent = "Este e-mail já está em uso. Por favor, tente outro.";
-                } else {
-                    errorMessage.textContent = "Erro ao registrar: " + errorMessageText;
-                }
-            });
-    });
+            // Verifica o código de erro
+            if (errorCode === 'auth/email-already-in-use') {
+                errorMsg = 'Este e-mail já está em uso. Por favor, tente outro.';
+            } else {
+                errorMsg = 'Erro de registro: ' + error.message;
+            }
+
+            // Exibe a mensagem de erro
+            errorMessage.innerText = errorMsg;
+            console.error('Erro de registro:', error);
+        });
 });
