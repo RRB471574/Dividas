@@ -16,23 +16,40 @@ h1, h2 {
     margin: 10px 0;
 }
 
-#overview, #detailedDebts, #auth {
+#overview, #detailedDebts, #authSection {
     margin: 20px;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
     background-color: #4CAF50;
     color: white;
+    border: none;
+    padding: 10px 20px;
     cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color
+    background-color: #45a049;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f1f1f1;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+li span {
+    margin-right: 10px;
+}
