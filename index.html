@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Dívidas</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Importando o Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <h1>Controle de Dívidas</h1>
-        <button id="loginBtn">Login</button>
-        <button id="registerBtn">Registrar</button>
-    </div>
+    <h1>Controle de Dívidas</h1>
+    <div id="user-info"></div>
+    
+    <h2>Registrar</h2>
+    <form id="register-form">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Senha" required>
+        <button type="submit">Registrar</button>
+    </form>
 
-    <script src="script.js"></script>
+    <h2>Login</h2>
+    <form id="login-form">
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Senha" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
