@@ -115,11 +115,4 @@ function removerDivida(id) {
     const dividaRef = ref(db, 'dividas/' + id);
 
     remove(dividaRef).then(() => {
-        console.log('Dívida removida com sucesso!');
-        listarDividas();  // Atualizar a lista após remoção
-    }).catch((error) => {
-        console.error('Erro ao remover dívida:', error);
-    });
-}
-
-// Monitor
+        console
