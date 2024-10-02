@@ -1,64 +1,45 @@
-// Your web app's Firebase configuration
+// Configuração do Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-  authDomain: "dividas1-fed53.firebaseapp.com",
-  projectId: "dividas1-fed53",
-  storageBucket: "dividas1-fed53.appspot.com",
-  messagingSenderId: "350859669404",
-  appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-  measurementId: "G-7HGSN6TC3Y"
+    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
+    authDomain: "dividas1-fed53.firebaseapp.com",
+    projectId: "dividas1-fed53",
+    storageBucket: "dividas1-fed53.appspot.com",
+    messagingSenderId: "350859669404",
+    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
+    measurementId: "G-7HGSN6TC3Y"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const analytics = firebase.analytics();
+// Inicializar o Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
-// Initialize Auth and Firestore
+// Inicializar o Firebase Auth e Firestore
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Function to register a new user
-async function registerUser(email, password) {
-  try {
-    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-
-    // Send email verification
-    await user.sendEmailVerification();
-    alert("Verifique seu email para confirmar a conta.");
-  } catch (error) {
-    console.error("Error registering user: ", error);
-    alert(error.message);
-  }
+// Função para registrar usuário
+function registerUser(email, password) {
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Registro bem-sucedido
+            const user = userCredential.user;
+            console.log('Usuário registrado com sucesso:', user);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Erro ao registrar usuário:', errorCode, errorMessage);
+        });
 }
 
-// Function to add a new debt
-async function addDebt(userId, debtAmount) {
-  try {
-    const docRef = await db.collection("dividas").add({
-      userId: userId,
-      amount: debtAmount,
-      createdAt: new Date()
-    });
-    console.log("Debt added with ID: ", docRef.id);
-  } catch (error) {
-    console.error("Error adding debt: ", error);
-  }
-}
+// Captura o evento de envio do formulário
+document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
 
-// Example usage
-document.getElementById("registerButton").addEventListener("click", async () => {
-  const email = document.getElementById("emailInput").value;
-  const password = document.getElementById("passwordInput").value;
-  await registerUser(email, password);
-});
+    // Obtém o email e a senha dos campos de entrada
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-document.getElementById("addDebtButton").addEventListener("click", async () => {
-  const userId = auth.currentUser ? auth.currentUser.uid : null;
-  if (userId) {
-    const debtAmount = document.getElementById("debtInput").value;
-    await addDebt(userId, debtAmount);
-  } else {
-    alert("Você precisa estar logado para adicionar uma dívida.");
-  }
+    // Chama a função para registrar o usuário
+    registerUser(email, password);
 });
