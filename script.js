@@ -19,44 +19,46 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
-// Função para registrar um usuário
-document.getElementById("registerForm").addEventListener("submit", (event) => {
-    event.preventDefault(); // Evita o envio do formulário
+// Verifica se o formulário de registro está presente
+if (document.getElementById("registerForm")) {
+    document.getElementById("registerForm").addEventListener("submit", (event) => {
+        event.preventDefault(); // Evita o envio do formulário
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("Usuário registrado:", user);
-            alert("Registro bem-sucedido!");
-        })
-        .catch((error) => {
-            const errorMessage = error.message;
-            console.error("Erro ao registrar:", errorMessage);
-            alert("Erro de registro: " + errorMessage);
-        });
-});
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log("Usuário registrado:", user);
+                alert("Registro bem-sucedido!");
+                window.location.href = 'index.html'; // Redireciona para a página de login após o registro
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.error("Erro ao registrar:", errorMessage);
+                alert("Erro de registro: " + errorMessage);
+            });
+}
 
-// Função para fazer login
-document.getElementById("loginForm").addEventListener("submit", (event) => {
-    event.preventDefault(); // Evita o envio do formulário
+// Verifica se o formulário de login está presente
+if (document.getElementById("loginForm")) {
+    document.getElementById("loginForm").addEventListener("submit", (event) => {
+        event.preventDefault(); // Evita o envio do formulário
 
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
 
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("Usuário autenticado:", user);
-            alert("Login bem-sucedido!");
-            // Redirecionar para a página de dívidas ou outra ação
-            window.location.href = 'pagina-de-dividas.html'; // Redireciona após login
-        })
-        .catch((error) => {
-            const errorMessage = error.message;
-            console.error("Erro ao fazer login:", errorMessage);
-            alert("Erro de login: " + errorMessage);
-        });
-});
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log("Usuário autenticado:", user);
+                alert("Login bem-sucedido!");
+                window.location.href = 'pagina-de-dividas.html'; // Redireciona após login
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.error("Erro ao fazer login:", errorMessage);
+                alert("Erro de login: " + errorMessage);
+            });
+}
