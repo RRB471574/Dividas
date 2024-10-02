@@ -1,48 +1,42 @@
 // script.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-// Inicializa o Firebase
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
+// Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-    authDomain: "dividas1-fed53.firebaseapp.com",
-    projectId: "dividas1-fed53",
-    storageBucket: "dividas1-fed53.appspot.com",
-    messagingSenderId: "350859669404",
-    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
+    apiKey: "sua-api-key",
+    authDomain: "seu-auth-domain",
+    projectId: "seu-project-id",
+    storageBucket: "seu-storage-bucket",
+    messagingSenderId: "seu-messaging-sender-id",
+    appId: "seu-app-id"
 };
 
-// Inicializa o Firebase
+// Inicialize o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Seleciona os elementos do DOM
-const loginForm = document.getElementById('loginForm');
-const errorMessage = document.getElementById('errorMessage');
+// Função para registrar um usuário
+document.getElementById("registerForm").addEventListener("submit", (event) => {
+    event.preventDefault(); // Evita o envio do formulário
 
-// Adiciona o evento de submit no formulário de login
-loginForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Previne o envio do formulário
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    const email = loginForm.email.value;
-    const password = loginForm.password.value;
-
-    // Tenta fazer login
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Login bem-sucedido, redireciona para a página de dívidas
-            window.location.href = "pagina-de-dividas.html";
+            // Usuário registrado com sucesso
+            const user = userCredential.user;
+            console.log("Usuário registrado:", user);
         })
         .catch((error) => {
             const errorCode = error.code;
-            let errorMsg = 'Erro de login: ' + error.message;
-            if (errorCode === 'auth/wrong-password') {
-                errorMsg = 'Senha incorreta. Tente novamente.';
-            } else if (errorCode === 'auth/user-not-found') {
-                errorMsg = 'Usuário não encontrado. Verifique o e-mail.';
+            const errorMessage = error.message;
+
+            if (errorCode === 'auth/email-already-in-use') {
+                alert("Este e-mail já está em uso. Por favor, tente outro.");
+            } else {
+                console.error("Erro ao registrar:", errorMessage);
             }
-            errorMessage.innerText = errorMsg;
-            console.error('Erro de login:', error);
         });
 });
