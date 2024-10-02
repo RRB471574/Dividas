@@ -1,3 +1,4 @@
+// Inicialize o Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -21,6 +22,7 @@ document.getElementById("register-form").addEventListener("submit", (e) => {
 
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
+            // Redirecionar para a página de login
             window.location.href = "index.html";
         })
         .catch((error) => {
