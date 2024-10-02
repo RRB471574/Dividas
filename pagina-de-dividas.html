@@ -1,41 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Dívidas</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>Página de Dívidas</h1>
-    <p>Bem-vindo à página de controle de dívidas!</p>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
 
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
-    <script>
-        // Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-            authDomain: "dividas1-fed53.firebaseapp.com",
-            projectId: "dividas1-fed53",
-            storageBucket: "dividas1-fed53.appspot.com",
-            messagingSenderId: "350859669404",
-            appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-            measurementId: "G-7HGSN6TC3Y"
-        };
+h1 {
+    color: #333;
+}
 
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 
-        // Check if user is logged in
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                console.log("User is signed in:", user);
-            } else {
-                console.log("No user is signed in.");
-                window.location.href = "index.html"; // Redirecionar para login se não estiver autenticado
-            }
-        });
-    </script>
-</body>
-</html>
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
