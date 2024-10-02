@@ -1,4 +1,3 @@
-// Firebase Config
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -9,8 +8,9 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+// Inicialize o Firebase
+firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 
 document.getElementById("register-form").addEventListener("submit", (e) => {
@@ -21,7 +21,6 @@ document.getElementById("register-form").addEventListener("submit", (e) => {
 
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // Usuário registrado com sucesso
             window.location.href = "index.html";
         })
         .catch((error) => {
