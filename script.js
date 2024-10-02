@@ -1,10 +1,8 @@
 // script.js
 
-// Importar funções do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -15,34 +13,28 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Executa o código após o DOM estar completamente carregado
 document.addEventListener("DOMContentLoaded", () => {
-    // Manipulador de envio do formulário
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
-        e.preventDefault(); // Impede o envio padrão do formulário
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("error-message");
 
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-        // Chama a função de autenticação
+        const email = loginForm.querySelector('input[name="email"]').value;
+        const password = loginForm.querySelector('input[name="password"]').value;
+
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Autenticação bem-sucedida
-                const user = userCredential.user;
-                console.log("Usuário logado:", user);
-
-                // Redireciona para a página de dívidas
+                console.log("Usuário autenticado:", userCredential.user);
                 window.location.href = "pagina-de-dividas.html";
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error("Erro de autenticação:", errorCode, errorMessage);
-                alert("Erro ao fazer login: " + errorMessage);
+                const errorMessageText = error.message;
+                console.error("Erro de autenticação:", errorMessageText);
+                errorMessage.textContent = "Erro: " + errorMessageText;
             });
     });
 });
