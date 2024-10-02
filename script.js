@@ -40,6 +40,7 @@ function registrarUsuario(email, senha) {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.error('Erro ao registrar usuário:', errorCode, errorMessage);
+            alert('Erro ao registrar: ' + errorMessage);
         });
 }
 
