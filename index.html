@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Dívidas</title>
+    <title>Gerenciador de Dívidas</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>Gerenciador de Dívidas</h1>
     </header>
+
     <section id="overview">
         <h2>Resumo Geral</h2>
-        <p>Total de Dívidas: <span id="totalDividas">R$ 2.460,37</span></p>
+        <p>Total de Dívidas: <span id="totalDividas">R$ 0,00</span></p>
         <p>Dívidas Pagas: <span id="dividasPagas">0</span></p>
     </section>
+
     <section id="detailedDebts">
         <h2>Detalhes das Dívidas</h2>
         <ul id="debtList">
-            <!-- As dívidas serão listadas aqui -->
+            <!-- As dívidas serão listadas aqui dinamicamente -->
         </ul>
         <button id="addDebtButton">Adicionar Nova Dívida</button>
     </section>
 
+    <!-- Scripts do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+    
+    <!-- Script do App -->
     <script src="script.js"></script>
 </body>
 </html>
