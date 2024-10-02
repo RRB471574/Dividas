@@ -1,4 +1,4 @@
-// Your web app's Firebase configuration
+// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -9,24 +9,41 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const analytics = firebase.analytics();
 
-// Handle login form submission
-document.getElementById("loginForm").addEventListener("submit", (e) => {
+// Registro de usuário
+document.getElementById('register-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+    
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log("Usuário registrado:", userCredential.user);
+            window.location.href = 'pagina-de-dividas.html'; // Redireciona para a página de dívidas
+        })
+        .catch((error) => {
+            console.error("Erro ao registrar:", error);
+        });
+});
+
+// Login de usuário
+document.getElementById('login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
 
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("User logged in:", user);
-            window.location.href = "pagina-de-dividas.html"; // Redirecionar para a página de dívidas
+            console.log("Usuário logado:", userCredential.user);
+            window.location.href = 'pagina-de-dividas.html'; // Redireciona para a página de dívidas
         })
         .catch((error) => {
-            console.error("Error logging in:", error);
-            alert("Erro ao fazer login: " + error.message);
+            console.error("Erro ao fazer login:", error);
         });
 });
