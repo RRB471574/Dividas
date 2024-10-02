@@ -1,4 +1,8 @@
-// Configuração do Firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -9,31 +13,28 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Inicializa o Firebase
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Verifica o estado de autenticação e redireciona
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // Se o usuário está logado, redireciona para a página de dívidas
-        window.location.href = "/pagina-de-dividas.html";  // Atualize o caminho conforme necessário
+// Handle login form submission
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("User logged in:", user);
+        window.location.href = "pagina-de-dividas.html"; // Redirecionar para a página de dívidas
+    } catch (error) {
+        console.error("Error signing in:", error);
+        alert("Erro ao fazer login: " + error.message);
     }
 });
 
-// Lida com o formulário de login
-document.getElementById('loginForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // Login bem-sucedido
-            console.log('Usuário logado:', userCredential.user);
-        })
-        .catch((error) => {
-            // Exibe mensagem de erro
-            document.getElementById('error-message').innerText = error.message;
-        });
+// Handle registration link
+document.getElementById("registerLink").addEventListener("click", () => {
+    window.location.href = "register.html"; // Redirecionar para a página de registro
 });
