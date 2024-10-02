@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador de Dívidas</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
@@ -15,26 +16,19 @@
     </header>
 
     <section id="auth">
-        <h2>Registro</h2>
-        <input type="email" id="emailInput" placeholder="E-mail" required>
-        <input type="password" id="passwordInput" placeholder="Senha" required>
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="password" id="senha" placeholder="Senha" required>
+        <button id="loginButton">Login</button>
         <button id="registerButton">Registrar</button>
     </section>
 
-    <section id="overview">
+    <section id="overview" style="display: none;">
         <h2>Resumo Geral</h2>
         <p>Total de Dívidas: <span id="totalDividas">R$ 0,00</span></p>
-        <p>Dívidas Pagas: <span id="dividasPagas">0</span></p>
     </section>
 
-    <section id="detailedDebts">
+    <section id="detailedDebts" style="display: none;">
         <h2>Detalhes das Dívidas</h2>
-        <ul id="debtList">
-            <!-- As dívidas serão listadas aqui dinamicamente -->
-        </ul>
-        <button id="addDebtButton">Adicionar Nova Dívida</button>
-    </section>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        <ul id="debtList"></ul>
+        <⬤
