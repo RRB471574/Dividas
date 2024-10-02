@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Dívidas</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Meu Site no GitHub Pages</title>
 </head>
 <body>
     <header>
-        <h1>Bem-vindo ao Meu Site!</h1>
-        <p>Este é um site hospedado no GitHub Pages.</p>
+        <h1>Gerenciador de Dívidas</h1>
     </header>
-    <main>
-        <h2>Sobre</h2>
-        <p>Este site é um exemplo simples de como usar o GitHub Pages para hospedar um site estático.</p>
-        <button id="alertButton">Clique aqui!</button>
-    </main>
-    <footer>
-        <p>&copy; 2024 Meu Nome</p>
-    </footer>
+    <section id="overview">
+        <h2>Resumo Geral</h2>
+        <p>Total de Dívidas: <span id="totalDividas">R$ 2.460,37</span></p>
+        <p>Dívidas Pagas: <span id="dividasPagas">0</span></p>
+    </section>
+    <section id="detailedDebts">
+        <h2>Detalhes das Dívidas</h2>
+        <ul id="debtList">
+            <!-- As dívidas serão listadas aqui -->
+        </ul>
+        <button id="addDebtButton">Adicionar Nova Dívida</button>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
