@@ -14,6 +14,7 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 
+// Verificar autenticação
 auth.onAuthStateChanged((user) => {
     if (user) {
         console.log("Usuário autenticado:", user);
@@ -24,8 +25,8 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
+// Carregar dívidas (exemplo)
 function loadDebts(userId) {
-    // Carregar as dívidas do usuário usando o userId
     const userDebts = [
         { description: 'Cartão de crédito', amount: 1200.50 },
         { description: 'Aluguel', amount: 500.00 },
@@ -40,12 +41,7 @@ function loadDebts(userId) {
     });
 }
 
+// Logout
 document.getElementById("logout").addEventListener("click", () => {
     auth.signOut().then(() => {
-        alert("Desconectado com sucesso!");
-        window.location.href = 'index.html';
-    }).catch((error) => {
-        console.error("Erro ao desconectar:", error.message);
-        alert("Erro ao desconectar: " + error.message);
-    });
-});
+        alert("Des
