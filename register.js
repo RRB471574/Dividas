@@ -15,8 +15,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-console.log("Firebase inicializado");
-
 const registerForm = document.getElementById("register-form");
 const errorMessage = document.getElementById("error-message");
 
@@ -26,8 +24,6 @@ registerForm.addEventListener("submit", (event) => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    console.log("Formulário enviado com:", email, password);
-
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log("Usuário registrado:", userCredential.user);
@@ -35,8 +31,6 @@ registerForm.addEventListener("submit", (event) => {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessageText = error.message;
-
-            console.error("Erro ao registrar:", errorCode, errorMessageText);
 
             if (errorCode === "auth/email-already-in-use") {
                 errorMessage.textContent = "Este e-mail já está em uso. Por favor, tente outro.";
