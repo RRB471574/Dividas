@@ -1,7 +1,8 @@
+// Importa as funções necessárias do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
+// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -11,7 +12,7 @@ const firebaseConfig = {
     appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
 };
 
-// Initialize Firebase
+// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
@@ -23,5 +24,3 @@ document.getElementById('logout-button').addEventListener('click', () => {
         console.error('Erro ao desconectar:', error);
     });
 });
-
-// Aqui você pode adicionar a lógica para exibir as dívidas do usuário
