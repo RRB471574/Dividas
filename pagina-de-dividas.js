@@ -1,47 +1,63 @@
-// Inicialize o Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-    authDomain: "dividas1-fed53.firebaseapp.com",
-    projectId: "dividas1-fed53",
-    storageBucket: "dividas1-fed53.appspot.com",
-    messagingSenderId: "350859669404",
-    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-    measurementId: "G-7HGSN6TC3Y"
-};
-
-// Inicialize o Firebase
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-
-// Verificar autenticação
-auth.onAuthStateChanged((user) => {
+// Verificar se o usuário está autenticado
+firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        console.log("Usuário autenticado:", user);
-        // Aqui você pode carregar as dívidas do usuário
-        loadDebts(user.uid);
+        // Exibir mensagem de boas-vindas
+        document.getElementById("welcome-message").textContent = `Bem-vindo, ${user.email}`;
+
+        // Buscar dívidas do Firestore
+        const db = firebase.firestore();
+        const debtsRef = db.collection("debts").where("userId", "==", user.uid);
+
+        debtsRef.get().then((querySnapshot) => {
+            const debtList = document.getElementById("debt-list");
+            debtList.innerHTML = ""; // Limpa a lista antes de exibir novas dívidas
+
+            querySnapshot.forEach((doc) => {
+                const debt = doc.data();
+                const li = document.createElement("li");
+                li.textContent = `${debt.name}: R$ ${debt.amount.toFixed(2)}`;
+                debtList.appendChild(li);
+            });
+        }).catch((error) => {
+            console.error("Erro ao buscar dívidas: ", error);
+        });
     } else {
-        window.location.href = 'index.html';
+        // Redirecionar para a página de login se o usuário não estiver autenticado
+        window.location.href = "login.html";
     }
 });
 
-// Carregar dívidas (exemplo)
-function loadDebts(userId) {
-    const userDebts = [
-        { description: 'Cartão de crédito', amount: 1200.50 },
-        { description: 'Aluguel', amount: 500.00 },
-        { description: 'Conta de luz', amount: 100.30 }
-    ];
+// Função para adicionar nova dívida
+document.getElementById("add-debt-form").addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    const debtList = document.getElementById("debt-list");
-    userDebts.forEach(debt => {
-        const debtItem = document.createElement('div');
-        debtItem.textContent = `${debt.description}: R$ ${debt.amount.toFixed(2)}`;
-        debtList.appendChild(debtItem);
+    const debtName = document.getElementById("debt-name").value;
+    const debtAmount = parseFloat(document.getElementById("debt-amount").value);
+
+    const user = firebase.auth().currentUser;
+    if (user) {
+        const db = firebase.firestore();
+        db.collection("debts").add({
+            userId: user.uid,
+            name: debtName,
+            amount: debtAmount,
+        }).then(() => {
+            alert("Dívida adicionada com sucesso!");
+            // Recarregar a página para exibir a nova dívida
+            window.location.reload();
+        }).catch((error) => {
+            console.error("Erro ao adicionar dívida: ", error);
+        });
+    } else {
+        alert("Você precisa estar logado para adicionar dívidas.");
+    }
+});
+
+// Função para logout
+document.getElementById("logout-btn").addEventListener("click", () => {
+    firebase.auth().signOut().then(() => {
+        window.location.href = "login.html";
+    }).catch((error) => {
+        console.error("Erro ao fazer logout: ", error);
     });
-}
-
-// Logout
-document.getElementById("logout").addEventListener("click", () => {
-    auth.signOut().then(() => {
-        alert("Des
+});
