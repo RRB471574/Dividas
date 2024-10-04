@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
+// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
     authDomain: "dividas1-fed53.firebaseapp.com",
@@ -11,7 +11,7 @@ const firebaseConfig = {
     appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
 };
 
-// Initialize Firebase
+// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
@@ -22,14 +22,13 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
 
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Login bem-sucedido
             const user = userCredential.user;
             console.log('Usuário logado:', user);
             window.location.href = 'pagina-de-dividas.html'; // Redireciona para a página de dívidas
         })
         .catch((error) => {
             const errorMessage = document.getElementById('error-message');
-            errorMessage.textContent = error.message;
+            errorMessage.textContent = error.message; // Exibe a mensagem de erro
             console.error('Erro ao fazer login:', error);
         });
 });
