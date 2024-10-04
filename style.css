@@ -38,3 +38,14 @@ button {
     padding: 10px;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+#error-message {
+    color: red;
+    margin-top: 10px;
+}
