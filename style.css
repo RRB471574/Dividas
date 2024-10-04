@@ -45,7 +45,7 @@ button:hover {
     background-color: #4cae4c;
 }
 
-#error-message {
+#error-message, #login-error-message {
     color: red;
     margin-top: 10px;
 }
