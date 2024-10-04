@@ -3,55 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Dívidas</title>
     <link rel="stylesheet" href="style.css">
+    <title>Página de Dívidas</title>
 </head>
 <body>
-    <h2>Controle de Dívidas</h2>
-
-    <div id="user-info">
-        <p id="welcome-message"></p>
-        <button id="logout-btn">Sair</button>
+    <header>
+        <h1>Minhas Dívidas</h1>
+    </header>
+    <div class="container">
+        <h2>Lista de Dívidas</h2>
+        <div id="dividas-list"></div>
+        <button id="logout-button">Logout</button>
     </div>
-
-    <h3>Suas dívidas</h3>
-    <ul id="debt-list">
-        <!-- As dívidas serão listadas aqui -->
-    </ul>
-
-    <h3>Adicionar nova dívida</h3>
-    <form id="add-debt-form">
-        <label for="debt-name">Nome da dívida:</label>
-        <input type="text" id="debt-name" required>
-        <br>
-        <label for="debt-amount">Valor:</label>
-        <input type="number" id="debt-amount" required>
-        <br>
-        <button type="submit">Adicionar Dívida</button>
-    </form>
-
-    <!-- Carregar Firebase via CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
-
-    <!-- Inicialização do Firebase -->
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-            authDomain: "dividas1-fed53.firebaseapp.com",
-            projectId: "dividas1-fed53",
-            storageBucket: "dividas1-fed53.appspot.com",
-            messagingSenderId: "350859669404",
-            appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-            measurementId: "G-7HGSN6TC3Y"
-        };
-
-        // Inicializando o Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
-
-    <!-- Script de controle de dívidas -->
-    <script src="pagina-de-dividas.js"></script>
+    <script type="module" src="pagina-de-dividas.js"></script>
 </body>
 </html>
