@@ -1,5 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+// Importar os módulos do Firebase via CDN
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
@@ -11,7 +12,7 @@ const firebaseConfig = {
     measurementId: "G-7HGSN6TC3Y"
 };
 
-// Initialize Firebase
+// Inicializar o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
@@ -27,6 +28,7 @@ registerForm.addEventListener("submit", (event) => {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log("Usuário registrado:", userCredential.user);
+            // Redirecionar ou exibir mensagem de sucesso
         })
         .catch((error) => {
             const errorCode = error.code;
