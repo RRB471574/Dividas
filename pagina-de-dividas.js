@@ -7,8 +7,4 @@ const dividas = [
     { descricao: "Aluguel", valor: "R$ 500,00" },
 ];
 
-dividas.forEach(divida => {
-    const div = document.createElement("div");
-    div.textContent = `${divida.descricao}: ${divida.valor}`;
-    dividasList.appendChild(div);
-});
+div
