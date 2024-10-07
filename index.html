@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
-    <title>Controle de Dívidas</title>
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Controle de Dívidas</h1>
-    </header>
-    <div class="container">
-        <h2>Bem-vindo ao Controle de Dívidas</h2>
-        <p><a href="register.html">Registrar</a></p>
-        <p><a href="login.html">Login</a></p>
-    </div>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Senha">
+        <button type="submit">Login</button>
+    </form>
+    <p id="error-message"></p>
+    <script src="login.js"></script>
 </body>
 </html>
