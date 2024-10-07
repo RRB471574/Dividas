@@ -1,40 +1,36 @@
-// Importar os módulos do Firebase via CDN
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
-
+// Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
-    authDomain: "dividas1-fed53.firebaseapp.com",
-    projectId: "dividas1-fed53",
-    storageBucket: "dividas1-fed53.appspot.com",
-    messagingSenderId: "350859669404",
-    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
-    measurementId: "G-7HGSN6TC3Y"
+    apiKey: "SUA_API_KEY_AQUI",
+    authDomain: "SEU_AUTH_DOMAIN_AQUI",
+    projectId: "SEU_PROJECT_ID_AQUI",
+    storageBucket: "SEU_STORAGE_BUCKET_AQUI",
+    messagingSenderId: "SEU_MESSAGING_SENDER_ID_AQUI",
+    appId: "SEU_APP_ID_AQUI"
 };
 
 // Inicializar o Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
 
-const dividasList = document.getElementById("dividas-list");
+// Referência ao Firestore
+const db = firebase.firestore();
 
-async function loadDividas() {
-    try {
-        const querySnapshot = await getDocs(collection(db, "dividas"));
-        querySnapshot.forEach((doc) => {
+// Função para buscar as dívidas do usuário
+function buscarDividas() {
+    const dividaContainer = document.getElementById('lista-de-dividas');
+
+    db.collection('dividas').get().then((snapshot) => {
+        snapshot.forEach((doc) => {
             const divida = doc.data();
-            const listItem = document.createElement("div");
-            listItem.classList.add("divida-item");
-            listItem.innerHTML = `<strong>${divida.descricao}</strong>: ${divida.valor}`;
-            dividasList.appendChild(listItem);
+            const dividaItem = document.createElement('p');
+            dividaItem.textContent = `Nome: ${divida.nome}, Valor: ${divida.valor}`;
+            dividaContainer.appendChild(dividaItem);
         });
-    } catch (error) {
-        console.error("Erro ao carregar as dívidas:", error);
-        const errorMessage = document.createElement("div");
-        errorMessage.textContent = "Erro ao carregar as dívidas.";
-        dividasList.appendChild(errorMessage);
-    }
+    }).catch((error) => {
+        console.error("Erro ao buscar dívidas: ", error);
+    });
 }
 
-// Chama a função para carregar as dívidas ao carregar a página
-loadDividas();
+// Chamar a função ao carregar a página
+window.onload = function() {
+    buscarDividas();
+};
