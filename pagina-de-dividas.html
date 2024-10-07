@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Dívidas</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
 </head>
 <body>
-    <h1>Suas Dívidas</h1>
-
-    <div id="lista-de-dividas">
-        <!-- As dívidas aparecerão aqui -->
+    <h1>Página de Dívidas</h1>
+    <div>
+        <h2>Registrar Dívida</h2>
+        <form id="debtForm">
+            <input type="text" id="description" placeholder="Descrição" required>
+            <input type="number" id="value" placeholder="Valor" required>
+            <button type="submit">Adicionar Dívida</button>
+        </form>
+        <p id="success-message"></p>
+        <p id="error-message"></p>
     </div>
+    <div id="debtList"></div>
 
-    <script src="pagina-de-dividas.js"></script>
+    <script type="module" src="pagina-de-dividas.js"></script>
 </body>
 </html>
