@@ -1,36 +1,13 @@
+// pagina-de-dividas.js
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js';
+import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js';
+
 // Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY_AQUI",
-    authDomain: "SEU_AUTH_DOMAIN_AQUI",
-    projectId: "SEU_PROJECT_ID_AQUI",
-    storageBucket: "SEU_STORAGE_BUCKET_AQUI",
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID_AQUI",
-    appId: "SEU_APP_ID_AQUI"
-};
-
-// Inicializar o Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Referência ao Firestore
-const db = firebase.firestore();
-
-// Função para buscar as dívidas do usuário
-function buscarDividas() {
-    const dividaContainer = document.getElementById('lista-de-dividas');
-
-    db.collection('dividas').get().then((snapshot) => {
-        snapshot.forEach((doc) => {
-            const divida = doc.data();
-            const dividaItem = document.createElement('p');
-            dividaItem.textContent = `Nome: ${divida.nome}, Valor: ${divida.valor}`;
-            dividaContainer.appendChild(dividaItem);
-        });
-    }).catch((error) => {
-        console.error("Erro ao buscar dívidas: ", error);
-    });
-}
-
-// Chamar a função ao carregar a página
-window.onload = function() {
-    buscarDividas();
-};
+    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
+    authDomain: "dividas1-fed53.firebaseapp.com",
+    projectId: "dividas1-fed53",
+    storageBucket: "dividas1-fed53.appspot.com",
+    messagingSenderId: "350859669404",
+    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
