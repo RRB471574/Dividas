@@ -1,34 +1,28 @@
 // Inicializar o Firebase
-// Substitua com sua própria configuração Firebase
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_AUTH_DOMAIN",
-    projectId: "SEU_PROJECT_ID",
-    storageBucket: "SEU_STORAGE_BUCKET",
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-    appId: "SEU_APP_ID"
+    apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
+    authDomain: "dividas1-fed53.firebaseapp.com",
+    projectId: "dividas1-fed53",
+    storageBucket: "dividas1-fed53.appspot.com",
+    messagingSenderId: "350859669404",
+    appId: "1:350859669404:web:9b9ba5f6320ec92923a259",
+    measurementId: "G-7HGSN6TC3Y"
 };
 firebase.initializeApp(firebaseConfig);
 
-// Função de login
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
-    // Autenticar com Firebase
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            var user = userCredential.user;
-            console.log("Login bem-sucedido:", user);
-            // Redirecionar para a página de dívidas
+            console.log("Login bem-sucedido");
             window.location.href = "pagina-de-dividas.html";
         })
         .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.error("Erro ao fazer login:", errorCode, errorMessage);
-            alert("Erro ao fazer login: " + errorMessage);
+            console.error("Erro ao fazer login:", error.message);
+            alert("Erro ao fazer login: " + error.message);
         });
 });
