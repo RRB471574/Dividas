@@ -3,12 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login - Controle de Dívidas</title>
+    <link rel="stylesheet" href="style.css"> <!-- Certifique-se de que o caminho está correto -->
 </head>
 <body>
-    <h1>Bem-vindo ao Controle de Dívidas</h1>
-    <p><a href="login.html">Login</a></p>
-    <p><a href="register.html">Registrar</a></p>
+    <header>
+        <h1>Bem-vindo ao Controle de Dívidas</h1>
+    </header>
+
+    <main>
+        <!-- Formulário de login -->
+        <form id="loginForm">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Link para a página de registro -->
+        <p>Ainda não tem uma conta? <a href="register.html">Registre-se aqui</a></p>
+    </main>
+
+    <!-- Adicionando Eruda para ver logs no celular -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+        eruda.init();  // Inicializa o console Eruda
+    </script>
+
+    <!-- Script de autenticação -->
+    <script src="script.js"></script> <!-- Certifique-se de que está carregando o script correto -->
 </body>
 </html>
