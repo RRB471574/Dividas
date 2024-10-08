@@ -3,22 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar</title>
+    <title>Registro - Controle de Dívidas</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
 </head>
 <body>
-    <h1>Registrar</h1>
-    <form id="registerForm">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Senha" required>
-        <button type="submit">Registrar</button>
-    </form>
-    <p id="error-message"></p>
-    <p>Já tem uma conta? <a href="login.html">Login</a></p>
+    <header>
+        <h1>Crie sua conta</h1>
+    </header>
 
-    <script type="module" src="register.js"></script>
+    <main>
+        <form id="registerForm">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Registrar</button>
+        </form>
+
+        <p>Já tem uma conta? <a href="index.html">Faça login aqui</a></p>
+    </main>
+
+    <!-- Adicionando Eruda para logs no celular -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+
+    <!-- Script de autenticação -->
+    <script src="register.js"></script>
 </body>
 </html>
