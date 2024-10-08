@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Controle de Dívidas</title>
-    <link rel="stylesheet" href="style.css"> <!-- Certifique-se de que o caminho está correto -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -12,7 +12,6 @@
     </header>
 
     <main>
-        <!-- Formulário de login -->
         <form id="loginForm">
             <label for="email">E-mail:</label>
             <input type="email" id="email" name="email" required>
@@ -21,10 +20,18 @@
             <button type="submit">Login</button>
         </form>
 
-        <!-- Link para a página de registro -->
         <p>Ainda não tem uma conta? <a href="register.html">Registre-se aqui</a></p>
     </main>
 
-    <!-- Adicionando Eruda para ver logs no celular -->
+    <!-- Adicionando Eruda para logs no celular -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-⬤
+    <script>eruda.init();</script>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+
+    <!-- Script de autenticação -->
+    <script src="login.js"></script>
+</body>
+</html>
