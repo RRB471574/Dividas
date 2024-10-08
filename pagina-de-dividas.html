@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Dívidas</title>
+    <title>Suas Dívidas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Página de Dívidas</h1>
-    <div>
-        <h2>Registrar Dívida</h2>
-        <form id="debtForm">
-            <input type="text" id="description" placeholder="Descrição" required>
-            <input type="number" id="value" placeholder="Valor" required>
-            <button type="submit">Adicionar Dívida</button>
-        </form>
-        <p id="success-message"></p>
-        <p id="error-message"></p>
-    </div>
-    <div id="debtList"></div>
+    <header>
+        <h1>Controle de Dívidas</h1>
+    </header>
 
-    <script type="module" src="pagina-de-dividas.js"></script>
+    <main>
+        <div id="dividasContainer"></div>
+        <button id="logoutBtn">Sair</button>
+    </main>
+
+    <!-- Adicionando Eruda para logs no celular -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+
+    <!-- Script de controle de dívidas -->
+    <script src="pagina-de-dividas.js"></script>
 </body>
 </html>
