@@ -1,4 +1,4 @@
-// Configuração do Firebase
+// Configurações do Firebase (substitua pelos valores da sua API Firebase)
 const firebaseConfig = {
   apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
   authDomain: "dividas1-fed53.firebaseapp.com",
@@ -8,10 +8,11 @@ const firebaseConfig = {
   appId: "1:350859669404:web:9b9ba5f6320ec92923a259"
 };
 
+// Inicializando Firebase
 firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
 
+// Formulário de Login
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -20,7 +21,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     auth.signInWithEmailAndPassword(email, password)
         .then(userCredential => {
-            // Login bem-sucedido
+            // Redireciona para a página de dívidas
             window.location.href = 'pagina-de-dividas.html';
         })
         .catch(error => {
