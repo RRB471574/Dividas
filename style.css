@@ -1,8 +1,6 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    padding: 0;
-    background-color: #f4f4f4;
 }
 
 h1, h2 {
@@ -10,21 +8,21 @@ h1, h2 {
 }
 
 form {
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 input {
     display: block;
     margin: 10px 0;
-    padding: 10px;
+    padding: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
 }
 
 button {
-    padding: 10px;
+    padding: 10px 15px;
     background-color: #28a745;
-    color: white;
+    color: #fff;
     border: none;
     cursor: pointer;
 }
@@ -33,7 +31,7 @@ button:hover {
     background-color: #218838;
 }
 
-#error-message, #success-message {
+#error-message {
     color: red;
     margin-top: 10px;
 }
