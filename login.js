@@ -1,6 +1,6 @@
 // Configurações do Firebase
 const firebaseConfig = {
-  apiKey: "API_KEY_AQUI",
+  apiKey: "AIzaSyC3TUyXwtc9mD5463fEJd82BLGik9hwHrk",
   authDomain: "dividas1-fed53.firebaseapp.com",
   projectId: "dividas1-fed53",
   storageBucket: "dividas1-fed53.appspot.com",
