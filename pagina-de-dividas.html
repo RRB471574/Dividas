@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Minhas Dívidas</h1>
-    <!-- Conteúdo da página de dívidas -->
+    <h2>Bem-vindo à sua lista de dívidas</h2>
 
-    <button id="logout">Sair</button>
+    <div id="dividas">
+        <!-- As dívidas serão listadas aqui -->
+    </div>
 
-    <!-- Firebase App (CDN) -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
+    <!-- Firebase scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js"></script>
+
+    <!-- Script para lidar com as dívidas -->
     <script src="pagina-de-dividas.js"></script>
+
+    <!-- Eruda para logs -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
 </body>
 </html>
