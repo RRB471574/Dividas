@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Compras com Categorias</title>
+    <title>Lista de Compras com Preços</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,8 @@
     <!-- Formulário para adicionar itens à lista -->
     <form id="form-lista">
         <input type="text" id="item" placeholder="Digite o item" required>
-        <input type="number" id="quantidade" placeholder="Quantidade" required>
+        <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
+        <input type="number" id="preco" placeholder="Preço Unitário (R$)" step="0.01" min="0" required>
 
         <!-- Seleção de categoria -->
         <select id="categoria" required>
