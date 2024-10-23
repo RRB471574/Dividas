@@ -67,3 +67,9 @@ button.remover {
 button.remover:hover {
     background-color: #b71c1c;
 }
+/* O mesmo estilo anterior, com alguns ajustes para os preços por loja */
+#precos-lojas input {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
