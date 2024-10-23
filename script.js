@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const item = document.getElementById('item').value;
         const quantidade = document.getElementById('quantidade').value;
+        const categoria = document.getElementById('categoria').value;
 
-        if (item && quantidade) {
+        if (item && quantidade && categoria) {
             // Cria um novo elemento <li> para o item
             const li = document.createElement('li');
-            li.innerHTML = `${item} - Quantidade: ${quantidade} <button class="remover">Remover</button>`;
+            li.innerHTML = `${item} - Quantidade: ${quantidade} <span class="categoria">(${categoria})</span> <button class="remover">Remover</button>`;
 
             // Adiciona o novo item à lista
             listaCompras.appendChild(li);
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Limpa os campos do formulário
             document.getElementById('item').value = '';
             document.getElementById('quantidade').value = '';
+            document.getElementById('categoria').value = '';
 
             // Adiciona a funcionalidade de remover o item
             const botaoRemover = li.querySelector('.remover');
