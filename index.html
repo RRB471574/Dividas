@@ -1,28 +1,21 @@
-// Certifique-se de que o DOM foi completamente carregado
-document.addEventListener('DOMContentLoaded', function() {
-    // Exemplo de como adicionar o event listener a um botão
-    const botao = document.getElementById('seu-botao'); // Substitua 'seu-botao' pelo ID correto do elemento
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Página</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Minha Página de Exemplo</h1>
 
-    if (botao) {
-        botao.addEventListener('click', function() {
-            // Sua lógica aqui
-            console.log('Botão clicado!');
-        });
-    } else {
-        console.error('Elemento com o ID "seu-botao" não foi encontrado.');
-    }
+    <!-- Botão com ID correto -->
+    <button id="seu-botao">Clique em mim</button>
 
-    // Outro exemplo com outro elemento, caso haja mais elementos para adicionar eventos
-    const outroElemento = document.getElementById('outro-elemento'); // Substitua pelo ID correto
+    <!-- Outro botão -->
+    <button id="outro-elemento">Outro botão</button>
 
-    if (outroElemento) {
-        outroElemento.addEventListener('click', function() {
-            // Lógica para o segundo elemento
-            console.log('Outro elemento clicado!');
-        });
-    } else {
-        console.error('Elemento com o ID "outro-elemento" não foi encontrado.');
-    }
-
-    // Adicione mais listeners conforme necessário para outros elementos
-});
+    <!-- Importar o arquivo JS -->
+    <script src="script.js"></script>
+</body>
+</html>
