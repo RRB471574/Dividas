@@ -1,8 +1,21 @@
-// Aguarda até que o DOM seja carregado
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('form-lista');
     const listaCompras = document.getElementById('lista-compras');
     const botaoSalvar = document.getElementById('salvar-lista');
+
+    // Verificação para garantir que os campos existem no DOM
+    const itemInput = document.getElementById('item');
+    const quantidadeInput = document.getElementById('quantidade');
+    const precoLoja1Input = document.getElementById('preco-loja1');
+    const precoLoja2Input = document.getElementById('preco-loja2');
+    const precoLoja3Input = document.getElementById('preco-loja3');
+    const categoriaSelect = document.getElementById('categoria');
+
+    // Certifique-se de que os elementos foram encontrados
+    if (!itemInput || !quantidadeInput || !precoLoja1Input || !categoriaSelect) {
+        console.error('Um ou mais elementos não foram encontrados no DOM. Verifique os IDs no HTML.');
+        return;
+    }
 
     // Função para carregar a lista do localStorage
     function carregarLista() {
@@ -17,13 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault(); // Evita que o formulário recarregue a página
 
-        const item = document.getElementById('item').value;
-        const quantidade = document.getElementById('quantidade').value;
+        const item = itemInput.value;
+        const quantidade = quantidadeInput.value;
 
-        // Captura os preços das lojas
-        const precoLoja1 = document.getElementById('preco-loja1').value;
-        const precoLoja2 = document.getElementById('preco-loja2').value || 'N/A';
-        const precoLoja3 = document.getElementById('preco-loja3').value || 'N/A';
+        // Captura os preços das lojas, garantindo que os elementos existam
+        const precoLoja1 = precoLoja1Input ? precoLoja1Input.value : null;
+        const precoLoja2 = precoLoja2Input ? precoLoja2Input.value || 'N/A' : 'N/A';
+        const precoLoja3 = precoLoja3Input ? precoLoja3Input.value || 'N/A' : 'N/A';
 
         const precoLojas = {
             loja1: precoLoja1,
@@ -31,24 +44,26 @@ document.addEventListener('DOMContentLoaded', function() {
             loja3: precoLoja3
         };
 
-        const categoria = document.getElementById('categoria').value;
+        const categoria = categoriaSelect.value;
 
+        // Verifique se todos os valores necessários estão preenchidos
         if (item && quantidade && precoLojas.loja1 && categoria) {
             adicionarItemNaLista(item, quantidade, precoLojas, categoria);
 
             // Limpa os campos do formulário
-            document.getElementById('item').value = '';
-            document.getElementById('quantidade').value = '';
-            document.getElementById('preco-loja1').value = '';
-            document.getElementById('preco-loja2').value = '';
-            document.getElementById('preco-loja3').value = '';
-            document.getElementById('categoria').value = '';
+            itemInput.value = '';
+            quantidadeInput.value = '';
+            precoLoja1Input.value = '';
+            if (precoLoja2Input) precoLoja2Input.value = '';
+            if (precoLoja3Input) precoLoja3Input.value = '';
+            categoriaSelect.value = '';
+        } else {
+            console.error('Preencha todos os campos obrigatórios.');
         }
     });
 
     // Função auxiliar para adicionar um item na lista visualmente e para salvar
     function adicionarItemNaLista(item, quantidade, precoLojas, categoria) {
-        // Cria um novo elemento <li> para o item
         const li = document.createElement('li');
         li.innerHTML = `${item} - Quantidade: ${quantidade} - 
         Preços: Loja 1: R$${parseFloat(precoLojas.loja1).toFixed(2)}, 
@@ -56,17 +71,14 @@ document.addEventListener('DOMContentLoaded', function() {
         Loja 3: ${precoLojas.loja3 !== 'N/A' ? `R$${parseFloat(precoLojas.loja3).toFixed(2)}` : 'N/A'} 
         <span class="categoria">(${categoria})</span> <button class="remover">Remover</button>`;
 
-        // Adiciona o novo item à lista
         listaCompras.appendChild(li);
 
-        // Adiciona a funcionalidade de remover o item
         const botaoRemover = li.querySelector('.remover');
         botaoRemover.addEventListener('click', function() {
             listaCompras.removeChild(li);
             salvarLista();
         });
 
-        // Atualiza o localStorage
         salvarLista();
     }
 
@@ -93,9 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('listaCompras', JSON.stringify(itens));
     }
 
-    // Carregar a lista do localStorage ao abrir a página
     carregarLista();
-
-    // Botão para salvar manualmente (opcional)
     botaoSalvar.addEventListener('click', salvarLista);
 });
