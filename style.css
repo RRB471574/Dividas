@@ -1,5 +1,37 @@
-/* Estilos CSS para o seu site */
+/* Estilos básicos para a página */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Estilo para o título */
+h1 {
+    color: #333;
+}
+
+/* Estilo para os botões */
+button {
+    background-color: #6200ea;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #3700b3;
+}
+
+button:active {
+    background-color: #03dac5;
 }
