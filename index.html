@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Compras</title>
+    <title>Lista de Compras com Categorias</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,6 +13,18 @@
     <form id="form-lista">
         <input type="text" id="item" placeholder="Digite o item" required>
         <input type="number" id="quantidade" placeholder="Quantidade" required>
+
+        <!-- Seleção de categoria -->
+        <select id="categoria" required>
+            <option value="" disabled selected>Escolha a categoria</option>
+            <option value="Hortifruti">Hortifruti</option>
+            <option value="Carnes">Carnes</option>
+            <option value="Laticínios">Laticínios</option>
+            <option value="Bebidas">Bebidas</option>
+            <option value="Limpeza">Limpeza</option>
+            <option value="Congelados">Congelados</option>
+        </select>
+
         <button type="submit">Adicionar Item</button>
     </form>
 
