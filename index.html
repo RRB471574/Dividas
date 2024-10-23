@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Compras com Salvar</title>
+    <title>Lista de Compras com Preço por Loja</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,7 +13,13 @@
     <form id="form-lista">
         <input type="text" id="item" placeholder="Digite o item" required>
         <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
-        <input type="number" id="preco" placeholder="Preço Unitário (R$)" step="0.01" min="0" required>
+
+        <!-- Adicionar preços para diferentes lojas -->
+        <div id="precos-lojas">
+            <input type="number" id="preco-loja1" placeholder="Preço Loja 1 (R$)" step="0.01" min="0" required>
+            <input type="number" id="preco-loja2" placeholder="Preço Loja 2 (R$)" step="0.01" min="0">
+            <input type="number" id="preco-loja3" placeholder="Preço Loja 3 (R$)" step="0.01" min="0">
+        </div>
 
         <!-- Seleção de categoria -->
         <select id="categoria" required>
