@@ -52,6 +52,11 @@ span.categoria {
     color: #666;
 }
 
+span.total {
+    font-weight: bold;
+    color: #333;
+}
+
 button.remover {
     background-color: #e53935;
     padding: 5px 10px;
