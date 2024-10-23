@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo de Página</title>
+    <title>Lista de Compras</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Minha Página de Exemplo</h1>
+    <h1>Crie sua Lista de Compras</h1>
 
-    <!-- Botão com ID correto -->
-    <button id="seu-botao">Clique em mim</button>
+    <!-- Formulário para adicionar itens à lista -->
+    <form id="form-lista">
+        <input type="text" id="item" placeholder="Digite o item" required>
+        <input type="number" id="quantidade" placeholder="Quantidade" required>
+        <button type="submit">Adicionar Item</button>
+    </form>
 
-    <!-- Outro botão -->
-    <button id="outro-elemento">Outro botão</button>
+    <!-- Exibição da lista de compras -->
+    <h2>Itens da Lista</h2>
+    <ul id="lista-compras">
+        <!-- Itens serão adicionados aqui dinamicamente -->
+    </ul>
 
-    <!-- Importar o arquivo JS -->
+    <!-- Script JS -->
     <script src="script.js"></script>
 </body>
 </html>
