@@ -1,68 +1,16 @@
 /* Estilos gerais */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Tema Claro */
-.tema1 {
-    background-color: #f0f0f0;
+h1, h2 {
     color: #333;
 }
 
-.tema1 h1, .tema1 h2 {
-    color: #333;
-}
-
-.tema1 button {
-    background-color: #6200ea;
-    color: white;
-}
-
-.tema1 button:hover {
-    background-color: #3700b3;
-}
-
-/* Tema Escuro */
-.tema2 {
-    background-color: #333;
-    color: #f0f0f0;
-}
-
-.tema2 h1, .tema2 h2 {
-    color: #f0f0f0;
-}
-
-.tema2 button {
-    background-color: #bb86fc;
-    color: white;
-}
-
-.tema2 button:hover {
-    background-color: #3700b3;
-}
-
-/* Tema Colorido */
-.tema3 {
-    background-color: #ffeb3b;
-    color: #000;
-}
-
-.tema3 h1, .tema3 h2 {
-    color: #000;
-}
-
-.tema3 button {
-    background-color: #f44336;
-    color: white;
-}
-
-.tema3 button:hover {
-    background-color: #d32f2f;
-}
-
-/* Estilos para o formulário e lista */
 form {
     margin-bottom: 20px;
 }
@@ -71,6 +19,20 @@ input[type="text"], input[type="number"], select {
     padding: 10px;
     margin-right: 10px;
     font-size: 16px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #3700b3;
 }
 
 ul {
@@ -88,9 +50,48 @@ li {
     align-items: center;
 }
 
+span.categoria {
+    font-style: italic;
+    color: #666;
+}
+
 button.remover {
     background-color: #e53935;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 14px;
+}
+
+button.remover:hover {
+    background-color: #b71c1c;
+}
+
+img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+}
+
+/* Temas */
+body.tema1 {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+body.tema2 {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+body.tema3 {
+    background-color: #ffe0b2;
+    color: #333;
+}
+
+body.tema3 button {
+    background-color: #ff9800;
+}
+
+body.tema3 button:hover {
+    background-color: #fb8c00;
 }
