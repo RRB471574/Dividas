@@ -3,19 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const listaCompras = document.getElementById('lista-compras');
     const botaoSalvar = document.getElementById('salvar-lista');
 
-    // Verificação para garantir que os campos existem no DOM
+    // Referências dos campos de entrada
     const itemInput = document.getElementById('item');
     const quantidadeInput = document.getElementById('quantidade');
     const precoLoja1Input = document.getElementById('preco-loja1');
     const precoLoja2Input = document.getElementById('preco-loja2');
     const precoLoja3Input = document.getElementById('preco-loja3');
     const categoriaSelect = document.getElementById('categoria');
-
-    // Certifique-se de que os elementos foram encontrados
-    if (!itemInput || !quantidadeInput || !precoLoja1Input || !categoriaSelect) {
-        console.error('Um ou mais elementos não foram encontrados no DOM. Verifique os IDs no HTML.');
-        return;
-    }
 
     // Função para carregar a lista do localStorage
     function carregarLista() {
@@ -28,41 +22,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Função para adicionar um item à lista
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita que o formulário recarregue a página
+        e.preventDefault();
 
         const item = itemInput.value;
         const quantidade = quantidadeInput.value;
-
-        // Captura os preços das lojas, garantindo que os elementos existam
-        const precoLoja1 = precoLoja1Input ? precoLoja1Input.value : null;
-        const precoLoja2 = precoLoja2Input ? precoLoja2Input.value || 'N/A' : 'N/A';
-        const precoLoja3 = precoLoja3Input ? precoLoja3Input.value || 'N/A' : 'N/A';
-
         const precoLojas = {
-            loja1: precoLoja1,
-            loja2: precoLoja2,
-            loja3: precoLoja3
+            loja1: precoLoja1Input.value,
+            loja2: precoLoja2Input.value || 'N/A',
+            loja3: precoLoja3Input.value || 'N/A'
         };
-
         const categoria = categoriaSelect.value;
 
-        // Verifique se todos os valores necessários estão preenchidos
+        // Verificação de campos preenchidos
         if (item && quantidade && precoLojas.loja1 && categoria) {
             adicionarItemNaLista(item, quantidade, precoLojas, categoria);
-
-            // Limpa os campos do formulário
-            itemInput.value = '';
-            quantidadeInput.value = '';
-            precoLoja1Input.value = '';
-            if (precoLoja2Input) precoLoja2Input.value = '';
-            if (precoLoja3Input) precoLoja3Input.value = '';
-            categoriaSelect.value = '';
+            form.reset(); // Reseta o formulário
         } else {
             console.error('Preencha todos os campos obrigatórios.');
         }
     });
 
-    // Função auxiliar para adicionar um item na lista visualmente e para salvar
+    // Função auxiliar para adicionar um item na lista visualmente e salvar
     function adicionarItemNaLista(item, quantidade, precoLojas, categoria) {
         const li = document.createElement('li');
         li.innerHTML = `${item} - Quantidade: ${quantidade} - 
