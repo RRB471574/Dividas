@@ -47,4 +47,45 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-    border-radius:
+    border-radius: 5px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #3700b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+span.categoria {
+    font-style: italic;
+    color: #666;
+}
+
+button.remover {
+    background-color: #e53935;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button.remover:hover {
+    background-color: #b71c1c;
+}
+
+#precos-lojas .form-group {
+    margin-bottom: 10px;
+}
