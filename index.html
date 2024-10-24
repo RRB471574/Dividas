@@ -6,79 +6,51 @@
     <title>Lista de Compras com Preço por Loja</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Crie sua Lista de Compras</h1>
+<body class="tema1">
+    <h1>Crie sua Lista de Compras</h1>
 
-        <!-- Seletor de Tema -->
-        <div>
-            <label for="tema">Escolha o Tema:</label>
-            <select id="tema">
-                <option value="tema1">Tema Claro</option>
-                <option value="tema2">Tema Escuro</option>
-                <option value="tema3">Tema Colorido</option>
-            </select>
+    <!-- Formulário para adicionar itens à lista -->
+    <form id="form-lista">
+        <input type="text" id="item" placeholder="Digite o item" required>
+        <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
+        <input type="file" id="imagem" accept="image/*" required>
+
+        <!-- Adicionar preços para diferentes lojas -->
+        <div id="precos-lojas">
+            <input type="number" id="preco-loja1" placeholder="Preço Loja 1 (R$)" step="0.01" min="0" required>
+            <input type="number" id="preco-loja2" placeholder="Preço Loja 2 (R$)" step="0.01" min="0">
+            <input type="number" id="preco-loja3" placeholder="Preço Loja 3 (R$)" step="0.01" min="0">
         </div>
 
-        <!-- Formulário para adicionar itens à lista -->
-        <form id="form-lista">
-            <div class="form-group">
-                <label for="item">Item:</label>
-                <input type="text" id="item" placeholder="Digite o item" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
-            </div>
+        <!-- Seleção de categoria -->
+        <select id="categoria" required>
+            <option value="" disabled selected>Escolha a categoria</option>
+            <option value="Hortifruti">Hortifruti</option>
+            <option value="Carnes">Carnes</option>
+            <option value="Laticínios">Laticínios</option>
+            <option value="Bebidas">Bebidas</option>
+            <option value="Limpeza">Limpeza</option>
+            <option value="Congelados">Congelados</option>
+        </select>
 
-            <div class="form-group">
-                <label for="imagem">Imagem do Produto:</label>
-                <input type="file" id="imagem" accept="image/*" required>
-            </div>
+        <!-- Seleção de tema -->
+        <select id="tema">
+            <option value="tema1">Tema Claro</option>
+            <option value="tema2">Tema Escuro</option>
+            <option value="tema3">Tema Colorido</option>
+        </select>
 
-            <div id="precos-lojas">
-                <div class="form-group">
-                    <label for="preco-loja1">Preço Loja 1:</label>
-                    <input type="number" id="preco-loja1" placeholder="R$" step="0.01" min="0" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="preco-loja2">Preço Loja 2:</label>
-                    <input type="number" id="preco-loja2" placeholder="R$" step="0.01" min="0">
-                </div>
-                
-                <div class="form-group">
-                    <label for="preco-loja3">Preço Loja 3:</label>
-                    <input type="number" id="preco-loja3" placeholder="R$" step="0.01" min="0">
-                </div>
-            </div>
+        <button type="submit">Adicionar Item</button>
+    </form>
 
-            <div class="form-group">
-                <label for="categoria">Categoria:</label>
-                <select id="categoria" required>
-                    <option value="" disabled selected>Escolha a categoria</option>
-                    <option value="Hortifruti">Hortifruti</option>
-                    <option value="Carnes">Carnes</option>
-                    <option value="Laticínios">Laticínios</option>
-                    <option value="Bebidas">Bebidas</option>
-                    <option value="Limpeza">Limpeza</option>
-                    <option value="Congelados">Congelados</option>
-                </select>
-            </div>
+    <!-- Botão para salvar a lista -->
+    <button id="salvar-lista">Salvar Lista</button>
 
-            <button type="submit">Adicionar Item</button>
-        </form>
-
-        <!-- Botão para salvar a lista -->
-        <button id="salvar-lista">Salvar Lista</button>
-
-        <!-- Exibição da lista de compras -->
-        <h2>Itens da Lista</h2>
-        <ul id="lista-compras">
-            <!-- Itens serão adicionados aqui dinamicamente -->
-        </ul>
-    </div>
+    <!-- Exibição da lista de compras -->
+    <h2>Itens da Lista</h2>
+    <ul id="lista-compras">
+        <!-- Itens serão adicionados aqui dinamicamente -->
+    </ul>
 
     <!-- Script JS -->
     <script src="script.js"></script>
