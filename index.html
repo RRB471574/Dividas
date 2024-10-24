@@ -10,6 +10,16 @@
     <div class="container">
         <h1>Crie sua Lista de Compras</h1>
 
+        <!-- Seletor de Tema -->
+        <div>
+            <label for="tema">Escolha o Tema:</label>
+            <select id="tema">
+                <option value="tema1">Tema Claro</option>
+                <option value="tema2">Tema Escuro</option>
+                <option value="tema3">Tema Colorido</option>
+            </select>
+        </div>
+
         <!-- Formulário para adicionar itens à lista -->
         <form id="form-lista">
             <div class="form-group">
@@ -27,7 +37,6 @@
                 <input type="file" id="imagem" accept="image/*" required>
             </div>
 
-            <!-- Adicionar preços para diferentes lojas -->
             <div id="precos-lojas">
                 <div class="form-group">
                     <label for="preco-loja1">Preço Loja 1:</label>
