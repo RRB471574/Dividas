@@ -1,58 +1,76 @@
+/* Estilos gerais */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
     margin: 0;
     padding: 20px;
 }
 
-.container {
-    max-width: 600px;
-    margin: auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-h1, h2 {
+/* Tema Claro */
+.tema1 {
+    background-color: #f0f0f0;
     color: #333;
-    text-align: center;
 }
 
+.tema1 h1, .tema1 h2 {
+    color: #333;
+}
+
+.tema1 button {
+    background-color: #6200ea;
+    color: white;
+}
+
+.tema1 button:hover {
+    background-color: #3700b3;
+}
+
+/* Tema Escuro */
+.tema2 {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.tema2 h1, .tema2 h2 {
+    color: #f0f0f0;
+}
+
+.tema2 button {
+    background-color: #bb86fc;
+    color: white;
+}
+
+.tema2 button:hover {
+    background-color: #3700b3;
+}
+
+/* Tema Colorido */
+.tema3 {
+    background-color: #ffeb3b;
+    color: #000;
+}
+
+.tema3 h1, .tema3 h2 {
+    color: #000;
+}
+
+.tema3 button {
+    background-color: #f44336;
+    color: white;
+}
+
+.tema3 button:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilos para o formulário e lista */
 form {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
 input[type="text"], input[type="number"], select {
-    width: 100%;
     padding: 10px;
-    margin-top: 5px;
+    margin-right: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #6200ea;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
-}
-
-button:hover {
-    background-color: #3700b3;
 }
 
 ul {
@@ -70,22 +88,9 @@ li {
     align-items: center;
 }
 
-span.categoria {
-    font-style: italic;
-    color: #666;
-}
-
 button.remover {
     background-color: #e53935;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 14px;
-}
-
-button.remover:hover {
-    background-color: #b71c1c;
-}
-
-#precos-lojas .form-group {
-    margin-bottom: 10px;
 }
