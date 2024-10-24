@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('form-lista');
     const listaCompras = document.getElementById('lista-compras');
     const botaoSalvar = document.getElementById('salvar-lista');
+    const temaSelect = document.getElementById('tema');
 
     const itemInput = document.getElementById('item');
     const quantidadeInput = document.getElementById('quantidade');
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const precoLoja3Input = document.getElementById('preco-loja3');
     const categoriaSelect = document.getElementById('categoria');
 
-    // Carregar a lista do localStorage
+    // Função para carregar a lista do localStorage
     function carregarLista() {
         const listaSalva = localStorage.getItem('listaCompras');
         if (listaSalva) {
@@ -20,20 +21,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Adicionar item à lista
+    // Função para mudar o tema
+    function mudarTema(tema) {
+        document.body.className = tema; // Altera a classe do body para o tema selecionado
+    }
+
+    // Evento para selecionar o tema
+    temaSelect.addEventListener('change', function() {
+        mudarTema(temaSelect.value);
+        localStorage.setItem('tema', temaSelect.value); // Salva o tema selecionado no localStorage
+    });
+
+    // Verifica se há tema salvo e aplica
+    const temaSalvo = localStorage.getItem('tema') || 'tema1'; // 'tema1' é o padrão
+    temaSelect.value = temaSalvo;
+    mudarTema(temaSalvo);
+
+    // Função para adicionar um item à lista
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        e.preventDefault(); // Evita o recarregamento da página
 
         const item = itemInput.value;
         const quantidade = quantidadeInput.value;
         const imagem = imagemInput.files[0];
 
-        // Verifique se a imagem foi selecionada
         if (!imagem) {
             console.error('Por favor, selecione uma imagem.');
             return;
         }
 
+        // Carregar a imagem e processar o formulário
         const reader = new FileReader();
         reader.onload = function(event) {
             const precoLoja1 = precoLoja1Input.value;
@@ -64,22 +81,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
+        // Ler o arquivo de imagem como uma URL de dados base64
         reader.readAsDataURL(imagem);
     });
 
-    // Função auxiliar para adicionar um item na lista
+    // Função auxiliar para adicionar um item à lista visualmente e para salvar
     function adicionarItemNaLista(item, quantidade, precoLojas, categoria, imagemSrc) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <img src="${imagemSrc}" alt="${item}" class="imagem-produto">
             <div>
-                ${item} - Quantidade: ${quantidade} - 
-                Preços: Loja 1: R$${parseFloat(precoLojas.loja1).toFixed(2)}, 
+                <strong>${item}</strong> - Quantidade: ${quantidade} 
+                <br> Preços: 
+                Loja 1: R$${parseFloat(precoLojas.loja1).toFixed(2)}, 
                 Loja 2: ${precoLojas.loja2 !== 'N/A' ? `R$${parseFloat(precoLojas.loja2).toFixed(2)}` : 'N/A'}, 
                 Loja 3: ${precoLojas.loja3 !== 'N/A' ? `R$${parseFloat(precoLojas.loja3).toFixed(2)}` : 'N/A'} 
-                <span class="categoria">(${categoria})</span> 
-                <button class="remover">Remover</button>
-            </div>`;
+                <span class="categoria">(${categoria})</span>
+            </div>
+            <img src="${imagemSrc}" alt="Imagem de ${item}" style="max-width: 100px; max-height: 100px;">
+            <button class="remover">Remover</button>
+        `;
 
         listaCompras.appendChild(li);
 
@@ -96,12 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function salvarLista() {
         const itens = [];
         listaCompras.querySelectorAll('li').forEach(li => {
-            const imagemSrc = li.querySelector('.imagem-produto').src;
-            const itemTexto = li.childNodes[1].textContent.split(' - ');
-            const nome = itemTexto[0];
-            const quantidade = parseFloat(itemTexto[1].replace('Quantidade: ', ''));
+            const itemTexto = li.querySelector('strong').textContent;
+            const quantidade = parseFloat(li.querySelector('div').textContent.split(' - ')[1].replace('Quantidade: ', ''));
 
-            const precoTexto = itemTexto[2].replace('Preços: ', '').split(', ');
+            const precoTexto = li.querySelector('div').textContent.split('Preços: ')[1].split(', ');
             const precoLojas = {
                 loja1: parseFloat(precoTexto[0].replace('Loja 1: R$', '')),
                 loja2: precoTexto[1].includes('R$') ? parseFloat(precoTexto[1].replace('Loja 2: R$', '')) : 'N/A',
@@ -109,8 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             const categoria = li.querySelector('.categoria').textContent.replace(/[()]/g, '');
+            const imagem = li.querySelector('img').src;
 
-            itens.push({ nome, quantidade, precoLojas, categoria, imagem: imagemSrc });
+            itens.push({ nome: itemTexto, quantidade, precoLojas, categoria, imagem });
         });
 
         localStorage.setItem('listaCompras', JSON.stringify(itens));
