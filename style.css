@@ -5,18 +5,40 @@ body {
     padding: 20px;
 }
 
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
 h1, h2 {
     color: #333;
+    text-align: center;
 }
 
 form {
     margin-bottom: 20px;
 }
 
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
 input[type="text"], input[type="number"], select {
+    width: 100%;
     padding: 10px;
-    margin-right: 10px;
+    margin-top: 5px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 button {
@@ -25,51 +47,4 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #3700b3;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-span.categoria {
-    font-style: italic;
-    color: #666;
-}
-
-span.total {
-    font-weight: bold;
-    color: #333;
-}
-
-button.remover {
-    background-color: #e53935;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-button.remover:hover {
-    background-color: #b71c1c;
-}
-/* O mesmo estilo anterior, com alguns ajustes para os preços por loja */
-#precos-lojas input {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-}
+    border-radius:
