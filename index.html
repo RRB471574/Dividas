@@ -22,6 +22,11 @@
                 <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
             </div>
 
+            <div class="form-group">
+                <label for="imagem">Imagem do Produto:</label>
+                <input type="file" id="imagem" accept="image/*" required>
+            </div>
+
             <!-- Adicionar preços para diferentes lojas -->
             <div id="precos-lojas">
                 <div class="form-group">
@@ -60,4 +65,13 @@
         <button id="salvar-lista">Salvar Lista</button>
 
         <!-- Exibição da lista de compras -->
-        <h2>Itens
+        <h2>Itens da Lista</h2>
+        <ul id="lista-compras">
+            <!-- Itens serão adicionados aqui dinamicamente -->
+        </ul>
+    </div>
+
+    <!-- Script JS -->
+    <script src="script.js"></script>
+</body>
+</html>
