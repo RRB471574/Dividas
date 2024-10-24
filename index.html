@@ -11,17 +11,26 @@
 
     <!-- Formulário para adicionar itens à lista -->
     <form id="form-lista">
+        <label for="item">Item:</label>
         <input type="text" id="item" placeholder="Digite o item" required>
+        
+        <label for="quantidade">Quantidade:</label>
         <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
 
         <!-- Adicionar preços para diferentes lojas -->
         <div id="precos-lojas">
-            <input type="number" id="preco-loja1" placeholder="Preço Loja 1 (R$)" step="0.01" min="0" required>
-            <input type="number" id="preco-loja2" placeholder="Preço Loja 2 (R$)" step="0.01" min="0">
-            <input type="number" id="preco-loja3" placeholder="Preço Loja 3 (R$)" step="0.01" min="0">
+            <label for="preco-loja1">Preço Loja 1:</label>
+            <input type="number" id="preco-loja1" placeholder="R$" step="0.01" min="0" required>
+            
+            <label for="preco-loja2">Preço Loja 2:</label>
+            <input type="number" id="preco-loja2" placeholder="R$" step="0.01" min="0">
+            
+            <label for="preco-loja3">Preço Loja 3:</label>
+            <input type="number" id="preco-loja3" placeholder="R$" step="0.01" min="0">
         </div>
 
         <!-- Seleção de categoria -->
+        <label for="categoria">Categoria:</label>
         <select id="categoria" required>
             <option value="" disabled selected>Escolha a categoria</option>
             <option value="Hortifruti">Hortifruti</option>
