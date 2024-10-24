@@ -7,53 +7,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Crie sua Lista de Compras</h1>
+    <div class="container">
+        <h1>Crie sua Lista de Compras</h1>
 
-    <!-- Formulário para adicionar itens à lista -->
-    <form id="form-lista">
-        <label for="item">Item:</label>
-        <input type="text" id="item" placeholder="Digite o item" required>
-        
-        <label for="quantidade">Quantidade:</label>
-        <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
-
-        <!-- Adicionar preços para diferentes lojas -->
-        <div id="precos-lojas">
-            <label for="preco-loja1">Preço Loja 1:</label>
-            <input type="number" id="preco-loja1" placeholder="R$" step="0.01" min="0" required>
+        <!-- Formulário para adicionar itens à lista -->
+        <form id="form-lista">
+            <div class="form-group">
+                <label for="item">Item:</label>
+                <input type="text" id="item" placeholder="Digite o item" required>
+            </div>
             
-            <label for="preco-loja2">Preço Loja 2:</label>
-            <input type="number" id="preco-loja2" placeholder="R$" step="0.01" min="0">
-            
-            <label for="preco-loja3">Preço Loja 3:</label>
-            <input type="number" id="preco-loja3" placeholder="R$" step="0.01" min="0">
-        </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
+            </div>
 
-        <!-- Seleção de categoria -->
-        <label for="categoria">Categoria:</label>
-        <select id="categoria" required>
-            <option value="" disabled selected>Escolha a categoria</option>
-            <option value="Hortifruti">Hortifruti</option>
-            <option value="Carnes">Carnes</option>
-            <option value="Laticínios">Laticínios</option>
-            <option value="Bebidas">Bebidas</option>
-            <option value="Limpeza">Limpeza</option>
-            <option value="Congelados">Congelados</option>
-        </select>
+            <!-- Adicionar preços para diferentes lojas -->
+            <div id="precos-lojas">
+                <div class="form-group">
+                    <label for="preco-loja1">Preço Loja 1:</label>
+                    <input type="number" id="preco-loja1" placeholder="R$" step="0.01" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="preco-loja2">Preço Loja 2:</label>
+                    <input type="number" id="preco-loja2" placeholder="R$" step="0.01" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="preco-loja3">Preço Loja 3:</label>
+                    <input type="number" id="preco-loja3" placeholder="R$" step="0.01" min="0">
+                </div>
+            </div>
 
-        <button type="submit">Adicionar Item</button>
-    </form>
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" required>
+                    <option value="" disabled selected>Escolha a categoria</option>
+                    <option value="Hortifruti">Hortifruti</option>
+                    <option value="Carnes">Carnes</option>
+                    <option value="Laticínios">Laticínios</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Limpeza">Limpeza</option>
+                    <option value="Congelados">Congelados</option>
+                </select>
+            </div>
 
-    <!-- Botão para salvar a lista -->
-    <button id="salvar-lista">Salvar Lista</button>
+            <button type="submit">Adicionar Item</button>
+        </form>
 
-    <!-- Exibição da lista de compras -->
-    <h2>Itens da Lista</h2>
-    <ul id="lista-compras">
-        <!-- Itens serão adicionados aqui dinamicamente -->
-    </ul>
+        <!-- Botão para salvar a lista -->
+        <button id="salvar-lista">Salvar Lista</button>
 
-    <!-- Script JS -->
-    <script src="script.js"></script>
-</body>
-</html>
+        <!-- Exibição da lista de compras -->
+        <h2>Itens
