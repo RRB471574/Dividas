@@ -12,46 +12,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const precoLoja3Input = document.getElementById('preco-loja3');
     const categoriaSelect = document.getElementById('categoria');
 
-    // Carrega a lista do localStorage
+    // Função para carregar a lista do localStorage
     function carregarLista() {
         const listaSalva = localStorage.getItem('listaCompras');
         if (listaSalva) {
             const itens = JSON.parse(listaSalva);
-            itens.forEach(item => adicionarItemNaLista(item.nome, item.quantidade, item.precoLojas, item.categoria, item.imagem));
+            itens.forEach(item => adicionarItemNaLista(item.nome, item.quantidade, item.precoLojas, item.categoria, item.imagem, item.dataHora));
         }
     }
 
-    // Função para alterar o tema
-    function mudarTema(tema) {
-        document.body.className = tema; // Altera a classe do body para o tema selecionado
-    }
-
-    // Evento para mudar o tema e salvar no localStorage
-    temaSelect.addEventListener('change', function() {
-        mudarTema(temaSelect.value);
-        localStorage.setItem('tema', temaSelect.value); // Salva o tema selecionado no localStorage
-    });
-
-    // Aplica o tema salvo, se existir, ou usa o padrão
-    const temaSalvo = localStorage.getItem('tema') || 'tema1';
-    temaSelect.value = temaSalvo;
-    mudarTema(temaSalvo);
-
-    // Adiciona item à lista ao submeter o formulário
+    // Função para adicionar um item à lista
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita o recarregamento da página
+        e.preventDefault();
 
         const item = itemInput.value;
         const quantidade = quantidadeInput.value;
         const imagem = imagemInput.files[0];
 
-        // Verifica se a imagem foi selecionada
         if (!imagem) {
             console.error('Por favor, selecione uma imagem.');
             return;
         }
 
-        // Lê o arquivo de imagem como uma URL de dados base64
+        // Carregar a imagem e processar o formulário
         const reader = new FileReader();
         reader.onload = function(event) {
             const precoLoja1 = precoLoja1Input.value;
@@ -66,8 +49,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const categoria = categoriaSelect.value;
 
+            // Adicionar data e hora atuais
+            const dataHora = new Date().toLocaleString();
+
             if (item && quantidade && precoLojas.loja1 && categoria) {
-                adicionarItemNaLista(item, quantidade, precoLojas, categoria, event.target.result);
+                adicionarItemNaLista(item, quantidade, precoLojas, categoria, event.target.result, dataHora);
 
                 // Limpa os campos do formulário
                 itemInput.value = '';
@@ -82,11 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
+        // Ler o arquivo de imagem como uma URL de dados base64
         reader.readAsDataURL(imagem);
     });
 
-    // Função auxiliar para adicionar item visualmente e salvar
-    function adicionarItemNaLista(item, quantidade, precoLojas, categoria, imagemSrc) {
+    // Função auxiliar para adicionar um item à lista visualmente e para salvar
+    function adicionarItemNaLista(item, quantidade, precoLojas, categoria, imagemSrc, dataHora) {
         const li = document.createElement('li');
         li.innerHTML = `
             <div>
@@ -94,8 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <br> Preços: 
                 Loja 1: R$${parseFloat(precoLojas.loja1).toFixed(2)}, 
                 Loja 2: ${precoLojas.loja2 !== 'N/A' ? `R$${parseFloat(precoLojas.loja2).toFixed(2)}` : 'N/A'}, 
-                Loja 3: ${precoLojas.loja3 !== 'N/A' ? `R$${parseFloat(precoLojas.loja3).toFixed(2)}` : 'N/A'} 
+                Loja 3: ${precoLojas.loja3 !== 'N/A' ? `R$${parseFloat(precoLojas.loja3).toFixed(2)}` : 'N/A'}
                 <span class="categoria">(${categoria})</span>
+                <br><small>Adicionado em: ${dataHora}</small>
             </div>
             <img src="${imagemSrc}" alt="Imagem de ${item}" style="max-width: 100px; max-height: 100px;">
             <button class="remover">Remover</button>
@@ -103,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         listaCompras.appendChild(li);
 
-        // Adiciona função de remoção ao botão
         const botaoRemover = li.querySelector('.remover');
         botaoRemover.addEventListener('click', function() {
             listaCompras.removeChild(li);
@@ -119,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         listaCompras.querySelectorAll('li').forEach(li => {
             const itemTexto = li.querySelector('strong').textContent;
             const quantidade = parseFloat(li.querySelector('div').textContent.split(' - ')[1].replace('Quantidade: ', ''));
-
+            
             const precoTexto = li.querySelector('div').textContent.split('Preços: ')[1].split(', ');
             const precoLojas = {
                 loja1: parseFloat(precoTexto[0].replace('Loja 1: R$', '')),
@@ -129,8 +116,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const categoria = li.querySelector('.categoria').textContent.replace(/[()]/g, '');
             const imagem = li.querySelector('img').src;
+            const dataHora = li.querySelector('small').textContent.replace('Adicionado em: ', '');
 
-            itens.push({ nome: itemTexto, quantidade, precoLojas, categoria, imagem });
+            itens.push({ nome: itemTexto, quantidade, precoLojas, categoria, imagem, dataHora });
         });
 
         localStorage.setItem('listaCompras', JSON.stringify(itens));
