@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const precoLoja3Input = document.getElementById('preco-loja3');
     const categoriaSelect = document.getElementById('categoria');
 
-    // Função para carregar a lista do localStorage
+    // Carrega a lista do localStorage
     function carregarLista() {
         const listaSalva = localStorage.getItem('listaCompras');
         if (listaSalva) {
@@ -21,23 +21,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Função para mudar o tema
+    // Função para alterar o tema
     function mudarTema(tema) {
         document.body.className = tema; // Altera a classe do body para o tema selecionado
     }
 
-    // Evento para selecionar o tema
+    // Evento para mudar o tema e salvar no localStorage
     temaSelect.addEventListener('change', function() {
         mudarTema(temaSelect.value);
         localStorage.setItem('tema', temaSelect.value); // Salva o tema selecionado no localStorage
     });
 
-    // Verifica se há tema salvo e aplica
-    const temaSalvo = localStorage.getItem('tema') || 'tema1'; // 'tema1' é o padrão
+    // Aplica o tema salvo, se existir, ou usa o padrão
+    const temaSalvo = localStorage.getItem('tema') || 'tema1';
     temaSelect.value = temaSalvo;
     mudarTema(temaSalvo);
 
-    // Função para adicionar um item à lista
+    // Adiciona item à lista ao submeter o formulário
     form.addEventListener('submit', function(e) {
         e.preventDefault(); // Evita o recarregamento da página
 
@@ -45,12 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const quantidade = quantidadeInput.value;
         const imagem = imagemInput.files[0];
 
+        // Verifica se a imagem foi selecionada
         if (!imagem) {
             console.error('Por favor, selecione uma imagem.');
             return;
         }
 
-        // Carregar a imagem e processar o formulário
+        // Lê o arquivo de imagem como uma URL de dados base64
         const reader = new FileReader();
         reader.onload = function(event) {
             const precoLoja1 = precoLoja1Input.value;
@@ -81,11 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        // Ler o arquivo de imagem como uma URL de dados base64
         reader.readAsDataURL(imagem);
     });
 
-    // Função auxiliar para adicionar um item à lista visualmente e para salvar
+    // Função auxiliar para adicionar item visualmente e salvar
     function adicionarItemNaLista(item, quantidade, precoLojas, categoria, imagemSrc) {
         const li = document.createElement('li');
         li.innerHTML = `
@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         listaCompras.appendChild(li);
 
+        // Adiciona função de remoção ao botão
         const botaoRemover = li.querySelector('.remover');
         botaoRemover.addEventListener('click', function() {
             listaCompras.removeChild(li);
