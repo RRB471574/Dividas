@@ -22,6 +22,11 @@ input[type="text"], input[type="number"], select {
     margin-bottom: 10px;
 }
 
+/* Feedback visual para campos obrigatórios */
+input:invalid {
+    border: 2px solid #e53935;
+}
+
 button {
     padding: 10px 20px;
     background-color: #6200ea;
@@ -94,4 +99,29 @@ body.tema3 button {
 
 body.tema3 button:hover {
     background-color: #fb8c00;
+}
+
+/* Ajustes no tema escuro */
+body.tema2 input[type="text"], 
+body.tema2 input[type="number"], 
+body.tema2 select {
+    background-color: #555;
+    color: #f0f0f0;
+    border: 1px solid #777;
+}
+
+body.tema2 input::placeholder {
+    color: #bbb;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 600px) {
+    li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    button.remover {
+        margin-top: 10px;
+    }
 }
