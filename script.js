@@ -10,7 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const precoLoja2Input = document.getElementById('preco-loja2');
     const precoLoja3Input = document.getElementById('preco-loja3');
     const categoriaSelect = document.getElementById('categoria');
-    const progressBar = document.getElementById('barra-progresso');
+    const progressBar = document.createElement('progress');
+
+    progressBar.id = 'barra-progresso';
+    progressBar.value = 0;
+    progressBar.max = 100;
+    document.body.insertBefore(progressBar, listaCompras);
 
     // Carregar a lista ao iniciar
     carregarLista();
@@ -125,8 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const dataHora = li.querySelector('.dataHora').textContent;
             const precoLojas = {
                 loja1: li.querySelector('p').innerHTML.match(/Loja 1: R\$(\d+\.\d+)/)[1],
-                loja2: li.querySelector('p').innerHTML.match(/Loja 2: (.*?)(,|$)/)[1],
-                loja3: li.querySelector('p').innerHTML.match(/Loja 3: (.*?)(,|$)/)[1]
+                loja2: li.querySelector('p').innerHTML.match(/Loja 2: (.*?)(,|$)/)[1] || 'N/A',
+                loja3: li.querySelector('p').innerHTML.match(/Loja 3: (.*?)(,|$)/)[1] || 'N/A'
             };
             const imagemSrc = li.querySelector('.item-imagem').src;
             const comprado = li.querySelector('.comprado-checkbox').checked;
