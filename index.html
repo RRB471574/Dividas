@@ -3,60 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Compras com Preço por Loja</title>
+    <title>Lista de Compras com Imagens</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="tema1">
-    <h1>Crie sua Lista de Compras</h1>
+<body>
+    <h1>Minha Lista de Compras</h1>
 
-    <!-- Formulário para adicionar itens à lista -->
-    <form id="form-lista">
-        <input type="text" id="item" placeholder="Digite o item" required>
-        <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
-        <input type="file" id="imagem" accept="image/*" required>
-
-        <!-- Adicionar preços para diferentes lojas -->
-        <div id="precos-lojas">
-            <input type="number" id="preco-loja1" placeholder="Preço Loja 1 (R$)" step="0.01" min="0" required>
-            <input type="number" id="preco-loja2" placeholder="Preço Loja 2 (R$)" step="0.01" min="0">
-            <input type="number" id="preco-loja3" placeholder="Preço Loja 3 (R$)" step="0.01" min="0">
-        </div>
-
-        <!-- Seleção de categoria -->
-        <select id="categoria" required>
-            <option value="" disabled selected>Escolha a categoria</option>
-            <option value="Hortifruti">Hortifruti</option>
-            <option value="Carnes">Carnes</option>
-            <option value="Laticínios">Laticínios</option>
-            <option value="Bebidas">Bebidas</option>
-            <option value="Limpeza">Limpeza</option>
-            <option value="Congelados">Congelados</option>
-        </select>
-
-        <!-- Seleção de tema -->
-        <select id="tema">
-            <option value="tema1">Tema Claro</option>
-            <option value="tema2">Tema Escuro</option>
-            <option value="tema3">Tema Colorido</option>
-        </select>
-
-        <button type="submit">Adicionar Item</button>
+    <form id="form-item">
+        <input type="text" id="item" placeholder="Digite o item">
+        <input type="number" id="quantidade" placeholder="Quantidade">
+        <input type="file" id="imagem" accept="image/*">
+        <button type="submit">Adicionar</button>
     </form>
 
-    <!-- Barra de progresso -->
-    <progress id="barra-progresso" value="0" max="100"></progress>
+    <ul id="lista-compras"></ul>
 
-    <!-- Botão para salvar a lista em PDF -->
-    <button id="salvar-lista">Salvar Lista em PDF</button>
-
-    <!-- Exibição da lista de compras -->
-    <h2>Itens da Lista</h2>
-    <ul id="lista-compras">
-        <!-- Itens serão adicionados aqui dinamicamente -->
-    </ul>
-
-    <!-- Script JS -->
     <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </body>
 </html>
