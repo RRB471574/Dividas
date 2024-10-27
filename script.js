@@ -130,4 +130,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const dataHora = li.querySelector('.dataHora').textContent;
             itens.push({ itemNome, quantidade, categoria, dataHora });
         });
-        localStorage.setItem('listaCompras
+        localStorage.setItem('listaCompras', JSON.stringify(itens));
+    }
+
+    function carregarLista() {
+        const itensSalvos = JSON.parse(localStorage.getItem('listaCompras')) || [];
+        itensSalvos.forEach(({ itemNome, quantidade, categoria, dataHora }) => {
+            const precoLojas = {
+                loja1: '0.00',
+                loja2: 'N/A',
+                loja3: 'N/A'
+            };
+            adicionarItemNaLista(itemNome, quantidade, precoLojas, categoria, '', dataHora);
+        });
+    }
+
+    function mudarTema(tema) {
+        document.body.className = tema;
+    }
+});
