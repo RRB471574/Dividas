@@ -10,12 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const precoLoja2Input = document.getElementById('preco-loja2');
     const precoLoja3Input = document.getElementById('preco-loja3');
     const categoriaSelect = document.getElementById('categoria');
-    const progressBar = document.createElement('progress');
-
-    progressBar.id = 'barra-progresso';
-    progressBar.value = 0;
-    progressBar.max = 100;
-    document.body.insertBefore(progressBar, listaCompras);
+    const progressBar = document.getElementById('barra-progresso');
 
     // Carregar a lista ao iniciar
     carregarLista();
@@ -80,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             doc.text(`${index + 1}. ${itemTexto} - ${quantidade} - ${categoria} - ${dataHora}`, 10, 20 + (index * 10));
         });
-        
+
         doc.save('lista_de_compras.pdf');
     });
 
@@ -125,24 +120,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const itens = [];
         listaCompras.querySelectorAll('li').forEach(li => {
             const itemNome = li.querySelector('strong').textContent;
-            const quantidade = li.querySelector('.quantidade').textContent.replace(/[^0-9]/g, '');
+            const quantidade = li.querySelector('.quantidade').textContent.match(/\d+/)[0];
             const categoria = li.querySelector('.categoria').textContent.replace(/[()]/g, '');
             const dataHora = li.querySelector('.dataHora').textContent;
-            itens.push({ itemNome, quantidade, categoria, dataHora });
+            const precoLojas = {
+                loja1: li.querySelector('p').innerHTML.match(/Loja 1: R\$(\d+\.\d+)/)[1],
+                loja2: li.querySelector('p').innerHTML.match(/Loja 2: (.*?)(,|$)/)[1],
+                loja3: li.querySelector('p').innerHTML.match(/Loja 3: (.*?)(,|$)/)[1]
+            };
+            const imagemSrc = li.querySelector('.item-imagem').src;
+            const comprado = li.querySelector('.comprado-checkbox').checked;
+
+            itens.push({ itemNome, quantidade, categoria, dataHora, precoLojas, imagemSrc, comprado });
         });
+
         localStorage.setItem('listaCompras', JSON.stringify(itens));
     }
 
     function carregarLista() {
         const itensSalvos = JSON.parse(localStorage.getItem('listaCompras')) || [];
-        itensSalvos.forEach(({ itemNome, quantidade, categoria, dataHora }) => {
-            const precoLojas = {
-                loja1: '0.00',
-                loja2: 'N/A',
-                loja3: 'N/A'
-            };
-            adicionarItemNaLista(itemNome, quantidade, precoLojas, categoria, '', dataHora);
+        itensSalvos.forEach(({ itemNome, quantidade, precoLojas, categoria, dataHora, imagemSrc, comprado }) => {
+            adicionarItemNaLista(itemNome, quantidade, precoLojas, categoria, imagemSrc, dataHora);
+            if (comprado) {
+                listaCompras.lastChild.querySelector('.comprado-checkbox').checked = true;
+            }
         });
+        atualizarBarraProgresso();
     }
 
     function mudarTema(tema) {
