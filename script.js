@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('form-lista');
     const listaCompras = document.getElementById('lista-compras');
     const botaoSalvar = document.getElementById('salvar-lista');
@@ -10,12 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const precoLoja2Input = document.getElementById('preco-loja2');
     const precoLoja3Input = document.getElementById('preco-loja3');
     const categoriaSelect = document.getElementById('categoria');
-    const progressBar = document.createElement('progress');
-
-    progressBar.id = 'barra-progresso';
-    progressBar.value = 0;
-    progressBar.max = 100;
-    document.body.insertBefore(progressBar, listaCompras);
 
     // Carregar a lista ao iniciar
     carregarLista();
@@ -25,12 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
     temaSelect.value = temaSalvo;
     mudarTema(temaSalvo);
 
-    temaSelect.addEventListener('change', function() {
+    temaSelect.addEventListener('change', function () {
         mudarTema(temaSelect.value);
         localStorage.setItem('tema', temaSelect.value);
     });
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function (e) {
         e.preventDefault();
 
         const item = itemInput.value;
@@ -47,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const reader = new FileReader();
-        reader.onload = function(event) {
+        reader.onload = function (event) {
             const precoLojas = {
                 loja1: parseFloat(precoLoja1).toFixed(2),
                 loja2: precoLoja2 !== 'N/A' ? parseFloat(precoLoja2).toFixed(2) : 'N/A',
@@ -56,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const dataHora = new Date().toLocaleString();
             adicionarItemNaLista(item, quantidade, precoLojas, categoria, event.target.result, dataHora);
 
+            // Limpar os campos do formulário
             itemInput.value = '';
             quantidadeInput.value = '';
             imagemInput.value = '';
@@ -67,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         reader.readAsDataURL(imagem);
     });
 
-    botaoSalvar.addEventListener('click', function() {
+    botaoSalvar.addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         doc.text("Lista de Compras", 10, 10);
@@ -80,48 +75,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
             doc.text(`${index + 1}. ${itemTexto} - ${quantidade} - ${categoria} - ${dataHora}`, 10, 20 + (index * 10));
         });
-        
+
         doc.save('lista_de_compras.pdf');
     });
 
     function adicionarItemNaLista(item, quantidade, precoLojas, categoria, imagemSrc, dataHora) {
         const li = document.createElement('li');
-        li.className = 'fade-in'; // Classe de animação de entrada
+        li.classList.add('fade-in');
+
         li.innerHTML = `
-            <input type="checkbox" class="comprado-checkbox">
-            <img src="${imagemSrc}" alt="Imagem de ${item}" class="item-imagem">
+            <img src="${imagemSrc}" alt="${item}" class="item-imagem">
+            <strong>${item}</strong>
+            <span class="quantidade">${quantidade}</span>
+            <span class="categoria">${categoria}</span>
+            <span class="dataHora">${dataHora}</span>
             <div>
-                <strong>${item}</strong> <span class="quantidade">(Quantidade: ${quantidade})</span>
-                <p>Preços: 
-                Loja 1: R$${precoLojas.loja1}, 
-                Loja 2: ${precoLojas.loja2 !== 'N/A' ? `R$${precoLojas.loja2}` : 'N/A'}, 
-                Loja 3: ${precoLojas.loja3 !== 'N/A' ? `R$${precoLojas.loja3}` : 'N/A'}
-                </p>
-                <span class="categoria">(${categoria})</span>
-                <small class="dataHora">${dataHora}</small>
+                <span>Preço Loja 1: R$ ${precoLojas.loja1}</span>
+                <span>Preço Loja 2: R$ ${precoLojas.loja2}</span>
+                <span>Preço Loja 3: R$ ${precoLojas.loja3}</span>
             </div>
-            <button class="remover">Remover</button>
         `;
+
         listaCompras.appendChild(li);
-
-        li.querySelector('.comprado-checkbox').addEventListener('change', atualizarBarraProgresso);
-        li.querySelector('.remover').addEventListener('click', function() {
-            listaCompras.removeChild(li);
-            salvarLista();
-            atualizarBarraProgresso();
-        });
-
+        li.classList.add('fade-in');
         salvarLista();
-        atualizarBarraProgresso();
-    }
-
-    function atualizarBarraProgresso() {
-        const totalItens = listaCompras.querySelectorAll('li').length;
-        const itensComprados = listaCompras.querySelectorAll('.comprado-checkbox:checked').length;
-        progressBar.value = totalItens ? (itensComprados / totalItens) * 100 : 0;
     }
 
     function salvarLista() {
-        const itens = [];
-        listaCompras.querySelectorAll('li').forEach(li => {
-            const itemNome = li.querySelector
+        const itens = Array.from(listaCompras.querySelectorAll('li')).map(li => {
+            return {
+                item: li.querySelector('strong').textContent,
+                quantidade: li.querySelector('.quantidade').textContent,
+                categoria: li.querySelector('.categoria').textContent,
+                dataHora: li.querySelector('.dataHora').textContent,
+                imagem: li.querySelector('img').src,
+                precos: {
+                    loja1: li.querySelector('span:nth-of-type(1)').textContent,
+                    loja2: li.querySelector('span:nth-of-type(2)').textContent,
+                    loja3: li.querySelector('span:nth-of-type(3)').textContent,
+                }
+            };
+        });
+
+        localStorage.setItem('listaCompras', JSON.stringify(itens));
+    }
+
+    function carregarLista() {
+        const listaSalva = localStorage.getItem('listaCompras');
+        if (listaSalva) {
+            const itens = JSON.parse(listaSalva);
+            itens.forEach(item => {
+                adicionarItemNaLista(item.item, item.quantidade, item.precos, item.categoria, item.imagem, item.dataHora);
+            });
+        }
+    }
+
+    function mudarTema(tema) {
+        document.body.className = tema;
+    }
+});
