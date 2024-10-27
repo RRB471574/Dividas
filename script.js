@@ -17,6 +17,15 @@ function adicionarItem(item, quantidade, imagem) {
     const novoItem = document.createElement('li');
     novoItem.textContent = `${item} (${quantidade})`;
 
+    // Adicionar botão de remover
+    const botaoRemover = document.createElement('button');
+    botaoRemover.textContent = 'Remover';
+    botaoRemover.addEventListener('click', () => {
+        novoItem.remove();
+        salvarLista(); // Salvar a lista após a remoção
+    });
+    novoItem.appendChild(botaoRemover);
+
     if (imagem) {
         const img = document.createElement('img');
         img.src = imagem;
@@ -29,24 +38,11 @@ function adicionarItem(item, quantidade, imagem) {
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const item = document.getElementById('item').value;
-    const quantidade = document.getElementById('quantidade').value;
-    const imagem = document.getElementById('imagem').files[0];
-    const imageUrl = imagem ? URL.createObjectURL(imagem) : null;
+    // ... (resto do código para adicionar um novo item)
 
-    adicionarItem(item, quantidade, imageUrl);
-
-    // Salvar a lista atualizada no localStorage
-    const lista = [];
-    Array.from(listaCompras.children).forEach(li => {
-        const img = li.querySelector('img');
-        lista.push({
-            item: li.textContent.replace(/ \(\d+\)$/, ''),
-            quantidade: li.textContent.match(/\(\d+\)/)[1].slice(1, -1),
-            imagem: img ? img.src : null
-        });
-    });
-    localStorage.setItem('listaCompras', JSON.stringify(lista));
-
-    form.reset();
+    salvarLista();
 });
+
+function salvarLista() {
+    // ... (código para salvar a lista no localStorage)
+}
