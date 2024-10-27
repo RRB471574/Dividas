@@ -1,115 +1,31 @@
 /* Estilos gerais */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 20px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2 {
-    color: #333;
-    text-align: center;
-}
+.tema1 { background-color: #ffffff; color: #333; }
+.tema2 { background-color: #333333; color: #f0f0f0; }
+.tema3 { background-color: #e0f7fa; color: #00695c; }
 
-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-    padding: 10px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+h1, h2 { color: inherit; }
 
-input[type="text"], input[type="number"], select {
+#form-lista input, #form-lista select, button {
     padding: 10px;
     font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+    margin: 5px;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #6200ea;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
+button { border: none; border-radius: 5px; cursor: pointer; }
 
-button:hover {
-    background-color: #3700b3;
-}
+button:hover { background-color: #3700b3; }
 
-/* Lista de Compras */
-ul#lista-compras {
-    list-style-type: none;
-    padding: 0;
-    max-width: 600px;
-    margin: 0 auto;
-}
+ul { list-style: none; padding: 0; }
 
-li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeInUp 0.5s forwards;
-}
+li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; background: #fafafa; border-radius: 5px; }
 
-li img {
-    max-width: 60px;
-    max-height: 60px;
-    border-radius: 5px;
-    margin-right: 10px;
-}
+.fade-in { animation: fadeIn 0.5s ease-in; }
 
-span.categoria {
-    font-style: italic;
-    color: #666;
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-button.remover {
-    background-color: #e53935;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: background-color 0.3s;
-}
-
-button.remover:hover {
-    background-color: #b71c1c;
-}
-
-/* Animações */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeOutDown {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-}
+.item-imagem { width: 100px; height: 100px
