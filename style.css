@@ -1,31 +1,73 @@
-/* Estilos gerais */
-body {
+body.tema1 {
+    background-color: #f0f0f0;
+    color: #333;
+}
+body.tema2 {
+    background-color: #333;
+    color: #f0f0f0;
+}
+body.tema3 {
+    background-color: #fffcf5;
+    color: #444;
+}
+h1 {
+    text-align: center;
     font-family: Arial, sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-.tema1 { background-color: #ffffff; color: #333; }
-.tema2 { background-color: #333333; color: #f0f0f0; }
-.tema3 { background-color: #e0f7fa; color: #00695c; }
-
-h1, h2 { color: inherit; }
-
-#form-lista input, #form-lista select, button {
+#form-lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#precos-lojas, #categoria, #tema {
+    margin: 10px 0;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
     padding: 10px;
-    font-size: 16px;
-    margin: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
-
-button { border: none; border-radius: 5px; cursor: pointer; }
-
-button:hover { background-color: #3700b3; }
-
-ul { list-style: none; padding: 0; }
-
-li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; background: #fafafa; border-radius: 5px; }
-
-.fade-in { animation: fadeIn 0.5s ease-in; }
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.item-imagem { width: 100px; height: 100px
+button:hover {
+    background-color: #45a049;
+}
+#lista-compras {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 600px;
+}
+#lista-compras li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#lista-compras li.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.item-imagem {
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 15px;
+}
+#barra-progresso {
+    display: block;
+    width: 100%;
+    height: 20px;
+    margin: 20px 0;
+}
