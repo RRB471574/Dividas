@@ -18,7 +18,6 @@ form {
     width: 90%;
     max-width: 500px;
     margin: 20px 0;
-    position: relative; /* Para o posicionamento da sugestão */
 }
 
 input[type="text"],
@@ -42,6 +41,24 @@ button:hover {
     background-color: #218838;
 }
 
+#sugestoes {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 90%;
+    max-width: 500px;
+    z-index: 1;
+}
+
+.sugestao-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sugestao-item:hover {
+    background-color: #e9ecef;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
@@ -49,9 +66,10 @@ ul {
     max-width: 500px;
 }
 
-li {
+.item-lista {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* Muda para coluna para o layout em cartões */
+    align-items: flex-start;
     justify-content: space-between;
     padding: 10px;
     border: 1px solid #ddd;
@@ -64,6 +82,7 @@ img {
     max-width: 50px;
     max-height: 50px;
     border-radius: 4px;
+    margin-bottom: 5px;
 }
 
 .quantidade-item,
@@ -71,29 +90,18 @@ img {
     margin-right: 10px;
 }
 
+/* Estilo para itens comprados */
 .comprado-item {
     text-decoration: line-through;
     background-color: #d9ffd9;
 }
 
-/* Sugestões de itens */
-.sugestoes {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    background-color: white;
-    z-index: 10;
-}
-
-.sugestao-item {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.sugestao-item:hover {
-    background-color: #f0f0f0;
+/* Estilo para o textarea de compartilhamento */
+textarea {
+    width: 90%;
+    max-width: 500px;
+    height: 100px;
+    margin: 20px 0;
 }
 
 /* Media Queries para responsividade */
@@ -106,13 +114,9 @@ img {
         width: 95%;
     }
 
-    li {
-        flex-direction: column;
+    .item-lista {
+        flex-direction: column; /* Alinha itens em coluna para telas pequenas */
         align-items: flex-start;
-    }
-
-    img {
-        margin-bottom: 5px;
     }
 }
 
@@ -126,9 +130,5 @@ img {
     input[type="file"],
     button {
         font-size: 1em;
-    }
-
-    li {
-        padding: 8px;
     }
 }
