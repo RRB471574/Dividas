@@ -14,7 +14,7 @@ h1 {
 
 form {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Coloca os elementos do formulário em coluna */
     width: 90%;
     max-width: 500px; /* Limita a largura do formulário */
     margin: 20px 0;
@@ -49,9 +49,9 @@ ul {
 }
 
 li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; /* Flexbox para o item da lista */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: space-between; /* Espaça entre os itens do li */
     padding: 10px;
     border: 1px solid #ddd;
     margin: 5px 0;
@@ -60,9 +60,14 @@ li {
 }
 
 img {
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 50px; /* Limita a largura da imagem */
+    max-height: 50px; /* Limita a altura da imagem */
     border-radius: 4px;
+}
+
+.quantidade-item,
+.nome-item {
+    margin-right: 10px; /* Adiciona margem à direita para os textos */
 }
 
 @media (max-width: 600px) {
@@ -75,8 +80,8 @@ img {
     }
 
     li {
-        flex-direction: column; /* Empilha itens na lista em telas pequenas */
-        align-items: flex-start;
+        flex-direction: column; /* Alinha os itens em coluna para telas pequenas */
+        align-items: flex-start; /* Alinha os itens à esquerda */
     }
 
     img {
