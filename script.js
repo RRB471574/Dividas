@@ -33,7 +33,14 @@ document.getElementById('form-item').addEventListener('submit', function (e) {
         // Funcionalidade de marcar como comprado
         const btnComprado = novaListaItem.querySelector('.comprado');
         btnComprado.addEventListener('click', function () {
-            novaListaItem.classList.toggle('comprado-item'); // Alterna a classe para marcar como comprado
+            // Alterna a classe para marcar/desmarcar como comprado
+            novaListaItem.classList.toggle('comprado-item');
+            // Alterna o texto do botão
+            if (novaListaItem.classList.contains('comprado-item')) {
+                btnComprado.innerHTML = '❌'; // Muda para o ícone de desmarcar
+            } else {
+                btnComprado.innerHTML = '✔️'; // Volta para o ícone de marcar
+            }
         });
 
         // Funcionalidade de remover o item
