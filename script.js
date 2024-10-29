@@ -61,6 +61,7 @@ function adicionarItem(nome, quantidade, imagemSrc, comprado) {
 // Carrega a lista ao iniciar
 carregarLista();
 
+// Adiciona evento ao formulário
 document.getElementById('form-item').addEventListener('submit', function (e) {
     e.preventDefault();
     
@@ -85,4 +86,35 @@ document.getElementById('form-item').addEventListener('submit', function (e) {
     };
 
     reader.readAsDataURL(imagem);
+});
+
+// Gerar link para compartilhar a lista
+document.getElementById('gerar-link').addEventListener('click', function() {
+    const listaSalva = localStorage.getItem('listaCompras');
+    if (!listaSalva) {
+        alert("A lista está vazia. Adicione itens antes de gerar o link.");
+        return;
+    }
+    
+    const encodedLista = encodeURIComponent(listaSalva);
+    const link = `${window.location.href}?lista=${encodedLista}`;
+    document.getElementById('link-compartilhamento').value = link;
+});
+
+// Carregar lista a partir de um link
+document.getElementById('carregar-lista').addEventListener('click', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const listaParam = urlParams.get('lista');
+
+    if (listaParam) {
+        const listaDecodificada = decodeURIComponent(listaParam);
+        const listaItems = JSON.parse(listaDecodificada);
+        document.getElementById('lista-compras').innerHTML = ''; // Limpa a lista atual
+        listaItems.forEach(item => {
+            adicionarItem(item.nome, item.quantidade, item.imagemSrc, item.comprado);
+        });
+        alert("Lista carregada com sucesso!");
+    } else {
+        alert("Nenhuma lista para carregar.");
+    }
 });
