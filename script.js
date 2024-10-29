@@ -5,9 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const quantidadeInput = document.getElementById('quantidade');
     const imagemInput = document.getElementById('imagem');
 
+    // Verifica se os elementos foram encontrados
     if (!form || !listaCompras || !itemInput || !quantidadeInput || !imagemInput) {
         console.error("Erro: Um ou mais elementos não foram encontrados.");
-        return;
+        return; // Não prossegue se algum elemento não for encontrado
     }
 
     function salvarListaNoLocalStorage() {
