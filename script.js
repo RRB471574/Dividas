@@ -51,7 +51,6 @@ function adicionarItem(item, quantidade, imagem) {
     });
 
     hammer.on("swiperight", () => {
-        // Adicione qualquer ação ao deslizar para a direita, se necessário
         alert(`Você deslizou para a direita em ${item}`);
     });
     
@@ -73,10 +72,9 @@ function atualizarMensagemVazia() {
 function salvarLista() {
     const listaCompras = [];
     document.querySelectorAll("#lista-compras li").forEach(li => {
-        listaCompras.push({
-            nome: li.querySelector(".nome-item").textContent,
-            imagem: li.querySelector("img") ? li.querySelector("img").src : ''
-        });
+        const nome = li.querySelector(".nome-item").textContent;
+        const imagem = li.querySelector("img") ? li.querySelector("img").src : '';
+        listaCompras.push({ nome, imagem });
     });
     localStorage.setItem("listaCompras", JSON.stringify(listaCompras));
 }
@@ -85,7 +83,10 @@ function salvarLista() {
 function carregarLista() {
     const listaCompras = JSON.parse(localStorage.getItem("listaCompras")) || [];
     listaCompras.forEach(item => {
-        adicionarItem(item.nome.split(" (")[0], item.nome.match(/(.*?)/)[1], item.imagem);
+        const match = item.nome.match(/(.*) (\d+)/);
+        if (match) {
+            adicionarItem(match[1], match[2], item.imagem); // Nome e quantidade
+        }
     });
 }
 
@@ -98,10 +99,8 @@ function sugerirItens() {
             sugestao.toLowerCase().includes(valor)
         );
 
-        // Exibir sugestões (aqui, vamos apenas mostrar um alert como exemplo)
-        if (sugestõesFiltradas.length > 0) {
-            alert("Sugestões: " + sugestõesFiltradas.join(", "));
-        }
+        // Aqui você pode exibir as sugestões em um dropdown ou similar
+        console.log("Sugestões:", sugestõesFiltradas); // Exibir no console como exemplo
     });
 }
 
