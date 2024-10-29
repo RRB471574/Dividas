@@ -75,23 +75,6 @@ img {
     background-color: #d9ffd9;
 }
 
-#sugestoes {
-    max-width: 500px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin-top: 5px;
-}
-
-.sugestao-item {
-    padding: 5px;
-    cursor: pointer;
-}
-
-.sugestao-item:hover {
-    background-color: #f0f0f0;
-}
-
-/* Media Queries para responsividade */
 @media (max-width: 768px) {
     form {
         width: 95%;
