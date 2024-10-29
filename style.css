@@ -14,10 +14,11 @@ h1 {
 
 form {
     display: flex;
-    flex-direction: column; /* Coloca os elementos do formulário em coluna */
+    flex-direction: column;
     width: 90%;
-    max-width: 500px; /* Limita a largura do formulário */
+    max-width: 500px;
     margin: 20px 0;
+    position: relative; /* Para o posicionamento da sugestão */
 }
 
 input[type="text"],
@@ -45,13 +46,13 @@ ul {
     list-style-type: none;
     padding: 0;
     width: 90%;
-    max-width: 500px; /* Limita a largura da lista */
+    max-width: 500px;
 }
 
 li {
-    display: flex; /* Flexbox para o item da lista */
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: space-between; /* Espaça entre os itens do li */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px;
     border: 1px solid #ddd;
     margin: 5px 0;
@@ -60,55 +61,74 @@ li {
 }
 
 img {
-    max-width: 50px; /* Limita a largura da imagem */
-    max-height: 50px; /* Limita a altura da imagem */
+    max-width: 50px;
+    max-height: 50px;
     border-radius: 4px;
 }
 
 .quantidade-item,
 .nome-item {
-    margin-right: 10px; /* Adiciona margem à direita para os textos */
+    margin-right: 10px;
 }
 
-/* Estilo para itens comprados */
 .comprado-item {
-    text-decoration: line-through; /* Risca o texto do item */
-    background-color: #d9ffd9; /* Cor de fundo para itens comprados */
+    text-decoration: line-through;
+    background-color: #d9ffd9;
+}
+
+/* Sugestões de itens */
+.sugestoes {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 10;
+}
+
+.sugestao-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sugestao-item:hover {
+    background-color: #f0f0f0;
 }
 
 /* Media Queries para responsividade */
 @media (max-width: 768px) {
     form {
-        width: 95%; /* Aumenta a largura do formulário em telas menores */
+        width: 95%;
     }
 
     ul {
-        width: 95%; /* Aumenta a largura da lista em telas menores */
+        width: 95%;
     }
 
     li {
-        flex-direction: column; /* Alinha os itens em coluna para telas pequenas */
-        align-items: flex-start; /* Alinha os itens à esquerda */
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     img {
-        margin-bottom: 5px; /* Adiciona espaço abaixo da imagem em telas pequenas */
+        margin-bottom: 5px;
     }
 }
 
 @media (max-width: 480px) {
     h1 {
-        font-size: 1.5em; /* Ajusta o tamanho da fonte do título em telas pequenas */
+        font-size: 1.5em;
     }
 
     input[type="text"],
     input[type="number"],
     input[type="file"],
     button {
-        font-size: 1em; /* Aumenta a legibilidade dos inputs e botão */
+        font-size: 1em;
     }
 
     li {
-        padding: 8px; /* Reduz o padding dos itens da lista */
+        padding: 8px;
     }
 }
