@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> <!-- Não usar cache -->
-    <meta http-equiv="Pragma" content="no-cache"> <!-- Compatibilidade com navegadores antigos -->
-    <meta http-equiv="Expires" content="0"> <!-- Expiração imediata -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Lista de Compras</title>
-    <link rel="stylesheet" href="style.css?v=1"> <!-- Adicionando versão -->
+    <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
     <h1>Minha Lista de Compras</h1>
@@ -22,10 +22,9 @@
     <ul id="lista-compras"></ul>
 
     <h2>Compartilhar Lista</h2>
-    <input type="text" id="link-compartilhamento" readonly placeholder="Link para compartilhar">
-    <button id="gerar-link">Gerar Link</button>
-    <button id="carregar-lista">Carregar Lista</button>
-
-    <script src="script.js?v=1"></script> <!-- Adicionando versão -->
+    <textarea id="lista-compartilhamento" readonly rows="5" placeholder="Sua lista aparecerá aqui..."></textarea>
+    <button id="copiar-lista">Copiar Lista</button>
+    
+    <script src="script.js?v=1"></script>
 </body>
 </html>
