@@ -41,24 +41,6 @@ button:hover {
     background-color: #218838;
 }
 
-#sugestoes {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    width: 90%;
-    max-width: 500px;
-    z-index: 1;
-}
-
-.sugestao-item {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.sugestao-item:hover {
-    background-color: #e9ecef;
-}
-
 ul {
     list-style-type: none;
     padding: 0;
@@ -66,10 +48,9 @@ ul {
     max-width: 500px;
 }
 
-.item-lista {
+li {
     display: flex;
-    flex-direction: column; /* Muda para coluna para o layout em cartões */
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     padding: 10px;
     border: 1px solid #ddd;
@@ -82,7 +63,6 @@ img {
     max-width: 50px;
     max-height: 50px;
     border-radius: 4px;
-    margin-bottom: 5px;
 }
 
 .quantidade-item,
@@ -90,18 +70,25 @@ img {
     margin-right: 10px;
 }
 
-/* Estilo para itens comprados */
 .comprado-item {
     text-decoration: line-through;
     background-color: #d9ffd9;
 }
 
-/* Estilo para o textarea de compartilhamento */
-textarea {
-    width: 90%;
+#sugestoes {
     max-width: 500px;
-    height: 100px;
-    margin: 20px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+}
+
+.sugestao-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.sugestao-item:hover {
+    background-color: #f0f0f0;
 }
 
 /* Media Queries para responsividade */
@@ -114,9 +101,13 @@ textarea {
         width: 95%;
     }
 
-    .item-lista {
-        flex-direction: column; /* Alinha itens em coluna para telas pequenas */
+    li {
+        flex-direction: column;
         align-items: flex-start;
+    }
+
+    img {
+        margin-bottom: 5px;
     }
 }
 
@@ -130,5 +121,9 @@ textarea {
     input[type="file"],
     button {
         font-size: 1em;
+    }
+
+    li {
+        padding: 8px;
     }
 }
