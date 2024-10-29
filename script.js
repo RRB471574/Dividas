@@ -1,19 +1,7 @@
 const sugestoesLista = [
-    "Maçã",
-    "Banana",
-    "Laranja",
-    "Leite",
-    "Pão",
-    "Queijo",
-    "Ovo",
-    "Arroz",
-    "Feijão",
-    "Frango",
-    "Carne",
-    "Cenoura",
-    "Batata",
-    "Cebola",
-    "Alho"
+    "Maçã", "Banana", "Laranja", "Leite", "Pão", "Queijo",
+    "Ovo", "Arroz", "Feijão", "Frango", "Carne", "Cenoura",
+    "Batata", "Cebola", "Alho"
 ];
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -24,13 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const listaCompartilhamento = document.getElementById('lista-compartilhamento');
     const copiarListaButton = document.getElementById('copiar-lista');
 
-    // Função para carregar itens do Local Storage
+    // Carregar a lista do localStorage
     function carregarLista() {
-        const itensSalvos = JSON.parse(localStorage.getItem('listaCompras')) || [];
-        itensSalvos.forEach(item => adicionarItem(item.nome, item.quantidade, item.imagem));
+        const listaSalva = JSON.parse(localStorage.getItem("listaCompras")) || [];
+        listaSalva.forEach(item => {
+            adicionarItem(item.nome, item.quantidade, item.imagem);
+        });
     }
 
-    // Função para adicionar item na lista
+    // Adicionar item na lista
     function adicionarItem(nome, quantidade, imagem) {
         const li = document.createElement('li');
         li.classList.add('item-lista');
@@ -41,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const img = document.createElement('img');
         if (imagem) {
-            img.src = imagem; // A imagem será uma URL base64
+            img.src = imagem;
         }
 
         const btnComprado = document.createElement('button');
@@ -49,15 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
         btnComprado.addEventListener('click', function () {
             li.classList.toggle('comprado-item');
             atualizarListaCompartilhamento();
-            salvarLista(); // Salva após marcar como comprado
+            salvarLista(); // Atualiza localStorage
         });
 
         const btnRemover = document.createElement('button');
         btnRemover.textContent = "Remover";
         btnRemover.addEventListener('click', function () {
-            li.remove();
-            atualizarListaCompartilhamento();
-            salvarLista(); // Salva após remover um item
+            li.remove(); // Remove do DOM
+            salvarLista(); // Atualiza localStorage
         });
 
         li.appendChild(nomeItem);
@@ -65,24 +54,37 @@ document.addEventListener('DOMContentLoaded', function () {
         li.appendChild(btnComprado);
         li.appendChild(btnRemover);
         listaCompras.appendChild(li);
+        salvarLista(); // Salva no localStorage após adicionar
     }
 
-    // Função para salvar a lista no Local Storage
+    // Salvar lista no localStorage
     function salvarLista() {
-        const itens = [];
         const items = listaCompras.getElementsByTagName('li');
+        const lista = [];
         for (let item of items) {
             const nome = item.getElementsByClassName('nome-item')[0].textContent.split(' (')[0];
             const quantidade = item.getElementsByClassName('nome-item')[0].textContent.split(' (x')[1].replace(')', '');
-            const img = item.getElementsByTagName('img')[0].src;
-            itens.push({ nome, quantidade, imagem: img });
+            const img = item.getElementsByTagName('img')[0] ? item.getElementsByTagName('img')[0].src : null;
+            lista.push({ nome, quantidade, imagem: img });
         }
-        localStorage.setItem('listaCompras', JSON.stringify(itens));
+        localStorage.setItem("listaCompras", JSON.stringify(lista));
+        atualizarListaCompartilhamento(); // Atualiza o textarea com a lista
     }
 
-    // Função para mostrar sugestões
+    // Atualizar textarea de compartilhamento
+    function atualizarListaCompartilhamento() {
+        const items = listaCompras.getElementsByTagName('li');
+        let listaTexto = '';
+        for (let item of items) {
+            const nome = item.getElementsByClassName('nome-item')[0].textContent;
+            listaTexto += nome + (item.classList.contains('comprado-item') ? ' (comprado)' : '') + '\n';
+        }
+        listaCompartilhamento.value = listaTexto.trim();
+    }
+
+    // Mostrar sugestões
     function mostrarSugestoes(valor) {
-        sugestoesDiv.innerHTML = ''; // Limpa as sugestões anteriores
+        sugestoesDiv.innerHTML = '';
         const sugestoesFiltradas = sugestoesLista.filter(item =>
             item.toLowerCase().startsWith(valor.toLowerCase())
         );
@@ -92,8 +94,8 @@ document.addEventListener('DOMContentLoaded', function () {
             divSugestao.classList.add('sugestao-item');
             divSugestao.textContent = sugestao;
             divSugestao.addEventListener('click', function () {
-                inputItem.value = sugestao; // Preenche o campo de input com a sugestão
-                sugestoesDiv.innerHTML = ''; // Limpa as sugestões após a seleção
+                inputItem.value = sugestao;
+                sugestoesDiv.innerHTML = '';
             });
             sugestoesDiv.appendChild(divSugestao);
         });
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (valor) {
             mostrarSugestoes(valor);
         } else {
-            sugestoesDiv.innerHTML = ''; // Limpa as sugestões se o campo estiver vazio
+            sugestoesDiv.innerHTML = '';
         }
     });
 
@@ -119,33 +121,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const reader = new FileReader();
             reader.onload = function (e) {
                 adicionarItem(itemNome, quantidade, e.target.result);
-                salvarLista(); // Salva a lista após adicionar um novo item
-
+                // Limpa os campos após adicionar
                 inputItem.value = '';
                 document.getElementById('quantidade').value = '';
                 document.getElementById('imagem').value = '';
-                sugestoesDiv.innerHTML = ''; // Limpa as sugestões após adicionar o item
-                atualizarListaCompartilhamento();
+                sugestoesDiv.innerHTML = ''; // Limpa sugestões após adicionar
             };
             if (imagem) {
-                reader.readAsDataURL(imagem); // Converte a imagem para uma URL base64
+                reader.readAsDataURL(imagem); // Lê a imagem como URL
             } else {
-                adicionarItem(itemNome, quantidade, null);
-                salvarLista(); // Salva a lista após adicionar um novo item
-                atualizarListaCompartilhamento();
+                adicionarItem(itemNome, quantidade, null); // Se não houver imagem, adiciona sem
             }
         }
     });
-
-    function atualizarListaCompartilhamento() {
-        const items = listaCompras.getElementsByTagName('li');
-        let listaTexto = '';
-        for (let item of items) {
-            const nome = item.getElementsByClassName('nome-item')[0].textContent;
-            listaTexto += nome + '\n';
-        }
-        listaCompartilhamento.value = listaTexto;
-    }
 
     copiarListaButton.addEventListener('click', function () {
         listaCompartilhamento.select();
@@ -153,6 +141,5 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Lista copiada para a área de transferência!');
     });
 
-    // Carrega a lista ao iniciar
-    carregarLista();
+    carregarLista(); // Carrega a lista ao iniciar
 });
