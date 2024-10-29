@@ -128,9 +128,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 sugestoesDiv.innerHTML = ''; // Limpa sugestões após adicionar
             };
             if (imagem) {
-                reader.readAsDataURL(imagem); // Lê a imagem como URL
+                reader.readAsDataURL(imagem);
             } else {
-                adicionarItem(itemNome, quantidade, null); // Se não houver imagem, adiciona sem
+                adicionarItem(itemNome, quantidade, null);
+                inputItem.value = '';
+                document.getElementById('quantidade').value = '';
+                document.getElementById('imagem').value = '';
             }
         }
     });
@@ -138,8 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
     copiarListaButton.addEventListener('click', function () {
         listaCompartilhamento.select();
         document.execCommand('copy');
-        alert('Lista copiada para a área de transferência!');
+        alert("Lista copiada para a área de transferência!");
     });
 
-    carregarLista(); // Carrega a lista ao iniciar
+    // Carregar a lista ao iniciar
+    carregarLista();
 });
