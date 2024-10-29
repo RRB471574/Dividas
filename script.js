@@ -1,149 +1,127 @@
-const sugestoesLista = [
-    "Maçã", "Banana", "Laranja", "Leite", "Pão", "Queijo",
-    "Ovo", "Arroz", "Feijão", "Frango", "Carne", "Cenoura",
-    "Batata", "Cebola", "Alho"
+// script.js
+
+// Lista de sugestões
+const sugestoes = [
+    "Maçã", "Banana", "Leite", "Pão", "Arroz", "Feijão", "Ovo", "Carne", "Cenoura", "Batata"
 ];
 
-document.addEventListener('DOMContentLoaded', function () {
-    const inputItem = document.getElementById('item');
-    const sugestoesDiv = document.getElementById('sugestoes');
-    const formItem = document.getElementById('form-item');
-    const listaCompras = document.getElementById('lista-compras');
-    const listaCompartilhamento = document.getElementById('lista-compartilhamento');
-    const copiarListaButton = document.getElementById('copiar-lista');
+// Função para adicionar item à lista
+function adicionarItem(item, quantidade, imagem) {
+    const listaCompras = document.getElementById("lista-compras");
+    
+    const li = document.createElement("li");
+    li.className = "item-lista";
+    
+    const img = document.createElement("img");
+    img.src = imagem ? URL.createObjectURL(imagem) : ''; // Mostra a imagem, se disponível
+    img.alt = item;
+    
+    const nomeItem = document.createElement("span");
+    nomeItem.className = "nome-item";
+    nomeItem.textContent = `${item} (${quantidade})`;
+    
+    const botaoMarcar = document.createElement("button");
+    botaoMarcar.textContent = "Marcar como Comprado";
+    botaoMarcar.onclick = () => {
+        li.classList.toggle("comprado-item");
+        salvarLista(); // Salva a lista após marcar/desmarcar
+    };
 
-    // Carregar a lista do localStorage
-    function carregarLista() {
-        const listaSalva = JSON.parse(localStorage.getItem("listaCompras")) || [];
-        listaSalva.forEach(item => {
-            adicionarItem(item.nome, item.quantidade, item.imagem);
+    const botaoRemover = document.createElement("button");
+    botaoRemover.textContent = "Remover";
+    botaoRemover.onclick = () => {
+        listaCompras.removeChild(li);
+        atualizarMensagemVazia();
+        salvarLista(); // Salva a lista após remoção
+    };
+
+    li.appendChild(img);
+    li.appendChild(nomeItem);
+    li.appendChild(botaoMarcar);
+    li.appendChild(botaoRemover);
+    listaCompras.appendChild(li);
+    
+    // Adiciona gestos ao item da lista
+    const hammer = new Hammer(li);
+    
+    hammer.on("swipeleft", () => {
+        listaCompras.removeChild(li); // Remove o item da lista ao deslizar para a esquerda
+        atualizarMensagemVazia();
+        salvarLista(); // Salva a lista após remoção
+    });
+
+    hammer.on("swiperight", () => {
+        // Adicione qualquer ação ao deslizar para a direita, se necessário
+        alert(`Você deslizou para a direita em ${item}`);
+    });
+    
+    atualizarMensagemVazia(); // Atualiza a mensagem de lista vazia
+}
+
+// Atualiza a mensagem quando a lista está vazia
+function atualizarMensagemVazia() {
+    const listaCompras = document.getElementById("lista-compras");
+    const mensagemVazia = document.getElementById("mensagem-vazia");
+    if (listaCompras.children.length === 0) {
+        mensagemVazia.style.display = "block"; // Exibe a mensagem se a lista estiver vazia
+    } else {
+        mensagemVazia.style.display = "none"; // Esconde a mensagem se houver itens
+    }
+}
+
+// Função para salvar a lista no localStorage
+function salvarLista() {
+    const listaCompras = [];
+    document.querySelectorAll("#lista-compras li").forEach(li => {
+        listaCompras.push({
+            nome: li.querySelector(".nome-item").textContent,
+            imagem: li.querySelector("img") ? li.querySelector("img").src : ''
         });
-    }
+    });
+    localStorage.setItem("listaCompras", JSON.stringify(listaCompras));
+}
 
-    // Adicionar item na lista
-    function adicionarItem(nome, quantidade, imagem) {
-        const li = document.createElement('li');
-        li.classList.add('item-lista');
+// Função para carregar a lista do localStorage
+function carregarLista() {
+    const listaCompras = JSON.parse(localStorage.getItem("listaCompras")) || [];
+    listaCompras.forEach(item => {
+        adicionarItem(item.nome.split(" (")[0], item.nome.match(/(.*?)/)[1], item.imagem);
+    });
+}
 
-        const nomeItem = document.createElement('span');
-        nomeItem.classList.add('nome-item');
-        nomeItem.textContent = `${nome} (x${quantidade})`;
-
-        const img = document.createElement('img');
-        if (imagem) {
-            img.src = imagem;
-        }
-
-        const btnComprado = document.createElement('button');
-        btnComprado.textContent = "Marcar como comprado";
-        btnComprado.addEventListener('click', function () {
-            li.classList.toggle('comprado-item');
-            atualizarListaCompartilhamento();
-            salvarLista(); // Atualiza localStorage
-        });
-
-        const btnRemover = document.createElement('button');
-        btnRemover.textContent = "Remover";
-        btnRemover.addEventListener('click', function () {
-            li.remove(); // Remove do DOM
-            salvarLista(); // Atualiza localStorage
-        });
-
-        li.appendChild(nomeItem);
-        li.appendChild(img);
-        li.appendChild(btnComprado);
-        li.appendChild(btnRemover);
-        listaCompras.appendChild(li);
-        salvarLista(); // Salva no localStorage após adicionar
-    }
-
-    // Salvar lista no localStorage
-    function salvarLista() {
-        const items = listaCompras.getElementsByTagName('li');
-        const lista = [];
-        for (let item of items) {
-            const nome = item.getElementsByClassName('nome-item')[0].textContent.split(' (')[0];
-            const quantidade = item.getElementsByClassName('nome-item')[0].textContent.split(' (x')[1].replace(')', '');
-            const img = item.getElementsByTagName('img')[0] ? item.getElementsByTagName('img')[0].src : null;
-            lista.push({ nome, quantidade, imagem: img });
-        }
-        localStorage.setItem("listaCompras", JSON.stringify(lista));
-        atualizarListaCompartilhamento(); // Atualiza o textarea com a lista
-    }
-
-    // Atualizar textarea de compartilhamento
-    function atualizarListaCompartilhamento() {
-        const items = listaCompras.getElementsByTagName('li');
-        let listaTexto = '';
-        for (let item of items) {
-            const nome = item.getElementsByClassName('nome-item')[0].textContent;
-            listaTexto += nome + (item.classList.contains('comprado-item') ? ' (comprado)' : '') + '\n';
-        }
-        listaCompartilhamento.value = listaTexto.trim();
-    }
-
-    // Mostrar sugestões
-    function mostrarSugestoes(valor) {
-        sugestoesDiv.innerHTML = '';
-        const sugestoesFiltradas = sugestoesLista.filter(item =>
-            item.toLowerCase().startsWith(valor.toLowerCase())
+// Função para sugerir itens ao digitar
+function sugerirItens() {
+    const inputItem = document.getElementById("item");
+    inputItem.addEventListener("input", function() {
+        const valor = this.value.toLowerCase();
+        const sugestõesFiltradas = sugestoes.filter(sugestao => 
+            sugestao.toLowerCase().includes(valor)
         );
 
-        sugestoesFiltradas.forEach(sugestao => {
-            const divSugestao = document.createElement('div');
-            divSugestao.classList.add('sugestao-item');
-            divSugestao.textContent = sugestao;
-            divSugestao.addEventListener('click', function () {
-                inputItem.value = sugestao;
-                sugestoesDiv.innerHTML = '';
-            });
-            sugestoesDiv.appendChild(divSugestao);
-        });
-    }
-
-    inputItem.addEventListener('input', function () {
-        const valor = inputItem.value;
-        if (valor) {
-            mostrarSugestoes(valor);
-        } else {
-            sugestoesDiv.innerHTML = '';
+        // Exibir sugestões (aqui, vamos apenas mostrar um alert como exemplo)
+        if (sugestõesFiltradas.length > 0) {
+            alert("Sugestões: " + sugestõesFiltradas.join(", "));
         }
     });
+}
 
-    formItem.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const itemNome = inputItem.value;
-        const quantidade = document.getElementById('quantidade').value;
-        const imagem = document.getElementById('imagem').files[0];
-
-        if (itemNome && quantidade) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                adicionarItem(itemNome, quantidade, e.target.result);
-                // Limpa os campos após adicionar
-                inputItem.value = '';
-                document.getElementById('quantidade').value = '';
-                document.getElementById('imagem').value = '';
-                sugestoesDiv.innerHTML = ''; // Limpa sugestões após adicionar
-            };
-            if (imagem) {
-                reader.readAsDataURL(imagem);
-            } else {
-                adicionarItem(itemNome, quantidade, null);
-                inputItem.value = '';
-                document.getElementById('quantidade').value = '';
-                document.getElementById('imagem').value = '';
-            }
-        }
-    });
-
-    copiarListaButton.addEventListener('click', function () {
-        listaCompartilhamento.select();
-        document.execCommand('copy');
-        alert("Lista copiada para a área de transferência!");
-    });
-
-    // Carregar a lista ao iniciar
+// Ao carregar a página, carregue a lista e configure sugestões
+window.onload = () => {
     carregarLista();
+    sugerirItens();
+};
+
+// Captura o evento de submit do formulário
+document.getElementById("form-item").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const item = document.getElementById("item").value;
+    const quantidade = document.getElementById("quantidade").value;
+    const imagemInput = document.getElementById("imagem");
+    const imagem = imagemInput.files[0];
+
+    if (item && quantidade) {
+        adicionarItem(item, quantidade, imagem);
+        salvarLista(); // Salva a lista após adicionar
+        this.reset(); // Limpa o formulário
+    }
 });
