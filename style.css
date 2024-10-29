@@ -70,6 +70,12 @@ img {
     margin-right: 10px; /* Adiciona margem à direita para os textos */
 }
 
+/* Estilo para itens comprados */
+.comprado-item {
+    text-decoration: line-through; /* Risca o texto do item */
+    background-color: #d9ffd9; /* Cor de fundo para itens comprados */
+}
+
 /* Media Queries para responsividade */
 @media (max-width: 768px) {
     form {
