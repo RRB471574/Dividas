@@ -10,6 +10,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    // Função para salvar a lista no Local Storage
+    function salvarListaNoLocalStorage() {
+        const itens = [];
+        document.querySelectorAll('#lista-compras li').forEach((li) => {
+            itens.push(li.textContent);
+        });
+        localStorage.setItem('listaCompras', JSON.stringify(itens));
+    }
+
+    // Função para carregar a lista do Local Storage
+    function carregarListaDoLocalStorage() {
+        const itens = JSON.parse(localStorage.getItem('listaCompras'));
+        if (itens) {
+            itens.forEach((texto) => {
+                const li = document.createElement('li');
+                li.textContent = texto;
+                listaCompras.appendChild(li);
+            });
+        }
+    }
+
+    // Carrega a lista salva ao carregar a página
+    carregarListaDoLocalStorage();
+
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Evita o envio padrão do formulário
 
@@ -25,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Adiciona o novo item à lista de compras
             listaCompras.appendChild(li);
+
+            // Salva a lista atualizada no Local Storage
+            salvarListaNoLocalStorage();
 
             // Limpa os campos de entrada
             itemInput.value = '';
