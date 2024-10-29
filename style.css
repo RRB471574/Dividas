@@ -75,6 +75,27 @@ img {
     background-color: #d9ffd9;
 }
 
+/* Estilos para o dropdown de sugestões */
+.dropdown {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 10;
+}
+
+.dropdown div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown div:hover {
+    background-color: #f1f1f1;
+}
+
+/* Media Queries para responsividade */
 @media (max-width: 768px) {
     form {
         width: 95%;
