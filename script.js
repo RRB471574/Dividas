@@ -1,52 +1,23 @@
-const form = document.getElementById('form-item');
-const listaCompras = document.getElementById('lista-compras');
+document.getElementById('form-item').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita o envio padrão do formulário
 
-// Carregar a lista do localStorage ao iniciar a página
-function carregarLista() {
-  const listaSalva = localStorage.getItem('listaCompras');
-  if (listaSalva) {
-    const lista = JSON.parse(listaSalva);
-    lista.forEach(item => {
-      adicionarItem(item.item, item.quantidade);
-    });
-  }
-}
-carregarLista();
+    // Pega os valores dos campos de entrada
+    const item = document.getElementById('item').value;
+    const quantidade = document.getElementById('quantidade').value;
 
-function adicionarItem(item, quantidade) {
-  const novoItem = document.createElement('li');
-  novoItem.textContent = `${item} (${quantidade})`;
+    // Verifica se os campos de entrada não estão vazios
+    if (item && quantidade) {
+        // Cria um novo item da lista
+        const li = document.createElement('li');
+        li.textContent = `${quantidade} x ${item}`; // Formata o texto
 
-  // Botão para remover o item
-  const botaoRemover = document.createElement('button');
-  botaoRemover.textContent = 'Remover';
-  botaoRemover.addEventListener('click', () => {
-    novoItem.remove();
-    salvarLista();
-  });
-  novoItem.appendChild(botaoRemover);
+        // Adiciona o novo item à lista de compras
+        document.getElementById('lista-compras').appendChild(li);
 
-  listaCompras.appendChild(novoItem);
-}
-
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const item = document.getElementById('item').value;
-  const quantidade = document.getElementById('quantidade').value;
-
-  adicionarItem(item, quantidade);
-  salvarLista();
-  form.reset();
+        // Limpa os campos de entrada
+        document.getElementById('item').value = '';
+        document.getElementById('quantidade').value = '';
+    } else {
+        alert('Por favor, preencha ambos os campos.');
+    }
 });
-
-function salvarLista() {
-  const lista = [];
-  Array.from(listaCompras.children).forEach(li => {
-    lista.push({
-      item: li.textContent.replace(/ \(\d+\)$/, ''),
-      quantidade: li.textContent.match(/\(\d+\)/)[1].slice(1, -1)
-    });
-  });
-  localStorage.setItem('listaCompras', JSON.stringify(lista));
-}
