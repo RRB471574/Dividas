@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Compras</title>
-    <link rel="stylesheet" href="style.css?v=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 <body>
     <h1>Minha Lista de Compras</h1>
@@ -12,17 +13,13 @@
     <form id="form-item">
         <input type="text" id="item" placeholder="Digite o item" required>
         <input type="number" id="quantidade" placeholder="Quantidade" required>
-        <input type="file" id="imagem" accept="image/*">
+        <input type="file" id="imagem" accept="image/*"> <!-- Campo para imagem -->
         <button type="submit">Adicionar</button>
     </form>
-    
-    <div id="sugestoes"></div>
-    <ul id="lista-compras"></ul>
-    
-    <h2>Lista Compartilhada</h2>
-    <textarea id="lista-compartilhamento" rows="5" readonly></textarea>
-    <button id="copiar-lista">Copiar Lista</button>
 
-    <script src="script.js?v=1.0"></script>
+    <ul id="lista-compras"></ul>
+    <p id="mensagem-vazia" style="display: none;">Sua lista de compras está vazia.</p>
+
+    <script src="script.js?v=1"></script>
 </body>
 </html>
