@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Compras</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
     <h1>Minha Lista de Compras</h1>
 
     <form id="form-item">
-        <input type="text" id="item" placeholder="Digite o item" required>
+        <input type="text" id="item" placeholder="Digite o item" autocomplete="off" required>
+        <div id="suggestions" class="dropdown"></div> <!-- Dropdown de sugestões -->
         <input type="number" id="quantidade" placeholder="Quantidade" required>
-        <input type="file" id="imagem" accept="image/*"> <!-- Campo para imagem -->
+        <input type="file" id="imagem" accept="image/*">
         <button type="submit">Adicionar</button>
     </form>
 
     <ul id="lista-compras"></ul>
-    <p id="mensagem-vazia" style="display: none;">Sua lista de compras está vazia.</p>
 
     <script src="script.js?v=1"></script>
 </body>
