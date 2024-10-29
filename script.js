@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const listaCompras = document.getElementById('lista-compras');
     const itemInput = document.getElementById('item');
     const quantidadeInput = document.getElementById('quantidade');
-    const imagemUrlInput = document.getElementById('imagem-url');
+    const imagemInput = document.getElementById('imagem');
 
-    if (!form || !listaCompras || !itemInput || !quantidadeInput || !imagemUrlInput) {
+    if (!form || !listaCompras || !itemInput || !quantidadeInput || !imagemInput) {
         console.error("Erro: Um ou mais elementos não foram encontrados.");
         return;
     }
@@ -75,16 +75,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const item = itemInput.value;
         const quantidade = quantidadeInput.value;
-        const imagemUrl = imagemUrlInput.value;
+        const imagemArquivo = imagemInput.files[0];
 
-        if (item && quantidade && imagemUrl) {
-            adicionarItemNaLista(quantidade, item, imagemUrl);
+        if (item && quantidade && imagemArquivo) {
+            const reader = new FileReader();
 
-            salvarListaNoLocalStorage();
+            reader.onload = function(e) {
+                const imagemUrl = e.target.result; // URL da imagem lida
+                adicionarItemNaLista(quantidade, item, imagemUrl);
+                salvarListaNoLocalStorage();
+            };
 
+            reader.readAsDataURL(imagemArquivo); // Lê o arquivo como uma URL de dados
+
+            // Limpa os campos de entrada
             itemInput.value = '';
             quantidadeInput.value = '';
-            imagemUrlInput.value = '';
+            imagemInput.value = ''; // Limpa o campo de arquivo
         } else {
             alert('Por favor, preencha todos os campos.');
         }
