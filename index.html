@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> <!-- Não usar cache -->
+    <meta http-equiv="Pragma" content="no-cache"> <!-- Compatibilidade com navegadores antigos -->
+    <meta http-equiv="Expires" content="0"> <!-- Expiração imediata -->
     <title>Lista de Compras</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1"> <!-- Adicionando versão -->
 </head>
 <body>
     <h1>Minha Lista de Compras</h1>
 
     <form id="form-item">
-        <input type="text" id="item" placeholder="Nome do item" required>
+        <input type="text" id="item" placeholder="Digite o item" required>
         <input type="number" id="quantidade" placeholder="Quantidade" required>
         <input type="file" id="imagem" accept="image/*" required>
         <button type="submit">Adicionar</button>
@@ -18,6 +21,11 @@
 
     <ul id="lista-compras"></ul>
 
-    <script src="script.js?v=1.3"></script> <!-- Atualizando a versão para evitar cache -->
+    <h2>Compartilhar Lista</h2>
+    <input type="text" id="link-compartilhamento" readonly placeholder="Link para compartilhar">
+    <button id="gerar-link">Gerar Link</button>
+    <button id="carregar-lista">Carregar Lista</button>
+
+    <script src="script.js?v=1"></script> <!-- Adicionando versão -->
 </body>
 </html>
