@@ -4,56 +4,59 @@ document.addEventListener('DOMContentLoaded', function() {
     const itemInput = document.getElementById('item');
     const quantidadeInput = document.getElementById('quantidade');
 
-    // Verifica se os elementos foram encontrados
     if (!form || !listaCompras || !itemInput || !quantidadeInput) {
         console.error("Erro: Um ou mais elementos não foram encontrados.");
         return;
     }
 
-    // Função para salvar a lista no Local Storage
     function salvarListaNoLocalStorage() {
         const itens = [];
         document.querySelectorAll('#lista-compras li').forEach((li) => {
-            itens.push(li.textContent);
+            itens.push(li.textContent.replace("Remover", "").trim());
         });
         localStorage.setItem('listaCompras', JSON.stringify(itens));
     }
 
-    // Função para carregar a lista do Local Storage
     function carregarListaDoLocalStorage() {
         const itens = JSON.parse(localStorage.getItem('listaCompras'));
         if (itens) {
             itens.forEach((texto) => {
-                const li = document.createElement('li');
-                li.textContent = texto;
-                listaCompras.appendChild(li);
+                adicionarItemNaLista(texto);
             });
         }
     }
 
-    // Carrega a lista salva ao carregar a página
+    function adicionarItemNaLista(texto) {
+        const li = document.createElement('li');
+        li.textContent = texto;
+
+        const botaoRemover = document.createElement('button');
+        botaoRemover.textContent = 'Remover';
+        botaoRemover.style.marginLeft = '10px';
+        
+        botaoRemover.addEventListener('click', function() {
+            li.remove();
+            salvarListaNoLocalStorage();
+        });
+
+        li.appendChild(botaoRemover);
+        listaCompras.appendChild(li);
+    }
+
     carregarListaDoLocalStorage();
 
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita o envio padrão do formulário
+        event.preventDefault();
 
-        // Pega os valores dos campos de entrada
         const item = itemInput.value;
         const quantidade = quantidadeInput.value;
 
-        // Verifica se os campos de entrada não estão vazios
         if (item && quantidade) {
-            // Cria um novo item da lista
-            const li = document.createElement('li');
-            li.textContent = `${quantidade} x ${item}`; // Formata o texto
+            const texto = `${quantidade} x ${item}`;
+            adicionarItemNaLista(texto);
 
-            // Adiciona o novo item à lista de compras
-            listaCompras.appendChild(li);
-
-            // Salva a lista atualizada no Local Storage
             salvarListaNoLocalStorage();
 
-            // Limpa os campos de entrada
             itemInput.value = '';
             quantidadeInput.value = '';
         } else {
