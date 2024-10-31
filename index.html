@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Compras</title>
-    <link rel="stylesheet" href="style.css?v=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz de Estudos</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Minha Lista de Compras</h1>
-
-    <form id="form-item">
-        <input type="text" id="item" placeholder="Digite o item" autocomplete="off" required>
-        <div id="suggestions" class="dropdown"></div> <!-- Dropdown de sugestões -->
-        <input type="number" id="quantidade" placeholder="Quantidade" required>
-        <input type="file" id="imagem" accept="image/*">
-        <button type="submit">Adicionar</button>
-    </form>
-
-    <ul id="lista-compras"></ul>
-
-    <script src="script.js?v=1"></script>
+  <header>
+    <h1>Quiz de Estudos</h1>
+    <p>Boa sorte na prova!</p>
+  </header>
+  <main>
+    <section id="quiz-container">
+      <div id="question-container"></div>
+      <input type="text" id="answer-input" placeholder="Digite sua resposta...">
+      <button id="submit-answer">Enviar</button>
+      <p id="feedback"></p>
+    </section>
+    <button id="next-question" style="display:none;">Próxima Pergunta</button>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
