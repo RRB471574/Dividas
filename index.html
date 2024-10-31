@@ -3,28 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Site de Estudos</title>
+    <title>Quiz de Perguntas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Estudos para Prova</h1>
-        </header>
-        <main>
-            <div id="pergunta">Aqui vai a pergunta</div>
-            <input type="text" id="resposta" placeholder="Digite sua resposta aqui...">
-            <button id="btnResponder">Responder</button>
-            <button id="btnPular">Pular</button>
-            <button id="btnDica">Dica</button>
-            <div id="feedback"></div>
-            <div id="dica" style="display:none; font-style:italic;"></div>
-            <div id="estatisticas">
-                <p>Acertos: <span id="acertos">0</span></p>
-                <p>Erros: <span id="erros">0</span></p>
-            </div>
-        </main>
+    <div id="quiz-container">
+        <h1>Quiz de Perguntas</h1>
+        <div id="pergunta"></div>
+        <div id="respostas"></div>
+        <div id="dica"></div>
+        <button id="proxima" onclick="mostrarProximaPergunta()">Próxima Pergunta</button>
     </div>
     <script src="script.js"></script>
 </body>
