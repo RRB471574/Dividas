@@ -51,5 +51,5 @@ function mostrarProximaPergunta() {
     }
 }
 
-// Inicia o carregamento das perguntas
-carregarPerguntas();
+// Inicia o carregamento das perguntas quando o DOM estiver totalmente carregado
+document.addEventListener('DOMContentLoaded', carregarPerguntas);
