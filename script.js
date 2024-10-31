@@ -1,39 +1,49 @@
-let perguntas = [];
+let questions = [];
 let currentQuestionIndex = 0;
 
 fetch('perguntas.json')
   .then(response => response.json())
   .then(data => {
-    perguntas = data;
-    loadQuestion();
+    questions = data;
+    showQuestion();
   });
 
-function loadQuestion() {
+function showQuestion() {
   const questionContainer = document.getElementById('question-container');
-  questionContainer.innerText = perguntas[currentQuestionIndex].pergunta;
-  document.getElementById('feedback').innerText = ""; // Limpa feedback anterior
+  const question = questions[currentQuestionIndex];
+
+  questionContainer.innerHTML = `<h2>${question.pergunta}</h2>`;
+  document.getElementById('answer-input').value = ''; // Limpa o campo de resposta
 }
 
 function checkAnswer() {
-  const userAnswer = document.getElementById('answer-input').value.trim();
-  const correctAnswer = perguntas[currentQuestionIndex].resposta;
+  const answerInput = document.getElementById('answer-input');
   const feedback = document.getElementById('feedback');
+  const question = questions[currentQuestionIndex];
 
-  if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-    feedback.innerText = "Correto!";
+  const userAnswer = answerInput.value.trim().toLowerCase(); // Normaliza a resposta do usuário
+  const correctAnswer = question.resposta.trim().toLowerCase(); // Normaliza a resposta correta
+
+  if (userAnswer === correctAnswer) {
+    feedback.innerHTML = "Resposta correta!";
   } else {
-    feedback.innerText = `Errado. A resposta certa é: ${correctAnswer}`;
+    feedback.innerHTML = "Resposta incorreta. Tente novamente!";
   }
 
-  // Avança para a próxima pergunta
-  currentQuestionIndex = (currentQuestionIndex + 1) % perguntas.length;
-  document.getElementById('answer-input').value = "";
-  setTimeout(loadQuestion, 2000); // Espera 2 segundos para mostrar a próxima pergunta
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    feedback.innerHTML += "<br>Fim das perguntas!";
+  }
 }
 
 function skipQuestion() {
-  // Avança para a próxima pergunta sem feedback
-  currentQuestionIndex = (currentQuestionIndex + 1) % perguntas.length;
-  document.getElementById('answer-input').value = "";
-  loadQuestion();
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+    document.getElementById('feedback').innerHTML = ''; // Limpa o feedback ao pular
+  } else {
+    document.getElementById('feedback').innerHTML = 'Fim das perguntas!';
+  }
 }
