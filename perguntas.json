@@ -4,15 +4,15 @@
         "resposta": "180 dias"
     },
     {
-        "pergunta": "Qual é o tempo de vida secundário da caixa quinha de doce colosso?",
-        "resposta": "03 dias depois de aberta a caixa e com a saca fechada"
+        "pergunta": "Qual é o tempo de vida secundário da casquinha de colosso?",
+        "resposta": "03 dias depois de aberta a caixa e com a sacolinha fechada"
     },
     {
         "pergunta": "Qual é o tempo de vida secundário do pão congelado?",
         "resposta": "48 horas, incluindo 12 horas de degelo"
     },
     {
-        "pergunta": "Qual é o tempo vida primário das carnes 10:1?",
+        "pergunta": "Qual é o tempo de vida primário das carnes 10:1?",
         "resposta": "90 dias"
     },
     {
@@ -24,7 +24,7 @@
         "resposta": "8 caixas"
     },
     {
-        "pergunta": "Qual o número da ficha dado SMP para realizar a calibragem e brixagem dos sucos?",
+        "pergunta": "Qual o número da ficha do SMP para realizar a calibração e briga de suco?",
         "resposta": "39E"
     },
     {
@@ -32,7 +32,7 @@
         "resposta": "Geramos bons momentos para as pessoas, sendo nós mesmos"
     },
     {
-        "pergunta": "Qual o rendimento da cebola fresca refrigerada?",
+        "pergunta": "Qual o rendimento da cebola fresca?",
         "resposta": "143 sanduíches por quilo"
     },
     {
@@ -40,7 +40,7 @@
         "resposta": "255 sanduíches por quilo"
     },
     {
-        "pergunta": "Qual o tempo de aquecimento da maquininha de leite no café da manhã?",
+        "pergunta": "Qual o tempo de aquecimento da máquina de leite no café da manhã?",
         "resposta": "20 minutos"
     },
     {
@@ -56,7 +56,7 @@
         "resposta": "18 segundos"
     },
     {
-        "pergunta": "Qual o tempo de vida do café na jarra de máquinas?",
+        "pergunta": "Qual o tempo de vida do café na jarra?",
         "resposta": "30 minutos"
     },
     {
@@ -68,7 +68,7 @@
         "resposta": "3 a 5 segundos"
     },
     {
-        "pergunta": "A quantos centímetros de altura deve se, segurar o saleiro para a salga das Mcfritas?",
+        "pergunta": "A quantos centímetros de altura deve se segurar o saleiro para a salga das McFritas?",
         "resposta": "20 cm"
     },
     {
@@ -76,15 +76,15 @@
         "resposta": "Descartar o pacote imediatamente"
     },
     {
-        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente: \"o Cliente espera que o serviço que recebe tenha um Nível básico de Velocidade, Conforto e Confiabilidade\"",
+        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente: \"o Cliente espera que o serviço que recebe tenha um Nível básico Velocidade, Conforto e Confiabilidade\"",
         "resposta": ""
     },
     {
-        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente, para que experiência familiar seja ideal é preciso conjugar três características?",
-        "resposta": "Fácil, Divertida e Memorável"
+        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente, para que experiência familiar seja ideal é preciso conjugar três: Fácil, Divertida e Memorável",
+        "resposta": ""
     },
     {
-        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente, quais os três grandes eixos que vão ajudar a conseguir experiências?",
+        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente, quais os três grandes eixos que vão ajudar a conseguir experiência?",
         "resposta": "Observar, Interagir e Intervir"
     },
     {
@@ -141,4 +141,52 @@
     },
     {
         "pergunta": "Qual é a proporção de xarope e água da Fanta laranja?",
-        "resposta": "4.2 oz de água para
+        "resposta": "4.2 oz de água para 1.0 oz de xarope"
+    },
+    {
+        "pergunta": "Qual é a quantidade máxima de carnes 10:1 que devemos ativar?",
+        "resposta": "8 carnes"
+    },
+    {
+        "pergunta": "Qual é a temperatura da estufa de tortas?",
+        "resposta": "66°C a 82°C"
+    },
+    {
+        "pergunta": "Qual é a temperatura de extração e o do banho-maria das coberturas?",
+        "resposta": "46°C a 52°C / 57°C e 63°C"
+    },
+    {
+        "pergunta": "Qual é a temperatura de fritura e o tempo de vida das McFritas na estufa?",
+        "resposta": "168°C – 7 minutos"
+    },
+    {
+        "pergunta": "Qual é a temperatura e o tempo de aquecimento das chapas?",
+        "resposta": "Superior – 218°C / Inferior – 177°C – 20 minutos"
+    },
+    {
+        "pergunta": "Qual é a temperatura e o tempo de congelamento dos congeladores portáteis?",
+        "resposta": "-23°C a -18°C – 45 minutos"
+    },
+    {
+        "pergunta": "Qual é a temperatura interna mínima das carnes 10:1 após cozida?",
+        "resposta": "70°C"
+    },
+    {
+        "pergunta": "Qual é o empilhamento máximo dos bags de Coca zero?",
+        "resposta": "4 caixas"
+    },
+    {
+        "pergunta": "Qual é o empilhamento máximo dos pães de Big Mac e dos demais pães?",
+        "resposta": "26 bandejas / 20 bandejas"
+    },
+    {
+        "pergunta": "Qual é o peso de uma McFritas Kids, Pequena, Média e Grande respectivamente?",
+        "resposta": "31 grs., 73 grs., 102 grs., 146 grs"
+    },
+    {
+        "pergunta": "Qual é o rendimento da mostarda pouch?",
+        "resposta": "1235 sanduíches por quilo"
+    },
+    {
+        "pergunta": "Qual é o rendimento ideal do alface?",
+        "resposta": "45,4 sanduíches por
