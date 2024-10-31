@@ -1,70 +1,55 @@
-// Carregando perguntas do arquivo JSON
 let perguntas = [];
-let perguntaAtual = 0;
-let acertos = 0;
-let erros = 0;
+let perguntaAtualIndex = 0;
 
-fetch('perguntas.json')
-    .then(response => response.json())
-    .then(data => {
-        perguntas = data.perguntas;
-        mostrarPergunta();
-    })
-    .catch(error => console.error('Erro ao carregar perguntas:', error));
+// Função para carregar perguntas do arquivo JSON
+function carregarPerguntas() {
+    fetch('perguntas.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao carregar o arquivo JSON');
+            }
+            return response.json();
+        })
+        .then(data => {
+            perguntas = data.perguntas; // Acesse o array de perguntas corretamente
+            mostrarPergunta();
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+}
 
 // Função para mostrar a pergunta atual
 function mostrarPergunta() {
-    if (perguntaAtual < perguntas.length) {
-        document.getElementById('pergunta').textContent = perguntas[perguntaAtual].pergunta;
-        document.getElementById('resposta').value = ''; // Limpa a resposta anterior
-        document.getElementById('feedback').textContent = ''; // Limpa feedback anterior
-        document.getElementById('dica').style.display = 'none'; // Limpa a dica anterior
+    if (perguntas && perguntas.length > 0) {
+        const perguntaAtual = perguntas[perguntaAtualIndex];
+        document.getElementById('pergunta').textContent = perguntaAtual.pergunta;
+        document.getElementById('dica').textContent = `Dica: ${perguntaAtual.dica}`;
+        // Limpa respostas anteriores
+        document.getElementById('respostas').innerHTML = '';
+        
+        // Adiciona a resposta correta
+        const respostaElement = document.createElement('div');
+        respostaElement.textContent = `Resposta: ${perguntaAtual.resposta}`;
+        document.getElementById('respostas').appendChild(respostaElement);
+        
     } else {
-        document.getElementById('pergunta').textContent = 'Fim do quiz! Você teve ' + acertos + ' acertos e ' + erros + ' erros.';
-        document.getElementById('resposta').style.display = 'none';
-        document.getElementById('btnResponder').style.display = 'none';
-        document.getElementById('btnPular').style.display = 'none';
-        document.getElementById('btnDica').style.display = 'none';
+        console.error("As perguntas não foram carregadas corretamente.");
     }
 }
 
-// Função para verificar a resposta
-document.getElementById('btnResponder').addEventListener('click', function() {
-    const respostaUsuario = document.getElementById('resposta').value.trim().toLowerCase();
-    const respostaCorreta = perguntas[perguntaAtual].resposta.trim().toLowerCase();
-
-    if (respostaUsuario === '') {
-        document.getElementById('feedback').textContent = 'Por favor, digite uma resposta.';
-        return;
-    }
-
-    if (respostaUsuario.includes(respostaCorreta) || respostaCorreta.includes(respostaUsuario)) {
-        acertos++;
-        document.getElementById('feedback').textContent = 'Resposta correta!';
+// Função para mostrar a próxima pergunta
+function mostrarProximaPergunta() {
+    perguntaAtualIndex++;
+    if (perguntaAtualIndex < perguntas.length) {
+        mostrarPergunta();
     } else {
-        erros++;
-        document.getElementById('feedback').textContent = 'Resposta incorreta! A resposta correta é: ' + perguntas[perguntaAtual].resposta;
+        document.getElementById('pergunta').textContent = 'Você completou todas as perguntas!';
+        document.getElementById('respostas').innerHTML = '';
+        document.getElementById('dica').textContent = '';
+        document.getElementById('proxima').style.display = 'none'; // Esconde o botão
     }
+}
 
-    document.getElementById('acertos').textContent = acertos;
-    document.getElementById('erros').textContent = erros;
-    perguntaAtual++;
-    mostrarPergunta();
-});
-
-// Função para pular a pergunta
-document.getElementById('btnPular').addEventListener('click', function() {
-    erros++;
-    document.getElementById('feedback').textContent = 'Pergunta pulada!';
-    document.getElementById('acertos').textContent = acertos;
-    document.getElementById('erros').textContent = erros;
-    perguntaAtual++;
-    mostrarPergunta();
-});
-
-// Função para dar dicas
-document.getElementById('btnDica').addEventListener('click', function() {
-    const dica = perguntas[perguntaAtual].dica; // Obtém a dica da pergunta atual
-    document.getElementById('dica').textContent = dica; // Exibe a dica
-    document.getElementById('dica').style.display = 'block'; // Mostra a dica
-});
+// Inicia o carregamento das perguntas
+carregarPerguntas();
