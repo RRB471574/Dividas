@@ -18,11 +18,13 @@ function mostrarPergunta() {
         document.getElementById('pergunta').textContent = perguntas[perguntaAtual].pergunta;
         document.getElementById('resposta').value = ''; // Limpa a resposta anterior
         document.getElementById('feedback').textContent = ''; // Limpa feedback anterior
+        document.getElementById('dica').style.display = 'none'; // Limpa a dica anterior
     } else {
         document.getElementById('pergunta').textContent = 'Fim do quiz! Você teve ' + acertos + ' acertos e ' + erros + ' erros.';
         document.getElementById('resposta').style.display = 'none';
         document.getElementById('btnResponder').style.display = 'none';
         document.getElementById('btnPular').style.display = 'none';
+        document.getElementById('btnDica').style.display = 'none';
     }
 }
 
@@ -58,4 +60,11 @@ document.getElementById('btnPular').addEventListener('click', function() {
     document.getElementById('erros').textContent = erros;
     perguntaAtual++;
     mostrarPergunta();
+});
+
+// Função para dar dicas
+document.getElementById('btnDica').addEventListener('click', function() {
+    const dica = perguntas[perguntaAtual].dica; // Obtém a dica da pergunta atual
+    document.getElementById('dica').textContent = dica; // Exibe a dica
+    document.getElementById('dica').style.display = 'block'; // Mostra a dica
 });
