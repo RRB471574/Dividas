@@ -1,44 +1,39 @@
-document.addEventListener("DOMContentLoaded", () => {
-  let currentQuestionIndex = 0;
-  let questions;
+let perguntas = [];
+let currentQuestionIndex = 0;
 
-  fetch("perguntas.json")
-    .then(response => response.json())
-    .then(data => {
-      questions = data;
-      showQuestion();
-    });
+fetch('perguntas.json')
+  .then(response => response.json())
+  .then(data => {
+    perguntas = data;
+    loadQuestion();
+  });
 
-  function showQuestion() {
-    document.getElementById("feedback").textContent = "";
-    document.getElementById("answer-input").value = "";
-    document.getElementById("next-question").style.display = "none";
-    document.getElementById("question-container").textContent = questions[currentQuestionIndex].pergunta;
+function loadQuestion() {
+  const questionContainer = document.getElementById('question-container');
+  questionContainer.innerText = perguntas[currentQuestionIndex].pergunta;
+  document.getElementById('feedback').innerText = ""; // Limpa feedback anterior
+}
+
+function checkAnswer() {
+  const userAnswer = document.getElementById('answer-input').value.trim();
+  const correctAnswer = perguntas[currentQuestionIndex].resposta;
+  const feedback = document.getElementById('feedback');
+
+  if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+    feedback.innerText = "Correto!";
+  } else {
+    feedback.innerText = `Errado. A resposta certa é: ${correctAnswer}`;
   }
 
-  document.getElementById("submit-answer").addEventListener("click", () => {
-    const userAnswer = document.getElementById("answer-input").value.trim();
-    const correctAnswer = questions[currentQuestionIndex].resposta.trim();
+  // Avança para a próxima pergunta
+  currentQuestionIndex = (currentQuestionIndex + 1) % perguntas.length;
+  document.getElementById('answer-input').value = "";
+  setTimeout(loadQuestion, 2000); // Espera 2 segundos para mostrar a próxima pergunta
+}
 
-    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-      document.getElementById("feedback").textContent = "Resposta Correta!";
-      document.getElementById("feedback").style.color = "green";
-      document.getElementById("next-question").style.display = "block";
-    } else {
-      document.getElementById("feedback").textContent = "Resposta Incorreta. Tente novamente.";
-      document.getElementById("feedback").style.color = "red";
-    }
-  });
-
-  document.getElementById("next-question").addEventListener("click", () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-      showQuestion();
-    } else {
-      document.getElementById("question-container").textContent = "Parabéns! Você concluiu o quiz!";
-      document.getElementById("answer-input").style.display = "none";
-      document.getElementById("submit-answer").style.display = "none";
-      document.getElementById("next-question").style.display = "none";
-    }
-  });
-});
+function skipQuestion() {
+  // Avança para a próxima pergunta sem feedback
+  currentQuestionIndex = (currentQuestionIndex + 1) % perguntas.length;
+  document.getElementById('answer-input').value = "";
+  loadQuestion();
+}
