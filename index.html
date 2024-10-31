@@ -9,20 +9,21 @@
 <body>
     <div class="container">
         <header>
-            <h1>Site de Estudos</h1>
-            <p>Responda as perguntas abaixo:</p>
+            <h1>Estudos para Prova</h1>
         </header>
         <main>
-            <div id="score-display">Acertos: 0 | Erros: 0</div>
-            <div id="question"></div>
-            <input type="text" id="answer-input" placeholder="Digite sua resposta">
-            <button id="submit-button">Responder</button>
-            <button id="skip-button">Pular Pergunta</button>
-            <div id="feedback"></div>
+            <div id="pergunta-container">
+                <p id="pergunta"></p>
+                <input type="text" id="resposta" placeholder="Digite sua resposta...">
+                <button id="responder">Responder</button>
+                <button id="pular">Pular</button>
+                <div id="feedback"></div>
+                <div id="estatisticas">
+                    <p id="acertos">Acertos: 0</p>
+                    <p id="erros">Erros: 0</p>
+                </div>
+            </div>
         </main>
-        <footer>
-            <p>© 2024 Site de Estudos</p>
-        </footer>
     </div>
     <script src="script.js"></script>
 </body>
