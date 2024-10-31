@@ -1,57 +1,61 @@
-let currentQuestionIndex = 0;
-let correctAnswers = 0;
-let incorrectAnswers = 0;
-let questions = []; // Para armazenar as perguntas
+// Carregando perguntas do arquivo JSON
+let perguntas = [];
+let perguntaAtual = 0;
+let acertos = 0;
+let erros = 0;
 
-const questionElement = document.getElementById('question');
-const feedback = document.getElementById('feedback');
-const answerInput = document.getElementById('answer-input');
-const submitButton = document.getElementById('submit-button');
-const scoreDisplay = document.getElementById('score-display');
+fetch('perguntas.json')
+    .then(response => response.json())
+    .then(data => {
+        perguntas = data.perguntas;
+        mostrarPergunta();
+    })
+    .catch(error => console.error('Erro ao carregar perguntas:', error));
 
-async function loadQuestions() {
-    const response = await fetch('perguntas.json');
-    const data = await response.json();
-    questions = data; // Armazena as perguntas carregadas
-}
-
-async function showQuestion() {
-    if (currentQuestionIndex < questions.length) {
-        const currentQuestion = questions[currentQuestionIndex];
-        questionElement.innerText = currentQuestion.pergunta;
-        answerInput.value = '';
-        feedback.innerText = '';
+// Função para mostrar a pergunta atual
+function mostrarPergunta() {
+    if (perguntaAtual < perguntas.length) {
+        document.getElementById('pergunta').textContent = perguntas[perguntaAtual].pergunta;
+        document.getElementById('resposta').value = ''; // Limpa a resposta anterior
+        document.getElementById('feedback').textContent = ''; // Limpa feedback anterior
     } else {
-        showResults();
+        document.getElementById('pergunta').textContent = 'Fim do quiz! Você teve ' + acertos + ' acertos e ' + erros + ' erros.';
+        document.getElementById('resposta').style.display = 'none';
+        document.getElementById('btnResponder').style.display = 'none';
+        document.getElementById('btnPular').style.display = 'none';
     }
 }
 
-function checkAnswer() {
-    const userAnswer = answerInput.value.trim().toLowerCase(); // Normaliza a resposta do usuário
-    const correctAnswer = questions[currentQuestionIndex].resposta.trim().toLowerCase(); // Normaliza a resposta correta
+// Função para verificar a resposta
+document.getElementById('btnResponder').addEventListener('click', function() {
+    const respostaUsuario = document.getElementById('resposta').value.trim().toLowerCase();
+    const respostaCorreta = perguntas[perguntaAtual].resposta.trim().toLowerCase();
 
-    if (userAnswer === correctAnswer) {
-        feedback.innerHTML = "Resposta correta!";
-        correctAnswers++; // Incrementa contador de acertos
-    } else {
-        feedback.innerHTML = "Resposta incorreta. Tente novamente!";
-        incorrectAnswers++; // Incrementa contador de erros
+    if (respostaUsuario === '') {
+        document.getElementById('feedback').textContent = 'Por favor, digite uma resposta.';
+        return;
     }
 
-    currentQuestionIndex++;
-    showQuestion();
-    updateScoreDisplay(); // Atualiza o contador na tela
-}
+    if (respostaUsuario.includes(respostaCorreta) || respostaCorreta.includes(respostaUsuario)) {
+        acertos++;
+        document.getElementById('feedback').textContent = 'Resposta correta!';
+    } else {
+        erros++;
+        document.getElementById('feedback').textContent = 'Resposta incorreta! A resposta correta é: ' + perguntas[perguntaAtual].resposta;
+    }
 
-function updateScoreDisplay() {
-    scoreDisplay.innerText = `Acertos: ${correctAnswers} | Erros: ${incorrectAnswers}`;
-}
+    document.getElementById('acertos').textContent = acertos;
+    document.getElementById('erros').textContent = erros;
+    perguntaAtual++;
+    mostrarPergunta();
+});
 
-function showResults() {
-    questionElement.innerText = "Fim das perguntas!";
-    feedback.innerHTML = `Você acertou ${correctAnswers} de ${currentQuestionIndex} perguntas.`;
-    submitButton.style.display = 'none'; // Oculta o botão de envio
-}
-
-submitButton.addEventListener('click', checkAnswer);
-loadQuestions().then(showQuestion); // Chama a função para carregar as perguntas e mostrar a primeira
+// Função para pular a pergunta
+document.getElementById('btnPular').addEventListener('click', function() {
+    erros++;
+    document.getElementById('feedback').textContent = 'Pergunta pulada!';
+    document.getElementById('acertos').textContent = acertos;
+    document.getElementById('erros').textContent = erros;
+    perguntaAtual++;
+    mostrarPergunta();
+});
