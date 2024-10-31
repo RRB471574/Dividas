@@ -24,6 +24,12 @@ function checkAnswer() {
   const userAnswer = answerInput.value.trim().toLowerCase(); // Normaliza a resposta do usuário
   const correctAnswer = question.resposta.trim().toLowerCase(); // Normaliza a resposta correta
 
+  // Verifica se a resposta do usuário não está vazia
+  if (userAnswer === "") {
+    feedback.innerHTML = "Por favor, digite sua resposta antes de responder.";
+    return; // Interrompe a execução se não houver resposta
+  }
+
   if (userAnswer === correctAnswer) {
     feedback.innerHTML = "Resposta correta!";
   } else {
