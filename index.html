@@ -3,23 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz de Estudos</title>
+  <title>Meu Site de Estudos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Quiz de Estudos</h1>
-    <p>Boa sorte na prova!</p>
-  </header>
-  <main>
-    <section id="quiz-container">
-      <div id="question-container"></div>
-      <input type="text" id="answer-input" placeholder="Digite sua resposta...">
-      <button id="submit-answer">Enviar</button>
-      <p id="feedback"></p>
-    </section>
-    <button id="next-question" style="display:none;">Próxima Pergunta</button>
-  </main>
+  <div id="quiz-container">
+    <img src="assets/logo.png" alt="Logo" id="logo">
+    <h1>Estudo para a Prova</h1>
+    <div id="question-container"></div>
+    <input type="text" id="answer-input" placeholder="Digite sua resposta">
+    <button onclick="checkAnswer()">Responder</button>
+    <button onclick="skipQuestion()">Pular</button>
+    <div id="feedback"></div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
