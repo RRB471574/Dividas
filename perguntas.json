@@ -9,17 +9,7 @@
             "pergunta": "Qual é o tempo de vida secundário da caixa do sol?",
             "resposta": "03 dias depois de aberta.",
             "dica": "Verifique a embalagem."
-        },
-        {
-            "pergunta": "Qual é o tempo de vida primário do queijo fatiado?",
-            "resposta": "120 dias",
-            "dica": "Manter refrigerado."
-        },
-        {
-            "pergunta": "Qual é o tempo de vida primário do leite integral?",
-            "resposta": "120 dias",
-            "dica": "Verifique a embalagem."
         }
-        // Adicione as outras perguntas aqui
+        // Adicione mais perguntas aqui se necessário
     ]
 }
