@@ -70,6 +70,11 @@ button:hover {
     font-size: 1.2em;
 }
 
+#dica {
+    margin-top: 10px;
+    color: #d9534f; /* Cor da dica */
+}
+
 #estatisticas {
     margin-top: 20px;
 }
