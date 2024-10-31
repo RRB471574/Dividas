@@ -1,8 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9; /* Cor de fundo suave */
+    color: #333; /* Cor do texto */
 }
 
 .container {
@@ -16,24 +17,37 @@ header {
     margin-bottom: 20px;
 }
 
+h1 {
+    font-size: 2.5em;
+    color: #d9534f; /* Cor do título */
+    margin-bottom: 10px;
+}
+
 main {
     background: white;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
 }
 
 #pergunta {
     font-size: 1.5em;
     margin-bottom: 20px;
+    color: #5bc0de; /* Cor da pergunta */
 }
 
 input[type="text"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #d9534f; /* Borda do input */
     border-radius: 5px;
+    font-size: 1em;
+}
+
+input[type="text"]:focus {
+    border-color: #5bc0de; /* Cor da borda ao focar */
+    outline: none; /* Remove o contorno padrão */
 }
 
 button {
@@ -41,13 +55,14 @@ button {
     margin-right: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #5bc0de; /* Cor de fundo do botão */
     color: white;
     cursor: pointer;
+    font-size: 1em;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #31b0d5; /* Cor ao passar o mouse */
 }
 
 #feedback {
