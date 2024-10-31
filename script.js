@@ -1,55 +1,57 @@
-let questions = [];
 let currentQuestionIndex = 0;
+let correctAnswers = 0;
+let incorrectAnswers = 0;
+let questions = []; // Para armazenar as perguntas
 
-fetch('perguntas.json')
-  .then(response => response.json())
-  .then(data => {
-    questions = data;
-    showQuestion();
-  });
+const questionElement = document.getElementById('question');
+const feedback = document.getElementById('feedback');
+const answerInput = document.getElementById('answer-input');
+const submitButton = document.getElementById('submit-button');
+const scoreDisplay = document.getElementById('score-display');
 
-function showQuestion() {
-  const questionContainer = document.getElementById('question-container');
-  const question = questions[currentQuestionIndex];
+async function loadQuestions() {
+    const response = await fetch('perguntas.json');
+    const data = await response.json();
+    questions = data; // Armazena as perguntas carregadas
+}
 
-  questionContainer.innerHTML = `<h2>${question.pergunta}</h2>`;
-  document.getElementById('answer-input').value = ''; // Limpa o campo de resposta
+async function showQuestion() {
+    if (currentQuestionIndex < questions.length) {
+        const currentQuestion = questions[currentQuestionIndex];
+        questionElement.innerText = currentQuestion.pergunta;
+        answerInput.value = '';
+        feedback.innerText = '';
+    } else {
+        showResults();
+    }
 }
 
 function checkAnswer() {
-  const answerInput = document.getElementById('answer-input');
-  const feedback = document.getElementById('feedback');
-  const question = questions[currentQuestionIndex];
+    const userAnswer = answerInput.value.trim().toLowerCase(); // Normaliza a resposta do usuário
+    const correctAnswer = questions[currentQuestionIndex].resposta.trim().toLowerCase(); // Normaliza a resposta correta
 
-  const userAnswer = answerInput.value.trim().toLowerCase(); // Normaliza a resposta do usuário
-  const correctAnswer = question.resposta.trim().toLowerCase(); // Normaliza a resposta correta
+    if (userAnswer === correctAnswer) {
+        feedback.innerHTML = "Resposta correta!";
+        correctAnswers++; // Incrementa contador de acertos
+    } else {
+        feedback.innerHTML = "Resposta incorreta. Tente novamente!";
+        incorrectAnswers++; // Incrementa contador de erros
+    }
 
-  // Verifica se a resposta do usuário não está vazia
-  if (userAnswer === "") {
-    feedback.innerHTML = "Por favor, digite sua resposta antes de responder.";
-    return; // Interrompe a execução se não houver resposta
-  }
-
-  if (userAnswer === correctAnswer) {
-    feedback.innerHTML = "Resposta correta!";
-  } else {
-    feedback.innerHTML = "Resposta incorreta. Tente novamente!";
-  }
-
-  currentQuestionIndex++;
-  if (currentQuestionIndex < questions.length) {
+    currentQuestionIndex++;
     showQuestion();
-  } else {
-    feedback.innerHTML += "<br>Fim das perguntas!";
-  }
+    updateScoreDisplay(); // Atualiza o contador na tela
 }
 
-function skipQuestion() {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < questions.length) {
-    showQuestion();
-    document.getElementById('feedback').innerHTML = ''; // Limpa o feedback ao pular
-  } else {
-    document.getElementById('feedback').innerHTML = 'Fim das perguntas!';
-  }
+function updateScoreDisplay() {
+    scoreDisplay.innerText = `Acertos: ${correctAnswers} | Erros: ${incorrectAnswers}`;
 }
+
+function showResults() {
+    questionElement.innerText = "Fim das perguntas!";
+    feedback.innerHTML = `Você acertou ${correctAnswers} de ${currentQuestionIndex} perguntas.`;
+    submitButton.style.display = 'none'; // Oculta o botão de envio
+}
+
+submitButton.addEventListener('click', checkAnswer);
+loadQuestions().then(showQuestion); // Chama a função para carregar as perguntas e mostrar a primeira
