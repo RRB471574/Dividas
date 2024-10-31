@@ -1,26 +1,51 @@
 let perguntas = [];
 let perguntaAtual = 0;
 
-document.addEventListener('DOMContentLoaded', function() {
-    carregarPerguntas();
-    document.getElementById('botao-responder').addEventListener('click', mostrarPergunta);
-});
-
-function carregarPerguntas() {
-    fetch('perguntas.json')
-        .then(response => response.json())
-        .then(data => {
-            perguntas = data.perguntas; // Supondo que seu JSON tem uma propriedade 'perguntas'
-            mostrarPergunta();
-        })
-        .catch(error => console.error('Erro ao carregar perguntas:', error));
-}
-
-function mostrarPergunta() {
-    if (perguntas.length > 0 && perguntaAtual < perguntas.length) {
-        const pergunta = perguntas[perguntaAtual];
-        document.getElementById('pergunta').innerText = pergunta.pergunta; // Supondo que cada pergunta tem uma propriedade 'pergunta'
-    } else {
-        document.getElementById('pergunta').innerText = "Fim das perguntas!";
+// Função para carregar perguntas do JSON
+async function carregarPerguntas() {
+    try {
+        const resposta = await fetch('perguntas.json');
+        if (!resposta.ok) {
+            throw new Error('Erro ao carregar perguntas');
+        }
+        perguntas = await resposta.json();
+        mostrarPergunta();
+    } catch (error) {
+        console.error('Erro ao carregar perguntas:', error);
     }
 }
+
+// Função para mostrar a pergunta atual
+function mostrarPergunta() {
+    const perguntaEl = document.getElementById('pergunta');
+    const respostaEl = document.getElementById('resposta');
+
+    if (perguntaAtual < perguntas.length) {
+        const perguntaAtualObj = perguntas[perguntaAtual];
+        perguntaEl.textContent = perguntaAtualObj.pergunta;
+        respostaEl.value = ''; // Limpa o campo de resposta
+    } else {
+        // Fim das perguntas
+        perguntaEl.textContent = 'Fim das perguntas';
+        respostaEl.style.display = 'none'; // Esconde o campo de resposta
+        document.getElementById('btn-responder').style.display = 'none'; // Esconde o botão de resposta
+    }
+}
+
+// Função chamada ao responder a pergunta
+function responder() {
+    const respostaEl = document.getElementById('resposta');
+    if (respostaEl.value.toLowerCase() === perguntas[perguntaAtual].resposta.toLowerCase()) {
+        alert('Resposta correta!');
+    } else {
+        alert('Resposta incorreta! A resposta correta é: ' + perguntas[perguntaAtual].resposta);
+    }
+    perguntaAtual++;
+    mostrarPergunta();
+}
+
+// Adiciona event listeners
+document.getElementById('btn-responder').addEventListener('click', responder);
+
+// Carrega as perguntas ao iniciar
+carregarPerguntas();
