@@ -1,15 +1,201 @@
-{
-    "perguntas": [
-        {
-            "pergunta": "Qual é o tempo de vida primário dos sucros?",
-            "resposta": "180 dias",
-            "dica": "Observe a data de validade."
-        },
-        {
-            "pergunta": "Qual é o tempo de vida secundário da caixa do sol?",
-            "resposta": "03 dias depois de aberta.",
-            "dica": "Verifique a embalagem."
-        }
-        // Adicione mais perguntas aqui se necessário
-    ]
-}
+[
+    {
+        "pergunta": "Qual é o tempo de vida primário dos sucos?",
+        "resposta": "180 dias"
+    },
+    {
+        "pergunta": "Qual é o tempo de vida secundário da casquinha de colo?",
+        "resposta": "03 dias depois de aberta a caixa e com a sacola fechada"
+    },
+    {
+        "pergunta": "Qual é o tempo de vida secundário do pão congelado?",
+        "resposta": "48 horas, incluindo 12 horas de degelo"
+    },
+    {
+        "pergunta": "Qual é o tempo vida primário das carnes 10:1, 4:1 e 3:1?",
+        "resposta": "90 dias"
+    },
+    {
+        "pergunta": "Qual momento podemos fazer a abertura do lado dois?",
+        "resposta": "A partir de 125 sanduíches"
+    },
+    {
+        "pergunta": "Qual o empilhamento máximo para as carnes de 10:1?",
+        "resposta": "8 caixas"
+    },
+    {
+        "pergunta": "Qual o número da ficha do SMP para realizar a calibragem e briga de suco?",
+        "resposta": "39E"
+    },
+    {
+        "pergunta": "Qual o propósito da cooltura de serviço?",
+        "resposta": "Geramos bons momentos para as pessoas, sendo nós mesmos"
+    },
+    {
+        "pergunta": "Qual o rendimento da cebola fresca?"
+        "resposta": "143 sanduíches"
+    },
+    {
+        "pergunta": "Qual o rendimento do pickles?",
+        "resposta": "255 sanduíches"
+    },
+    {
+        "pergunta": "Qual o tempo de aquecimento da máquina de leite no café da manhã?",
+        "resposta": "20 minutos"
+    },
+    {
+        "pergunta": "Qual o tempo de OEP Enodrive?",
+        "resposta": "120 segundos"
+    },
+    {
+        "pergunta": "Qual o tempo de remoção das carnes de 4:1 e 3:1?",
+        "resposta": "15 segundos"
+    },
+    {
+        "pergunta": "Qual o tempo de remoção para as carnes de 10:1?",
+        "resposta": "18 segundos"
+    },
+    {
+        "pergunta": "Qual o tempo de vida do café na jarra?",
+        "resposta": "30 minutos"
+    },
+    {
+        "pergunta": "Quem é o responsável pela garantia do Checklist de carnes?",
+        "resposta": "O Gerente de Plantão"
+    },
+    {
+        "pergunta": "A pessoa do iniciador deve ativar os pães entre?",
+        "resposta": "3 a 5 segundos"
+    },
+    {
+        "pergunta": "A quantos centímetros de altura deve-se segurar o saleiro para a salga das McFritas?",
+        "resposta": "20 cm"
+    },
+    {
+        "pergunta": "Caso você encontre gelo nos pacotes de batatas, o que você deve fazer?",
+        "resposta": "Descartar o pacote imediatamente"
+    },
+    {
+        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente: \"o Cliente espera que o serviço que recebe tenha um Nível básico: Velocidade, Conforto e Confiabilidade\"",
+        "resposta": ""
+    },
+    {
+        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente, para que a experiência familiar seja ideal é preciso conjugar três: Fácil, Divertida e Memorável",
+        "resposta": ""
+    },
+    {
+        "pergunta": "De acordo com o Manual de Boas Vindas O Trajeto do Embaixador da Experiência do Cliente, quais os três grandes eixos que vão ajudar a conseguir a experiência?",
+        "resposta": "Observar, Interagir e Intervir"
+    },
+    {
+        "pergunta": "No recebimento, qual deve ser a temperatura dos produtos congelados?",
+        "resposta": "-23°c a -18°c (crítica -15°c)"
+    },
+    {
+        "pergunta": "O conceito de Máxima Capacidade de Vendas e Rentabilidade na UHC significa?",
+        "resposta": "Mais gavetas com menos carnes"
+    },
+    {
+        "pergunta": "Onde deve ser descartados os resíduos de rejeitos?",
+        "resposta": "Lixeiras identificadas com etiqueta e sacos na cor preta"
+    },
+    {
+        "pergunta": "Onde devemos descartar os resíduos recicláveis?",
+        "resposta": "Lixeiras identificadas com etiqueta e sacos na cor verde"
+    },
+    {
+        "pergunta": "Quais causas que podem diminuir o tempo de vida da gordura?",
+        "resposta": "Todas as alternativas estão corretas"
+    },
+    {
+        "pergunta": "Quais são as três dimensões que concretizam a Missão do Embaixador na Experiência do Cliente?",
+        "resposta": "Viagem do Cliente, Experiência Familiar e Construção de Vendas"
+    },
+    {
+        "pergunta": "Qual a atuação da pessoa do salão na cooltura de serviço?",
+        "resposta": "Exercitar todas nossas premissas, trabalhando fortemente os momentos do salão"
+    },
+    {
+        "pergunta": "Qual a Temperatura e tempo de aquecimento do forno no café da manhã?",
+        "resposta": "180°c e 20 minutos"
+    },
+    {
+        "pergunta": "Qual a velocidade da água para Coca- cola, Fanta e Guaraná?",
+        "resposta": "450 ml em 12 segundos"
+    },
+    {
+        "pergunta": "Qual é a calibragem do dispensador da mostarda?",
+        "resposta": "35 a 60 tiros = 30 ml (1 oz fl)"
+    },
+    {
+        "pergunta": "Qual é a calibragem do molho Big Mac?",
+        "resposta": "6 tiros = 59 ml (2 oz lq)"
+    },
+    {
+        "pergunta": "Qual é a causa de uma carne crua/seca?",
+        "resposta": "Todas as alternativas"
+    },
+    {
+        "pergunta": "Qual é a descrição do padrão Ouro de Qualidade das Tortas fritas?",
+        "resposta": "Massa de cor marrom-dourada, crocante, com suaves bolhas e sem rachaduras"
+    },
+    {
+        "pergunta": "Qual é a proporção de xarope e água da Fanta laranja?",
+        "resposta": "4.2 oz de água para 1.0 oz de xarope"
+    },
+    {
+        "pergunta": "Qual é a quantidade máxima de carnes 10:1 que devemos ativar?",
+        "resposta": "8 carnes"
+    },
+    {
+        "pergunta": "Qual é a temperatura da estufa de tortas?",
+        "resposta": "66°C a 82°C"
+    },
+    {
+        "pergunta": "Qual é a temperatura de extração e o do banho-maria das coberturas?",
+        "resposta": "46°C a 52°C/ 57°C e 63°C"
+    },
+    {
+        "pergunta": "Qual é a temperatura de fritura e o tempo de vida das McFritas na estufa?",
+        "resposta": "168°C – 7 minutos"
+    },
+    {
+        "pergunta": "Qual é a temperatura e o tempo de aquecimento das chapas?",
+        "resposta": "Superior – 218°C/ Inferior – 177°C – 20 Minutos"
+    },
+    {
+        "pergunta": "Qual é a temperatura e o tempo de congelamento dos congeladores portáteis?",
+        "resposta": "-23°C a -18°C – 45 Minutos"
+    },
+    {
+        "pergunta": "Qual é a temperatura interna mínima das carnes 10:1 após cozida?",
+        "resposta": "70°C"
+    },
+    {
+        "pergunta": "Qual é o empilhamento máximo dos bags de Coca zero?",
+        "resposta": "4 caixas"
+    },
+    {
+        "pergunta": "Qual é o empilhamento máximo dos pães de Big Mac e dos demais pães?",
+        "resposta": "26 bandejas/ 20 bandejas"
+    },
+    {
+        "pergunta": "Qual é o peso de uma McFritas Kids, Pequena, Média e Grande respectivamente?",
+        "resposta": "31 grs., 73 grs., 102 grs., 146 grs"
+    },
+    {
+        "pergunta": "Qual é o rendimento da mostarda pouch?",
+        "resposta": "1235 sanduíches por quilo"
+    },
+    {
+        "pergunta": "Qual é o rendimento ideal do alface?",
+        "resposta": "45,4 sanduíches por quilo"
+    },
+    {
+        "pergunta": "Qual é o tempo de ambientação do molho Cheddar?",
+        "resposta": "02 horas"
+    },
+    {
+        "pergunta": "Qual é o tempo de cozimento para as carnes de 10:1?",
+        "resposta": "A partir de 38 segundos"
+    },
