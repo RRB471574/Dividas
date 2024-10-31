@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meu Site de Estudos</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Estudos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="quiz-container">
-    <h1>Estudo para a Prova</h1>
-    <div id="question-container"></div>
-    <input type="text" id="answer-input" placeholder="Digite sua resposta">
-    <button onclick="checkAnswer()">Responder</button>
-    <button onclick="skipQuestion()">Pular</button>
-    <div id="feedback"></div>
-  </div>
-  <script src="script.js"></script>
+    <div class="container">
+        <header>
+            <h1>Site de Estudos</h1>
+        </header>
+        <main>
+            <div id="score-display">Acertos: 0 | Erros: 0</div>
+            <div id="question"></div>
+            <input type="text" id="answer-input" placeholder="Digite sua resposta">
+            <button id="submit-button">Responder</button>
+            <div id="feedback"></div>
+        </main>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
