@@ -1,82 +1,82 @@
-// ========== Configuração do EmailJS ==========
-emailjs.init('URYyrh8lQg0eZHUi2'); // Seu User ID
+// ========== Configurações Iniciais ==========
+emailjs.init('URYyrh8lQg0eZHUi2'); // User ID do EmailJS
 
-// ========== Formulário de Contato ==========
-document.getElementById('form-contato').addEventListener('submit', function(e) {
-    e.preventDefault();
+// ========== Loader ==========
+window.addEventListener('load', () => {
+    document.getElementById('loader').style.display = 'none';
+});
 
-    // Validação
-    const nome = document.getElementById('nome').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const mensagem = document.getElementById('mensagem').value.trim();
+// ========== Modo Escuro ==========
+document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+    document.body.toggleAttribute('data-theme');
+    localStorage.setItem('theme', document.body.hasAttribute('data-theme') ? 'dark' : 'light');
+});
 
-    if (nome.length < 3) return alert('Nome deve ter pelo menos 3 caracteres!');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('E-mail inválido!');
-    if (mensagem.length < 10) return alert('Mensagem muito curta!');
-
-    // Envio com o NOVO TEMPLATE ID
-    emailjs.sendForm(
-        'service_auxnbu7', // Service ID
-        'template_3rpgdr9', // Template ID atualizado
-        this
-    )
-    .then(() => {
-        alert('Mensagem enviada! Verifique seu e-mail (incluindo spam).');
-        this.reset();
-    }, (err) => {
-        console.error('Erro detalhado:', err);
-        alert('Erro ao enviar: ' + err.text);
+// ========== Navegação Ativa ==========
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 100) {
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href') === `#${section.id}`) {
+                    link.classList.add('nav-active');
+                }
+            });
+        }
     });
 });
 
-// ========== Carrossel de Depoimentos ==========
-let currentTestimonial = 0;
-const testimonials = document.querySelectorAll('.testimonial');
-
-function showTestimonial(index) {
-    testimonials.forEach((testimonial, i) => {
-        testimonial.classList.toggle('active', i === index);
+// ========== Lightbox ==========
+document.querySelectorAll('.gallery img').forEach(img => {
+    img.addEventListener('click', () => {
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox').style.display = 'block';
     });
+});
+
+document.querySelector('.close-lightbox').addEventListener('click', () => {
+    document.getElementById('lightbox').style.display = 'none';
+});
+
+// ========== Sistema de Comentários ==========
+document.getElementById('form-comentario').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const comentario = {
+        nome: this.nome.value,
+        texto: this.comentario.value,
+        data: new Date().toLocaleString()
+    };
+    
+    const comentarios = JSON.parse(localStorage.getItem('comentarios') || '[]');
+    comentarios.push(comentario);
+    localStorage.setItem('comentarios', JSON.stringify(comentarios));
+    
+    carregarComentarios();
+    this.reset();
+});
+
+function carregarComentarios() {
+    const lista = document.getElementById('comentarios-lista');
+    lista.innerHTML = JSON.parse(localStorage.getItem('comentarios') || '[]')
+        .map(coment => `
+            <div class="comentario">
+                <h4>${coment.nome} <span>${coment.data}</span></h4>
+                <p>${coment.texto}</p>
+            </div>
+        `).join('');
 }
 
-document.getElementById('next').addEventListener('click', () => {
-    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-    showTestimonial(currentTestimonial);
+// ========== Newsletter ==========
+document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    emailjs.sendForm('service_auxnbu7', 'template_3rpgdr9', this)
+        .then(() => alert('Inscrito com sucesso! 🎉'))
+        .catch(err => alert('Erro: ' + err.text));
 });
 
-document.getElementById('prev').addEventListener('click', () => {
-    currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-    showTestimonial(currentTestimonial);
-});
-
-// ========== API de Clima ==========
-const apiKey = '4e9138941760bea82980f83a2034d408';
-fetch(`https://api.openweathermap.org/data/2.5/weather?q=São Paulo&appid=${apiKey}&units=metric&lang=pt`)
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('weather-info').innerHTML = `
-            <p>Temperatura: ${data.main.temp}°C</p>
-            <p>Condição: ${data.weather[0].description}</p>
-        `;
-    });
-
-// ========== Botão "Voltar ao Topo" ==========
-window.addEventListener('scroll', () => {
-    const btn = document.getElementById('back-to-top');
-    btn.style.display = window.scrollY > 300 ? 'block' : 'none';
-});
-
-document.getElementById('back-to-top').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// ========== Modal ==========
-document.querySelectorAll('#servicos li').forEach(item => {
-    item.addEventListener('click', () => {
-        document.getElementById('modal').style.display = 'block';
-    });
-});
-
-document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('modal').style.display = 'none';
-});
+// ========== Inicialização ==========
+carregarComentarios(); // Carrega comentários ao iniciar
