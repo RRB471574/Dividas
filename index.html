@@ -14,6 +14,7 @@
     <nav>
         <a href="#sobre">Sobre</a>
         <a href="#servicos">Serviços</a>
+        <a href="#galeria">Galeria</a>
         <a href="#contato">Contato</a>
     </nav>
     
@@ -27,9 +28,31 @@
         <p>Oferecemos uma variedade de serviços para atender às suas necessidades.</p>
     </section>
     
+    <section id="galeria">
+        <h2>Galeria</h2>
+        <div class="gallery">
+            <img src="https://via.placeholder.com/150" alt="Imagem 1">
+            <img src="https://via.placeholder.com/150" alt="Imagem 2">
+            <img src="https://via.placeholder.com/150" alt="Imagem 3">
+            <img src="https://via.placeholder.com/150" alt="Imagem 4">
+        </div>
+    </section>
+    
     <section id="contato">
         <h2>Contato</h2>
-        <p>Entre em contato conosco através do e-mail: contato@meusite.com</p>
+        <form id="contactForm">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Mensagem:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit">Enviar</button>
+        </form>
+        <p id="formResponse"></p>
     </section>
     
     <footer>
