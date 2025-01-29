@@ -59,10 +59,6 @@ form {
     flex-direction: column;
 }
 
-form label {
-    margin-top: 10px;
-}
-
 form input, form textarea {
     padding: 10px;
     margin-top: 5px;
