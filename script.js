@@ -1,12 +1,18 @@
-// Exemplo de JavaScript para interatividade
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('nav a');
-    links.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-        });
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
+
+    const formData = new FormData(this);
+
+    fetch('send_email.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('formResponse').innerText = data;
+        this.reset(); // Limpa o formulário após o envio
+    })
+    .catch(error => {
+        document.getElementById('formResponse').innerText = 'Erro ao enviar a mensagem.';
     });
 });
