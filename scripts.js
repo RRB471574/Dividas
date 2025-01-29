@@ -1,29 +1,35 @@
-// ========== EmailJS Config ==========
+// ========== Configuração do EmailJS ==========
 emailjs.init('URYyrh8lQg0eZHUi2'); // Seu User ID
 
+// ========== Formulário de Contato ==========
 document.getElementById('form-contato').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    // Validação
+
+    // Validação dos campos
     const nome = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim();
     const mensagem = document.getElementById('mensagem').value.trim();
 
-    if (nome.length < 3) return alert('Nome inválido!');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('Email inválido!');
+    if (nome.length < 3) return alert('Nome deve ter pelo menos 3 caracteres!');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('E-mail inválido!');
     if (mensagem.length < 10) return alert('Mensagem muito curta!');
 
-    // Envio
-    emailjs.sendForm('service_auxnbu7', 'template_j90145b', this)
-        .then(() => {
-            alert('Mensagem enviada! Verifique seu email.');
-            this.reset();
-        }, (err) => {
-            alert('Erro: ' + JSON.stringify(err));
-        });
+    // Envio do e-mail
+    emailjs.sendForm(
+        'service_auxnbu7', // Service ID
+        'template_1gti19o', // Template ID atualizado
+        this
+    )
+    .then(() => {
+        alert('Mensagem enviada! Verifique seu e-mail (inclusive spam).');
+        this.reset();
+    }, (err) => {
+        console.error('Erro detalhado:', err);
+        alert('Erro ao enviar: ' + err.text);
+    });
 });
 
-// ========== Carrossel ==========
+// ========== Carrossel de Depoimentos ==========
 let currentTestimonial = 0;
 const testimonials = document.querySelectorAll('.testimonial');
 
@@ -43,7 +49,7 @@ document.getElementById('prev').addEventListener('click', () => {
     showTestimonial(currentTestimonial);
 });
 
-// ========== Clima ==========
+// ========== API de Clima ==========
 const apiKey = '4e9138941760bea82980f83a2034d408';
 fetch(`https://api.openweathermap.org/data/2.5/weather?q=São Paulo&appid=${apiKey}&units=metric&lang=pt`)
     .then(response => response.json())
@@ -54,7 +60,7 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?q=São Paulo&appid=${apiK
         `;
     });
 
-// ========== Botão Voltar ao Topo ==========
+// ========== Botão "Voltar ao Topo" ==========
 window.addEventListener('scroll', () => {
     const btn = document.getElementById('back-to-top');
     btn.style.display = window.scrollY > 300 ? 'block' : 'none';
