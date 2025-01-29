@@ -13,6 +13,9 @@
             <ul>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#clima">Clima</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
         </nav>
@@ -20,7 +23,7 @@
 
     <section id="sobre">
         <h2>Sobre</h2>
-        <p>Este é um site de exemplo criado para demonstrar como estruturar um site básico.</p>
+        <p>Este é um site de exemplo criado para demonstrar como estruturar um site básico com funcionalidades avançadas.</p>
     </section>
 
     <section id="servicos">
@@ -30,6 +33,43 @@
             <li>Desenvolvimento Web</li>
             <li>SEO</li>
         </ul>
+    </section>
+
+    <section id="galeria">
+        <h2>Galeria</h2>
+        <div class="gallery">
+            <img src="https://via.placeholder.com/150" alt="Imagem 1">
+            <img src="https://via.placeholder.com/150" alt="Imagem 2">
+            <img src="https://via.placeholder.com/150" alt="Imagem 3">
+            <img src="https://via.placeholder.com/150" alt="Imagem 4">
+        </div>
+    </section>
+
+    <section id="depoimentos">
+        <h2>Depoimentos</h2>
+        <div class="carousel">
+            <div class="testimonial">
+                <p>"Ótimo serviço! Recomendo a todos."</p>
+                <span>- Cliente 1</span>
+            </div>
+            <div class="testimonial">
+                <p>"Profissionais muito competentes."</p>
+                <span>- Cliente 2</span>
+            </div>
+            <div class="testimonial">
+                <p>"Excelente atendimento e qualidade."</p>
+                <span>- Cliente 3</span>
+            </div>
+        </div>
+        <button id="prev">Anterior</button>
+        <button id="next">Próximo</button>
+    </section>
+
+    <section id="clima">
+        <h2>Clima Atual</h2>
+        <div id="weather-info">
+            <p>Carregando...</p>
+        </div>
     </section>
 
     <section id="contato">
@@ -47,6 +87,16 @@
             <button type="submit">Enviar</button>
         </form>
     </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalhes do Serviço</h2>
+            <p>Informações detalhadas sobre o serviço selecionado.</p>
+        </div>
+    </div>
+
+    <button id="back-to-top" title="Voltar ao topo">↑</button>
 
     <footer>
         <p>&copy; 2023 Meu Site. Todos os direitos reservados.</p>
