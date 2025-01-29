@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Site Simples</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body>
     <header>
@@ -40,16 +41,10 @@
     
     <section id="contato">
         <h2>Contato</h2>
-        <form id="contactForm" action="send_email.php" method="POST">
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="message">Mensagem:</label>
-            <textarea id="message" name="message" required></textarea>
-            
+        <form id="myForm">
+            <input type="text" name="name" placeholder="Seu nome" required>
+            <input type="email" name="email" placeholder="Seu e-mail" required>
+            <textarea name="message" placeholder="Sua mensagem" required></textarea>
             <button type="submit">Enviar</button>
         </form>
         <p id="formResponse"></p>
@@ -59,6 +54,26 @@
         <p>&copy; 2025 Meu Site Simples. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Inicialize o Email.js com sua chave pública
+        (function() {
+            emailjs.init("URYyrh8lQg0eZHUi2");
+        })();
+
+        // Adicione um listener para o evento de envio do formulário
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            // Envie o e-mail usando Email.js
+            emailjs.sendForm('auxnbu7', 'template_51ezzuw', this)
+                .then(function() {
+                    document.getElementById('formResponse').innerText = 'Mensagem enviada com sucesso!';
+                    document.getElementById('myForm').reset(); // Limpa o formulário após o envio
+                }, function(error) {
+                    document.getElementById('formResponse').innerText = 'Falha ao enviar a mensagem.';
+                    console.log('FALHOU...', error);
+                });
+        });
+    </script>
 </body>
 </html>
