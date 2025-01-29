@@ -5,7 +5,7 @@ emailjs.init('URYyrh8lQg0eZHUi2'); // Seu User ID
 document.getElementById('form-contato').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Validação dos campos
+    // Validação
     const nome = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim();
     const mensagem = document.getElementById('mensagem').value.trim();
@@ -14,14 +14,14 @@ document.getElementById('form-contato').addEventListener('submit', function(e) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('E-mail inválido!');
     if (mensagem.length < 10) return alert('Mensagem muito curta!');
 
-    // Envio do e-mail
+    // Envio com o NOVO TEMPLATE ID
     emailjs.sendForm(
         'service_auxnbu7', // Service ID
-        'template_1gti19o', // Template ID atualizado
+        'template_3rpgdr9', // Template ID atualizado
         this
     )
     .then(() => {
-        alert('Mensagem enviada! Verifique seu e-mail (inclusive spam).');
+        alert('Mensagem enviada! Verifique seu e-mail (incluindo spam).');
         this.reset();
     }, (err) => {
         console.error('Erro detalhado:', err);
