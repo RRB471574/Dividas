@@ -68,7 +68,7 @@ document.getElementById('form-contato').addEventListener('submit', function(even
 });
 
 // API de Clima
-const apiKey = 'SUA_CHAVE_DE_API'; // Obtenha uma chave de API gratuita em https://openweathermap.org/api
+const apiKey = '4e9138941760bea82980f83a2034d408'; // Sua chave de API
 const city = 'São Paulo';
 
 fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt`)
