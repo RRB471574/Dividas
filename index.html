@@ -3,32 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site Simples</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <title>Meu Site</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>Bem-vindo ao Meu Site</h1>
+        <nav>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#clima">Clima</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
     </header>
-    
-    <nav>
-        <a href="#sobre">Sobre</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#galeria">Galeria</a>
-        <a href="#contato">Contato</a>
-    </nav>
-    
+
     <section id="sobre">
-        <h2>Sobre Nós</h2>
-        <p>Este é um site de exemplo criado para demonstrar a estrutura básica de um site HTML.</p>
+        <h2>Sobre</h2>
+        <p>Este é um site de exemplo criado para demonstrar como estruturar um site básico com funcionalidades avançadas.</p>
     </section>
-    
+
     <section id="servicos">
-        <h2>Nossos Serviços</h2>
-        <p>Oferecemos uma variedade de serviços para atender às suas necessidades.</p>
+        <h2>Serviços</h2>
+        <ul>
+            <li>Web Design</li>
+            <li>Desenvolvimento Web</li>
+            <li>SEO</li>
+        </ul>
     </section>
-    
+
     <section id="galeria">
         <h2>Galeria</h2>
         <div class="gallery">
@@ -38,42 +44,66 @@
             <img src="https://via.placeholder.com/150" alt="Imagem 4">
         </div>
     </section>
-    
+
+    <section id="depoimentos">
+        <h2>Depoimentos</h2>
+        <div class="carousel">
+            <div class="testimonial">
+                <p>"Ótimo serviço! Recomendo a todos."</p>
+                <span>- Cliente 1</span>
+            </div>
+            <div class="testimonial">
+                <p>"Profissionais muito competentes."</p>
+                <span>- Cliente 2</span>
+            </div>
+            <div class="testimonial">
+                <p>"Excelente atendimento e qualidade."</p>
+                <span>- Cliente 3</span>
+            </div>
+        </div>
+        <button id="prev">Anterior</button>
+        <button id="next">Próximo</button>
+    </section>
+
+    <section id="clima">
+        <h2>Clima Atual</h2>
+        <div id="weather-info">
+            <p>Carregando...</p>
+        </div>
+    </section>
+
     <section id="contato">
         <h2>Contato</h2>
-        <form id="myForm">
-            <input type="text" name="name" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
-            <textarea name="message" placeholder="Sua mensagem" required></textarea>
+        <form id="form-contato">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" required></textarea>
+            
             <button type="submit">Enviar</button>
         </form>
-        <p id="formResponse"></p>
     </section>
-    
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalhes do Serviço</h2>
+            <p>Informações detalhadas sobre o serviço selecionado.</p>
+        </div>
+    </div>
+
+    <button id="back-to-top" title="Voltar ao topo">↑</button>
+
     <footer>
-        <p>&copy; 2025 Meu Site Simples. Todos os direitos reservados.</p>
+        <p>&copy; 2023 Meu Site. Todos os direitos reservados.</p>
     </footer>
 
-    <script>
-        // Inicialize o Email.js com sua chave pública
-        (function() {
-            emailjs.init("URYyrh8lQg0eZHUi2");
-        })();
-
-        // Adicione um listener para o evento de envio do formulário
-        document.getElementById('myForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
-
-            // Envie o e-mail usando Email.js
-            emailjs.sendForm('auxnbu7', 'template_51ezzuw', this)
-                .then(function() {
-                    document.getElementById('formResponse').innerText = 'Mensagem enviada com sucesso!';
-                    document.getElementById('myForm').reset(); // Limpa o formulário após o envio
-                }, function(error) {
-                    document.getElementById('formResponse').innerText = 'Falha ao enviar a mensagem.';
-                    console.log('FALHOU...', error);
-                });
-        });
-    </script>
+    <!-- Adicione o script do EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
