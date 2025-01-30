@@ -1,158 +1,34 @@
 :root {
-    --bg-color: #ffffff;
-    --text-color: #333;
     --primary-color: #ff6b6b;
-    --dark-bg: #1a1a1a;
-    --dark-text: #fff;
-}
-
-/* Reset e Estilos Gerais */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    --success-color: #4CAF50;
+    --error-color: #f44336;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background 0.3s, color 0.3s;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-[data-theme="dark"] {
-    --bg-color: var(--dark-bg);
-    --text-color: var(--dark-text);
-}
-
-/* Loader */
-.loader {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid var(--primary-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Modo Escuro */
-#dark-mode-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1000;
-}
-
-/* Header e Navegação */
-header {
-    background: var(--primary-color);
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none;
-    padding: 1rem;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.nav-active {
-    border-bottom: 3px solid white;
-}
-
-/* Seções */
-section {
-    padding: 4rem 2rem;
-    min-height: 100vh;
-    scroll-margin-top: 70px;
-}
-
-/* Galeria */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-}
-
-.gallery img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.gallery img:hover {
-    transform: scale(1.03);
-}
-
-/* Lightbox */
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 999;
-}
-
-.lightbox-img {
-    max-width: 90%;
-    max-height: 90%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.close-lightbox {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-}
-
-/* Formulários */
-form {
-    max-width: 600px;
-    margin: 0 auto;
+.container {
+    background: white;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
 }
 
-input, textarea {
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+}
+
+input[type="email"] {
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
@@ -161,16 +37,46 @@ input, textarea {
     font-size: 1rem;
 }
 
+.interesses {
+    margin-bottom: 1rem;
+}
+
+.interesses label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
 button {
+    width: 100%;
+    padding: 0.8rem;
     background: var(--primary-color);
     color: white;
-    padding: 0.8rem 1.5rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
     transition: opacity 0.3s;
 }
 
 button:hover {
     opacity: 0.9;
+}
+
+.feedback {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+.feedback.success { background: var(--success-color); }
+.feedback.error { background: var(--error-color); }
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
 }
