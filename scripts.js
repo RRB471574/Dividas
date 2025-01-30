@@ -1,131 +1,77 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // ========== Inicialização do EmailJS ==========
-    emailjs.init('URYyrh8lQg0eZHUi2');
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_DOMÍNIO.firebaseapp.com",
+    projectId: "SEU_PROJETO",
+    storageBucket: "SEU_BUCKET.appspot.com",
+    messagingSenderId: "SEU_SENDER_ID",
+    appId: "SEU_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-    // ========== Loader ==========
-    window.addEventListener('load', () => {
-        document.getElementById('loader').style.display = 'none';
-    });
+// Configuração do EmailJS
+emailjs.init('URYyrh8lQg0eZHUi2');
 
-    // ========== Modo Escuro ==========
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', () => {
-            document.body.toggleAttribute('data-theme');
-            localStorage.setItem('theme', document.body.hasAttribute('data-theme') ? 'dark' : 'light');
-        });
-        
-        // Carregar tema salvo
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.setAttribute('data-theme', 'dark');
-        }
-    }
+// Função para mostrar feedback
+function showFeedback(message, type) {
+    const feedback = document.createElement('div');
+    feedback.className = `feedback ${type}`;
+    feedback.textContent = message;
+    document.body.appendChild(feedback);
 
-    // ========== Formulário de Contato ==========
-    const contactForm = document.getElementById('form-contato');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            emailjs.sendForm('service_auxnbu7', 'template_3rpgdr9', this)
-                .then(() => {
-                    alert('Mensagem enviada com sucesso!');
-                    this.reset();
-                })
-                .catch(err => alert('Erro: ' + err.text));
-        });
-    }
-
-    // ========== Newsletter ==========
-    const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.newsletter_email.value.trim();
-            
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                return alert('Por favor, insira um e-mail válido!');
-            }
-
-            emailjs.sendForm('service_auxnbu7', 'template_klw1iyl', this)
-                .then(() => {
-                    alert('Inscrição realizada! 🎉');
-                    this.reset();
-                })
-                .catch(err => alert('Erro: ' + err.text));
-        });
-    }
-
-    // ========== Sistema de Comentários ==========
-    const commentForm = document.getElementById('form-comentario');
-    if (commentForm) {
-        commentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const comment = {
-                nome: this.nome.value.trim(),
-                texto: this.comentario.value.trim(),
-                data: new Date().toLocaleString()
-            };
-
-            const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-            comments.push(comment);
-            localStorage.setItem('comments', JSON.stringify(comments));
-            
-            loadComments();
-            this.reset();
-        });
-
-        // Carregar comentários ao iniciar
-        loadComments();
-    }
-
-    // ========== Lightbox ==========
-    const lightbox = document.getElementById('lightbox');
-    if (lightbox) {
-        document.querySelectorAll('.gallery img').forEach(img => {
-            img.addEventListener('click', () => {
-                document.getElementById('lightbox-img').src = img.src;
-                lightbox.style.display = 'block';
-            });
-        });
-
-        document.querySelector('.close-lightbox').addEventListener('click', () => {
-            lightbox.style.display = 'none';
-        });
-    }
-
-    // ========== Navegação Ativa ==========
-    window.addEventListener('scroll', () => {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a');
-        const scrollPosition = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                const id = section.getAttribute('id');
-                navLinks.forEach(link => {
-                    link.classList.remove('nav-active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('nav-active');
-                    }
-                });
-            }
-        });
-    });
-});
-
-// ========== Função para Carregar Comentários ==========
-function loadComments() {
-    const commentList = document.getElementById('comentarios-lista');
-    if (commentList) {
-        const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-        commentList.innerHTML = comments.map(comment => `
-            <div class="comment">
-                <h4>${comment.nome} <small>${comment.data}</small></h4>
-                <p>${comment.texto}</p>
-            </div>
-        `).join('');
-    }
+    setTimeout(() => feedback.remove(), 3000);
 }
+
+// Formulário de Newsletter
+document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Verificar reCAPTCHA
+    if (!grecaptcha.getResponse()) {
+        showFeedback('Confirme que você não é um robô!', 'error');
+        return;
+    }
+
+    // Validação de e-mail
+    const email = this.newsletter_email.value.trim();
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(email)) {
+        showFeedback('Por favor, insira um e-mail válido!', 'error');
+        return;
+    }
+
+    // Bloquear e-mails temporários
+    const blockedDomains = ['10minutemail.com', 'tempmail.com'];
+    const domain = email.split('@')[1];
+    if (blockedDomains.includes(domain)) {
+        showFeedback('E-mails temporários não são aceitos!', 'error');
+        return;
+    }
+
+    // Capturar interesses
+    const interesses = Array.from(this.querySelectorAll('input[type="checkbox"]:checked'))
+                            .map(input => input.name);
+
+    // Gerar link de confirmação
+    const confirmationCode = Math.random().toString(36).substr(2, 15);
+    const confirmationLink = `https://seusite.com/confirmar?code=${confirmationCode}`;
+
+    // Salvar no Firebase
+    db.collection('inscritos').add({
+        email: email,
+        interesses: interesses,
+        confirmationCode: confirmationCode,
+        confirmado: false,
+        data: new Date().toISOString()
+    }).then(() => {
+        // Enviar e-mail de confirmação
+        emailjs.send('service_auxnbu7', 'template_confirmacao', {
+            newsletter_email: email,
+            confirmationLink: confirmationLink
+        }).then(() => {
+            showFeedback('Enviamos um link de confirmação para seu e-mail!', 'success');
+            this.reset();
+        }).catch(err => showFeedback('Erro: ' + err.text, 'error'));
+    }).catch(err => showFeedback('Erro: ' + err.message, 'error'));
+});
