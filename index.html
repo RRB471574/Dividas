@@ -3,100 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site Profissional</title>
+    <title>Newsletter Avançada</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
-    <!-- Loader -->
-    <div id="loader" class="loader"></div>
+    <div class="container">
+        <h1>Assine nossa Newsletter</h1>
+        <form id="newsletter-form">
+            <input type="email" name="newsletter_email" placeholder="Seu melhor e-mail" required>
+            
+            <div class="interesses">
+                <label><input type="checkbox" name="tecnologia"> Tecnologia</label>
+                <label><input type="checkbox" name="marketing"> Marketing</label>
+                <label><input type="checkbox" name="design"> Design</label>
+            </div>
 
-    <!-- Botão Modo Escuro -->
-    <button id="dark-mode-toggle">🌓</button>
-
-    <header>
-        <h1>Bem-vindo ao Meu Site</h1>
-        <nav>
-            <ul>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#galeria">Galeria</a></li>
-                <li><a href="#depoimentos">Depoimentos</a></li>
-                <li><a href="#clima">Clima</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li><a href="#comentarios">Comentários</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Seções do site -->
-    <section id="sobre">
-        <h2>Sobre</h2>
-        <p>Um site moderno com funcionalidades integradas.</p>
-    </section>
-
-    <section id="servicos">
-        <h2>Serviços</h2>
-        <ul>
-            <li>Desenvolvimento Web</li>
-            <li>Design Responsivo</li>
-            <li>Marketing Digital</li>
-        </ul>
-    </section>
-
-    <section id="galeria">
-        <h2>Galeria</h2>
-        <div class="gallery">
-            <img src="https://via.placeholder.com/300" alt="Projeto 1">
-            <img src="https://via.placeholder.com/300" alt="Projeto 2">
-        </div>
-    </section>
-
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox">
-        <span class="close-lightbox">&times;</span>
-        <img id="lightbox-img" src="" alt="Imagem ampliada">
+            <div class="g-recaptcha" data-sitekey="SUA_CHAVE_RECAPTCHA"></div>
+            
+            <button type="submit">Assinar</button>
+        </form>
     </div>
 
-    <!-- Comentários -->
-    <section id="comentarios">
-        <h2>Comentários</h2>
-        <div id="comentarios-lista"></div>
-        <form id="form-comentario">
-            <input type="text" name="nome" placeholder="Seu nome" required>
-            <textarea name="comentario" placeholder="Seu comentário" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-
-    <!-- Contato e Newsletter -->
-    <section id="contato">
-        <div class="contato-container">
-            <h2>Contato</h2>
-            <form id="form-contato">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="from_name" required>
-                
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="from_email" required>
-                
-                <label for="mensagem">Mensagem:</label>
-                <textarea id="mensagem" name="message" required></textarea>
-                
-                <button type="submit">Enviar Mensagem</button>
-            </form>
-        </div>
-
-        <div class="newsletter">
-            <h3>Assine nossa Newsletter</h3>
-            <form id="newsletter-form">
-                <input type="email" name="newsletter_email" placeholder="Seu melhor e-mail" required>
-                <button type="submit">Assinar</button>
-            </form>
-        </div>
-    </section>
-
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
