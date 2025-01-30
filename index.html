@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site Avançado</title>
+    <title>Meu Site Profissional</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -28,16 +28,26 @@
         </nav>
     </header>
 
-    <!-- Seções existentes -->
-    <section id="sobre"><h2>Sobre</h2>...</section>
-    <section id="servicos"><h2>Serviços</h2>...</section>
+    <!-- Seções do site -->
+    <section id="sobre">
+        <h2>Sobre</h2>
+        <p>Um site moderno com funcionalidades integradas.</p>
+    </section>
 
-    <!-- Galeria com Lightbox -->
+    <section id="servicos">
+        <h2>Serviços</h2>
+        <ul>
+            <li>Desenvolvimento Web</li>
+            <li>Design Responsivo</li>
+            <li>Marketing Digital</li>
+        </ul>
+    </section>
+
     <section id="galeria">
         <h2>Galeria</h2>
         <div class="gallery">
-            <img src="https://via.placeholder.com/150" alt="Imagem 1">
-            <img src="https://via.placeholder.com/150" alt="Imagem 2">
+            <img src="https://via.placeholder.com/300" alt="Projeto 1">
+            <img src="https://via.placeholder.com/300" alt="Projeto 2">
         </div>
     </section>
 
@@ -47,7 +57,7 @@
         <img id="lightbox-img" src="" alt="Imagem ampliada">
     </div>
 
-    <!-- Seção de Comentários -->
+    <!-- Comentários -->
     <section id="comentarios">
         <h2>Comentários</h2>
         <div id="comentarios-lista"></div>
@@ -58,10 +68,24 @@
         </form>
     </section>
 
-    <!-- Newsletter -->
+    <!-- Contato e Newsletter -->
     <section id="contato">
-        <h2>Contato</h2>
-        <form id="form-contato">...</form>
+        <div class="contato-container">
+            <h2>Contato</h2>
+            <form id="form-contato">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="from_name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="from_email" required>
+                
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagem" name="message" required></textarea>
+                
+                <button type="submit">Enviar Mensagem</button>
+            </form>
+        </div>
+
         <div class="newsletter">
             <h3>Assine nossa Newsletter</h3>
             <form id="newsletter-form">
