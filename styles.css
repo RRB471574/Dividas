@@ -1,9 +1,3 @@
-:root {
-    --primary-color: #ff6b6b;
-    --success-color: #4CAF50;
-    --error-color: #f44336;
-}
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -25,7 +19,7 @@ body {
 
 h1 {
     text-align: center;
-    color: var(--primary-color);
+    color: #ff6b6b;
 }
 
 input[type="email"] {
@@ -37,19 +31,10 @@ input[type="email"] {
     font-size: 1rem;
 }
 
-.interesses {
-    margin-bottom: 1rem;
-}
-
-.interesses label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
 button {
     width: 100%;
     padding: 0.8rem;
-    background: var(--primary-color);
+    background: #ff6b6b;
     color: white;
     border: none;
     border-radius: 5px;
@@ -60,23 +45,4 @@ button {
 
 button:hover {
     opacity: 0.9;
-}
-
-.feedback {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px 25px;
-    border-radius: 8px;
-    color: white;
-    z-index: 1000;
-    animation: slideIn 0.3s ease-out;
-}
-
-.feedback.success { background: var(--success-color); }
-.feedback.error { background: var(--error-color); }
-
-@keyframes slideIn {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
 }
