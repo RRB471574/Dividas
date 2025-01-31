@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newsletter Avançada</title>
+    <title>Newsletter com Firebase</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
@@ -15,16 +15,10 @@
     <div class="container">
         <h1>Assine nossa Newsletter</h1>
         <form id="newsletter-form">
-            <input type="email" name="newsletter_email" placeholder="Seu melhor e-mail" required>
-            
-            <div class="interesses">
-                <label><input type="checkbox" name="tecnologia"> Tecnologia</label>
-                <label><input type="checkbox" name="marketing"> Marketing</label>
-                <label><input type="checkbox" name="design"> Design</label>
-            </div>
-
-            <div class="g-recaptcha" data-sitekey="6LdoXcgqAAAAAE2FotaGTWsW1Yn73N0qreyokKnw"></div>
-            
+            <input type="email" name="email" placeholder="Seu e-mail" required>
+            <!-- Adicione o reCAPTCHA -->
+            <div class="g-recaptcha" 
+                 data-sitekey="6LcdoXcbAAAAAE2FotaGTWsW1Yn73NQgreyokKnw"></div>
             <button type="submit">Assinar</button>
         </form>
     </div>
