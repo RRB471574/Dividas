@@ -1,77 +1,55 @@
 // Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_DOMÍNIO.firebaseapp.com",
-    projectId: "SEU_PROJETO",
-    storageBucket: "SEU_BUCKET.appspot.com",
-    messagingSenderId: "SEU_SENDER_ID",
-    appId: "SEU_APP_ID"
+    apiKey: "AIzaSyBwSag7CFTN1ekbQS92qYJtTgEZaoWmzGA",
+    authDomain: "meu-site-lele.firebaseapp.com",
+    projectId: "meu-site-lele",
+    storageBucket: "meu-site-lele.firebasestorage.app",
+    messagingSenderId: "826289981557",
+    appId: "1:826289981557:web:5020bb7802f83ba9aa103c",
+    measurementId: "G-LLY0H000EL"
 };
-firebase.initializeApp(firebaseConfig);
+
+// Inicialize o Firebase
+const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
-// Configuração do EmailJS
-emailjs.init('URYyrh8lQg0eZHUi2');
-
-// Função para mostrar feedback
-function showFeedback(message, type) {
-    const feedback = document.createElement('div');
-    feedback.className = `feedback ${type}`;
-    feedback.textContent = message;
-    document.body.appendChild(feedback);
-
-    setTimeout(() => feedback.remove(), 3000);
-}
 
 // Formulário de Newsletter
 document.getElementById('newsletter-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
     // Verificar reCAPTCHA
-    if (!grecaptcha.getResponse()) {
-        showFeedback('Confirme que você não é um robô!', 'error');
+    const respostaRecaptcha = grecaptcha.getResponse();
+    if (!respostaRecaptcha) {
+        alert('Confirme que você não é um robô!');
         return;
     }
 
-    // Validação de e-mail
-    const email = this.newsletter_email.value.trim();
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (!emailRegex.test(email)) {
-        showFeedback('Por favor, insira um e-mail válido!', 'error');
-        return;
-    }
+    // Dados do formulário
+    const email = this.email.value.trim();
 
-    // Bloquear e-mails temporários
-    const blockedDomains = ['10minutemail.com', 'tempmail.com'];
-    const domain = email.split('@')[1];
-    if (blockedDomains.includes(domain)) {
-        showFeedback('E-mails temporários não são aceitos!', 'error');
-        return;
-    }
-
-    // Capturar interesses
-    const interesses = Array.from(this.querySelectorAll('input[type="checkbox"]:checked'))
-                            .map(input => input.name);
-
-    // Gerar link de confirmação
-    const confirmationCode = Math.random().toString(36).substr(2, 15);
-    const confirmationLink = `https://seusite.com/confirmar?code=${confirmationCode}`;
-
-    // Salvar no Firebase
-    db.collection('inscritos').add({
-        email: email,
-        interesses: interesses,
-        confirmationCode: confirmationCode,
-        confirmado: false,
-        data: new Date().toISOString()
-    }).then(() => {
-        // Enviar e-mail de confirmação
-        emailjs.send('service_auxnbu7', 'template_confirmacao', {
-            newsletter_email: email,
-            confirmationLink: confirmationLink
-        }).then(() => {
-            showFeedback('Enviamos um link de confirmação para seu e-mail!', 'success');
-            this.reset();
-        }).catch(err => showFeedback('Erro: ' + err.text, 'error'));
-    }).catch(err => showFeedback('Erro: ' + err.message, 'error'));
+    // Validar reCAPTCHA no backend (simulação)
+    validarRecaptcha(respostaRecaptcha).then(sucesso => {
+        if (sucesso) {
+            // Salvar e-mail no Firestore
+            db.collection('inscritos').add({
+                email: email,
+                data: new Date().toISOString()
+            }).then(() => {
+                alert('Inscrição realizada com sucesso!');
+                this.reset();
+            }).catch(err => alert('Erro ao salvar: ' + err.message));
+        } else {
+            alert('reCAPTCHA inválido!');
+        }
+    }).catch(err => alert('Erro ao validar reCAPTCHA: ' + err.message));
 });
+
+// Função para validar reCAPTCHA (simulação)
+function validarRecaptcha(resposta) {
+    return fetch('https://seusite.com/validar-recaptcha', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resposta })
+    }).then(response => response.json())
+      .then(data => data.sucesso);
+}
