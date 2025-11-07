@@ -42,7 +42,7 @@ section {
     text-align: center; /* Centraliza o conteúdo das seções */
 }
 
-/* O botão "Clique e Bora!" */
+/* O botão "Clique e Bora!" (e botões gerais) */
 button {
     background-color: #28a745; /* Cor verde para o botão */
     color: white;
@@ -60,7 +60,7 @@ button:hover {
 }
 
 
-/* --- NOVOS ESTILOS PARA O FORMULÁRIO DE CONTATO --- */
+/* --- ESTILOS PARA O FORMULÁRIO DE CONTATO --- */
 
 /* Caixa para agrupar o campo e a etiqueta (label) */
 .form-group {
@@ -90,12 +90,37 @@ button:hover {
     box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
 }
 
-/* Ajustando o botão de Enviar do Formulário (usa o estilo do botão geral) */
+/* Ajustando o botão de Enviar do Formulário */
 #contato-form button[type="submit"] {
     display: block; /* Faz o botão ocupar a própria linha */
     width: 90%; 
     max-width: 500px; /* Mesma largura máxima dos campos */
     margin: 20px auto 0 auto; /* Centraliza o botão */
+}
+
+
+/* --- NOVOS ESTILOS PARA O BOTÃO VOLTAR AO TOPO --- */
+#btnTopo {
+    display: none; /* Começa escondido (o JavaScript vai mostrar) */
+    position: fixed; /* Fica fixo na tela */
+    bottom: 20px; /* 20px acima do rodapé */
+    right: 30px; /* 30px da lateral */
+    z-index: 99; /* Fica acima de tudo */
+    border: none;
+    outline: none;
+    background-color: #007bff; /* Azul, mesma cor do cabeçalho */
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Transição para que ele apareça suavemente */
+    transition: opacity 0.3s, background-color 0.3s;
+}
+
+#btnTopo:hover {
+    background-color: #0056b3; /* Fica um azul mais escuro */
 }
 
 
@@ -107,36 +132,4 @@ footer {
     color: white;
     margin-top: 20px;
     font-size: 14px;
-}
-    padding: 40px 20px; /* Espaço dentro das caixas */
-    margin: 20px; /* Espaço entre as caixas */
-    background-color: white; /* Fundo branco para as seções */
-    border-radius: 8px; /* Cantos arredondados, fica mais moderno */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-/* O botão "Bora!" */
-button {
-    background-color: #28a745; /* Cor verde para o botão */
-    color: white;
-    padding: 10px 20px;
-    border: none; /* Tira a borda padrão */
-    border-radius: 5px;
-    cursor: pointer; /* O mouse vira uma mãozinha quando passa por cima */
-    margin-top: 15px;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #1e7e34; /* Fica um verde mais escuro quando você passa o mouse */
-}
-
-/* O rodapé (parte de baixo) */
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    margin-top: 20px;
-    font-size: 12px;
 }
