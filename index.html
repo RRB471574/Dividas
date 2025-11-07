@@ -1,29 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newsletter com Firebase</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-    <!-- reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <title>Site Bora - Vamos lá!</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Assine nossa Newsletter</h1>
-        <form id="newsletter-form">
-            <input type="email" name="email" placeholder="Seu e-mail" required>
-            <!-- Adicione o reCAPTCHA -->
-            <div class="g-recaptcha" 
-                 data-sitekey="6LcdoXcbAAAAAE2FotaGTWsW1Yn73NQgreyokKnw"></div>
-            <button type="submit">Assinar</button>
-        </form>
-    </div>
 
-    <!-- Scripts -->
-    <script src="scripts.js"></script>
+    <header>
+        <h1>BORA! O seu lugar na internet</h1>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <h2>Pronto para começar?</h2>
+            <p>Este é o primeiro parágrafo do seu site. Aqui você diz o que a pessoa vai encontrar!</p>
+            <button>Clique e Bora!</button>
+        </section>
+
+        <section id="sobre">
+            <h2>Quem Somos</h2>
+            <p>Somos um time que adora a internet e está aqui para ajudar você a ir além. Bora fazer acontecer!</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Site Bora. Todos os direitos reservados. Bora!</p>
+    </footer>
+
 </body>
 </html>
