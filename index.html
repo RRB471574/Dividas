@@ -22,11 +22,26 @@
     </header>
 
     <main>
+        
         <section id="inicio">
             <h2>Pronto para começar?</h2>
-            <p>Este é o primeiro parágrafo do seu site. Aqui você diz o que a pessoa vai encontrar!</p>
-            <p>Bora é a palavra chave para ação! Não fique parado, o futuro do seu site é agora. Role a página para baixo e veja o botão "Voltar ao Topo" aparecer quando precisar de ajuda para subir!</p>
-            <p>Para testar o botão "Voltar ao Topo", esta seção precisa ser um pouco mais longa. Lembre-se de preencher suas seções com bastante conteúdo interessante!</p>
+            
+            <div class="carousel-container">
+                <div class="carousel-slide" id="carouselSlide">
+                    
+                    <img src="250px-Brasao_do_Sao_Paulo_Futebol_Clube.svg" alt="Brasão São Paulo FC">
+                    
+                    <img src="Captura de tela_20251006-185218.png" alt="Captura de tela 1">
+                    
+                    <img src="Captura de tela_20251103-234216.png" alt="Captura de tela 2">
+                    
+                </div>
+                
+                <button class="prev" onclick="mudarSlide(-1)">&#10094;</button>
+                <button class="next" onclick="mudarSlide(1)">&#10095;</button>
+            </div>
+            
+            <p style="margin-top: 20px;">Este é o primeiro parágrafo do seu site. Aqui você diz o que a pessoa vai encontrar!</p>
             <button>Clique e Bora!</button>
         </section>
 
