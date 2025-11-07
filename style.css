@@ -1,4 +1,4 @@
-/* Isso é para limpar as margens e começar do zero */
+/* --- ESTILOS BÁSICOS GERAIS --- */
 body {
     font-family: Arial, sans-serif; /* Escolhe o tipo de letra */
     margin: 0; /* Tira o espaço em volta do site */
@@ -34,6 +34,80 @@ nav a {
 
 /* Arrumando as seções de conteúdo */
 section {
+    padding: 40px 20px; /* Espaço dentro das caixas */
+    margin: 20px; /* Espaço entre as caixas */
+    background-color: white; /* Fundo branco para as seções */
+    border-radius: 8px; /* Cantos arredondados, fica mais moderno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    text-align: center; /* Centraliza o conteúdo das seções */
+}
+
+/* O botão "Clique e Bora!" */
+button {
+    background-color: #28a745; /* Cor verde para o botão */
+    color: white;
+    padding: 10px 20px;
+    border: none; /* Tira a borda padrão */
+    border-radius: 5px;
+    cursor: pointer; /* O mouse vira uma mãozinha quando passa por cima */
+    margin-top: 15px;
+    font-size: 16px;
+    transition: background-color 0.3s; /* Para a mudança de cor ser suave */
+}
+
+button:hover {
+    background-color: #1e7e34; /* Fica um verde mais escuro quando você passa o mouse */
+}
+
+
+/* --- NOVOS ESTILOS PARA O FORMULÁRIO DE CONTATO --- */
+
+/* Caixa para agrupar o campo e a etiqueta (label) */
+.form-group {
+    margin-bottom: 15px; /* Espaço entre os campos */
+    text-align: left; /* Alinha o texto da etiqueta à esquerda */
+    width: 90%; /* Limita a largura do formulário */
+    max-width: 500px; /* Largura máxima para não ficar gigante em telas grandes */
+    margin-left: auto; /* Centraliza o bloco do formulário */
+    margin-right: auto;
+}
+
+/* Deixando a etiqueta (Nome, Email) em negrito */
+.form-group label {
+    display: block; /* Faz a etiqueta ficar em cima do campo */
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Arrumando o visual dos campos de texto (input e textarea) */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%; /* Ocupa 100% do .form-group */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
+}
+
+/* Ajustando o botão de Enviar do Formulário (usa o estilo do botão geral) */
+#contato-form button[type="submit"] {
+    display: block; /* Faz o botão ocupar a própria linha */
+    width: 90%; 
+    max-width: 500px; /* Mesma largura máxima dos campos */
+    margin: 20px auto 0 auto; /* Centraliza o botão */
+}
+
+
+/* O rodapé (parte de baixo) */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+    font-size: 14px;
+}
     padding: 40px 20px; /* Espaço dentro das caixas */
     margin: 20px; /* Espaço entre as caixas */
     background-color: white; /* Fundo branco para as seções */
