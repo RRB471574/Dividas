@@ -1,0 +1,68 @@
+/* Isso é para limpar as margens e começar do zero */
+body {
+    font-family: Arial, sans-serif; /* Escolhe o tipo de letra */
+    margin: 0; /* Tira o espaço em volta do site */
+    padding: 0;
+    background-color: #f4f4f4; /* Fundo cinza bem clarinho */
+    color: #333; /* Cor da letra principal */
+}
+
+/* Deixando o cabeçalho (topo da página) bonito */
+header {
+    background-color: #007bff; /* Fundo azul chamativo */
+    color: white; /* Letra branca */
+    padding: 20px; /* Espaço interno para não ficar grudado */
+    text-align: center; /* Centraliza o texto */
+}
+
+/* Arrumando o menu de navegação */
+nav ul {
+    list-style: none; /* Tira os pontinhos da lista */
+    padding: 0;
+}
+
+nav li {
+    display: inline; /* Coloca os itens lado a lado */
+    margin-right: 20px;
+}
+
+nav a {
+    color: white; /* Links brancos */
+    text-decoration: none; /* Tira o sublinhado feio do link */
+    font-weight: bold; /* Deixa a letra mais grossa */
+}
+
+/* Arrumando as seções de conteúdo */
+section {
+    padding: 40px 20px; /* Espaço dentro das caixas */
+    margin: 20px; /* Espaço entre as caixas */
+    background-color: white; /* Fundo branco para as seções */
+    border-radius: 8px; /* Cantos arredondados, fica mais moderno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* O botão "Bora!" */
+button {
+    background-color: #28a745; /* Cor verde para o botão */
+    color: white;
+    padding: 10px 20px;
+    border: none; /* Tira a borda padrão */
+    border-radius: 5px;
+    cursor: pointer; /* O mouse vira uma mãozinha quando passa por cima */
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #1e7e34; /* Fica um verde mais escuro quando você passa o mouse */
+}
+
+/* O rodapé (parte de baixo) */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+    font-size: 12px;
+}
