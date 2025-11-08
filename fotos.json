@@ -1,15 +1,15 @@
 {
     "imagensCarrossel": [
         {
-            "src": "Estádio_do_Morumbi.jpg",
+            "src": "Morumbi.jpg",
             "legenda": "O Templo! Estádio do MorumBIS em dia de jogo."
         },
         {
-            "src": "Calleri_(recortado).jpg",
+            "src": "Calleri.jpg",
             "legenda": "A Raça em Campo: Calleri, nosso artilheiro argentino."
         },
         {
-            "src": "250px-Brasao_do_Sao_Paulo_Futebol_Clube.svg.png",
+            "src": "Sao_Paulo.svg.png",
             "legenda": "O Símbolo da Fé Tricolor!"
         }
     ]
