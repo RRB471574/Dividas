@@ -1,12 +1,12 @@
-// --- FUNÇÃO DE MUDAR TEMA (JÁ EXISTENTE) ---
+// O evento 'DOMContentLoaded' garante que o script só rode depois que o HTML estiver pronto.
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Criação e adição do botão de tema (mantido para funcionalidade)
+    // 1. Configuração do Botão de Tema (A parte estática, que não se repete)
     const themeButton = document.createElement('button');
     themeButton.textContent = '🌙 Mudar Tema';
     themeButton.id = 'theme-toggle-button';
     
-    // ... estilos do botão ...
+    // Estilos do botão para aparecer na tela
     themeButton.style.position = 'fixed';
     themeButton.style.bottom = '20px';
     themeButton.style.right = '20px';
@@ -26,19 +26,26 @@ document.addEventListener('DOMContentLoaded', function() {
     themeButton.addEventListener('click', toggleTheme);
 
     
-    // --- NOVO CÓDIGO PARA CARREGAR AS NOTÍCIAS DINAMICAMENTE ---
+    // 2. FUNÇÃO QUE CARREGA OS DADOS DO data.json
+    function carregarDados() {
+        // Usa fetch() para buscar o arquivo data.json
+        fetch('data.json')
+            .then(response => {
+                // Se a resposta não for OK (ex: arquivo não encontrado), dá um erro
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar data.json: ' + response.statusText);
+                }
+                return response.json(); // Transforma o texto JSON em objeto
+            })
+            .then(data => {
+                // Se deu certo, chamamos a função para colocar os dados na página
+                renderizarNoticias(data);
+                console.log('Dados atualizados com sucesso!');
+            })
+            .catch(error => console.error('Houve um problema com a operação de busca:', error));
+    }
     
-    // 1. O script vai ler o arquivo de dados (data.json)
-    fetch('data.json')
-        .then(response => response.json()) // Transforma o texto em objeto que o JS entende
-        .then(data => {
-            // Se deu certo, chamamos a função para colocar os dados na página
-            renderizarNoticias(data);
-        })
-        .catch(error => console.error('Erro ao carregar os dados:', error));
-
-    
-    // 2. FUNÇÃO QUE MONTA O HTML COM BASE NOS DADOS
+    // 3. FUNÇÃO QUE MONTA O HTML COM BASE NOS DADOS
     function renderizarNoticias(dados) {
         
         // A) RENDERIZA MANCHETE PRINCIPAL
@@ -53,12 +60,10 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
 
-        // B) RENDERIZA ÚLTIMAS NOTÍCIAS (LAÇO DE REPETIÇÃO)
+        // B) RENDERIZA ÚLTIMAS NOTÍCIAS
         const ultimasNoticiasContainer = document.getElementById('ultimas-noticias-container');
         if (ultimasNoticiasContainer) {
-            // Limpa o conteúdo antigo (se houver)
             ultimasNoticiasContainer.innerHTML = ''; 
-            
             dados.ultimasNoticias.forEach(noticia => {
                 ultimasNoticiasContainer.innerHTML += `
                     <div class="noticia">
@@ -81,4 +86,17 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
     }
+
+    
+    // 4. ATUALIZAÇÃO REPETITIVA (O "Polling")
+    
+    // Carrega os dados uma vez assim que a página abre
+    carregarDados(); 
+
+    // E depois, repete a função carregarDados a cada 10 segundos (10000 milissegundos)
+    // Se o time estivesse jogando, você poderia mudar a informação no data.json 
+    // e o site dos torcedores iria atualizar sozinho!
+    const intervaloAtualizacao = 10000; 
+    setInterval(carregarDados, intervaloAtualizacao); 
+
 });
