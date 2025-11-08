@@ -191,5 +191,80 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    
+    // ==========================================
+    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (VOTAÇÃO)
+    // ==========================================
+
+    const votoBotoes = document.querySelectorAll('.voto-btn');
+    const chaveVoto = 'spfc_voto_dado'; // Chave para saber se o usuário já votou
+    const chaveContagem = 'spfc_votos_contagem'; // Chave para armazenar os votos
+
+    // Inicializa a contagem total de votos
+    let votos = JSON.parse(localStorage.getItem(chaveContagem)) || {
+        fogo: 0,
+        equilibrio: 0,
+        gelo: 0
+    };
+
+    // 1. ATUALIZA O GRÁFICO NA TELA
+    function atualizarTermometro() {
+        const totalVotos = votos.fogo + votos.equilibrio + votos.gelo;
+
+        // Função para calcular porcentagem com segurança
+        const calcularPercentual = (contagem) => 
+            totalVotos === 0 ? 0 : Math.round((contagem / totalVotos) * 100);
+
+        const percFogo = calcularPercentual(votos.fogo);
+        const percEquilibrio = calcularPercentual(votos.equilibrio);
+        const percGelo = calcularPercentual(votos.gelo);
+
+        // Atualiza as barras de progresso
+        document.getElementById('barra-fogo').style.width = percFogo + '%';
+        document.getElementById('perc-fogo').textContent = percFogo + '%';
+
+        document.getElementById('barra-equilibrio').style.width = percEquilibrio + '%';
+        document.getElementById('perc-equilibrio').textContent = percEquilibrio + '%';
+
+        document.getElementById('barra-gelo').style.width = percGelo + '%';
+        document.getElementById('perc-gelo').textContent = percGelo + '%';
+    }
+
+    // 2. LIDA COM O CLIQUE DO USUÁRIO
+    function lidarComVoto(e) {
+        if (localStorage.getItem(chaveVoto)) {
+            alert('Você já expressou seu sentimento! Volte amanhã para mudar.');
+            return;
+        }
+
+        const tipoVoto = e.currentTarget.getAttribute('data-voto');
+        
+        // Adiciona 1 voto ao tipo escolhido
+        votos[tipoVoto]++;
+        localStorage.setItem(chaveContagem, JSON.stringify(votos));
+        localStorage.setItem(chaveVoto, 'sim'); // Marca que o usuário votou
+
+        // Atualiza a visualização e desabilita botões
+        atualizarTermometro();
+        desabilitarVotacao();
+        alert('Seu voto foi registrado! Obrigado por participar.');
+    }
+
+    // 3. DESABILITA OS BOTÕES E MOSTRA O RESULTADO FINAL
+    function desabilitarVotacao() {
+        votoBotoes.forEach(btn => btn.disabled = true);
+        // Opcional: Mudar cor do botão que foi clicado
+    }
+
+    // 4. INICIALIZAÇÃO
+    if (localStorage.getItem(chaveVoto)) {
+        desabilitarVotacao();
+    } else {
+        votoBotoes.forEach(btn => btn.addEventListener('click', lidarComVoto));
+    }
+    
+    // Mostra os resultados iniciais
+    atualizarTermometro();
+
 
 });
