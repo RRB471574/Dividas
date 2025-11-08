@@ -33,6 +33,41 @@
             <p style="text-align: center; font-size: 1.5em; font-weight: bold;">Carregando...</p>
         </div>
         
+        <h2>🔥 Termômetro da Torcida</h2>
+        
+        <div class="noticia" id="termometro-principal">
+            
+            <h3>Qual o seu sentimento sobre o time HOJE?</h3>
+            
+            <div id="voto-botoes" style="text-align: center; margin-bottom: 20px;">
+                <button data-voto="fogo" class="voto-btn">🔥 Fogo (Acreditando)</button>
+                <button data-voto="equilibrio" class="voto-btn">⚖️ Equilíbrio (Na Média)</button>
+                <button data-voto="gelo" class="voto-btn">🧊 Gelo (Preocupado)</button>
+            </div>
+            
+            <div id="termometro-resultado">
+                <p style="text-align: center; font-weight: bold;">Resultados em tempo real:</p>
+                
+                <div class="barra-votacao">
+                    <span class="label">🔥 Fogo</span>
+                    <div class="barra-progresso"><div id="barra-fogo" class="barra"></div></div>
+                    <span id="perc-fogo" class="porcentagem">0%</span>
+                </div>
+                
+                <div class="barra-votacao">
+                    <span class="label">⚖️ Equilíbrio</span>
+                    <div class="barra-progresso"><div id="barra-equilibrio" class="barra"></div></div>
+                    <span id="perc-equilibrio" class="porcentagem">0%</span>
+                </div>
+                
+                <div class="barra-votacao">
+                    <span class="label">🧊 Gelo</span>
+                    <div class="barra-progresso"><div id="barra-gelo" class="barra"></div></div>
+                    <span id="perc-gelo" class="porcentagem">0%</span>
+                </div>
+            </div>
+            
+        </div>
         <h2>🚨 Manchete do Dia: Crise de Lesões Preocupa Crespo</h2>
         <div id="manchete-principal"></div>
 
