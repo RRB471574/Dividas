@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>São Paulo FC - Notícias Dinâmicas Tricolor</title>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // Configuração do seu projeto Firebase, com a databaseURL corrigida
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdHSTxXFpB2nS_wVA6x-s5S8gFerHHQs4",
+          authDomain: "meutricolor-f693e.firebaseapp.com",
+          projectId: "meutricolor-f693e",
+          storageBucket: "meutricolor-f693e.firebasestorage.app",
+          messagingSenderId: "327254753025",
+          
+          // CORREÇÃO CRÍTICA: databaseURL correta para o Realtime Database
+          databaseURL: "https://meutricolor-f693e-default-rtdb.firebaseio.com", 
+          
+          appId: "1:327254753025:web:a041073dcb693245fca500",
+          measurementId: "G-BG9YG8BE9M"
+        };
+        
+        // Inicializa o Firebase (App)
+        const app = firebase.initializeApp(firebaseConfig);
+        
+        // Inicializa o Banco de Dados, criando a variável GLOBAL 'database'
+        const database = app.database(); 
+        console.log("Firebase inicializado com sucesso!"); // Para confirmar no console
+    </script>
+
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
