@@ -1,15 +1,15 @@
 {
     "imagensCarrossel": [
         {
-            "src": "fotos/spfc-morumbi.jpg",
+            "src": "spfc-morumbi.jpg",
             "legenda": "A Casa do Tricolor: MorumBIS lotado em dia de festa."
         },
         {
-            "src": "fotos/spfc-calleri.jpg",
+            "src": "spfc-calleri.jpg",
             "legenda": "Calleri comemorando mais um gol de raça pelo São Paulo."
         },
         {
-            "src": "fotos/spfc-copadobrasil.jpg",
+            "src": "spfc-copadobrasil.jpg",
             "legenda": "O Inédito! Comemoração do título da Copa do Brasil 2023."
         }
     ]
