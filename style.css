@@ -1,0 +1,99 @@
+/* -------------------------------------- */
+/* 1. ESTILO GERAL (Corpo da Página) */
+/* -------------------------------------- */
+body {
+    /* Fonte limpa e padrão */
+    font-family: 'Arial', sans-serif; 
+    /* Remove margens extras do navegador */
+    margin: 0; 
+    /* Fundo branco (a cor principal do clube) */
+    background-color: #FFFFFF; 
+    /* Cor padrão do texto (preto, para contraste) */
+    color: #333333; 
+    line-height: 1.6; /* Espaçamento entre linhas para facilitar a leitura */
+}
+
+/* Centraliza o conteúdo principal */
+.container {
+    width: 90%;
+    max-width: 1100px; /* Limita o tamanho em telas muito grandes */
+    margin: 30px auto; /* Centraliza na tela e dá um espaço em cima/embaixo */
+    padding: 20px;
+}
+
+/* -------------------------------------- */
+/* 2. CABEÇALHO (Header e Navegação) */
+/* -------------------------------------- */
+header {
+    background-color: #FE0000; /* Vermelho forte! */
+    color: white;
+    padding: 25px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+    font-size: 2.2em;
+}
+
+/* Links do menu */
+nav a {
+    color: white;
+    margin: 0 20px;
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: bold;
+    padding-bottom: 3px;
+    transition: color 0.3s; /* Transição suave */
+}
+
+/* Efeito ao passar o mouse */
+nav a:hover {
+    color: #000000; /* Fica preto ao passar o mouse */
+    border-bottom: 2px solid #000000; /* Linha preta embaixo */
+}
+
+/* -------------------------------------- */
+/* 3. NOTÍCIAS e DESTAQUES */
+/* -------------------------------------- */
+h2 {
+    color: #FE0000; /* Título em vermelho */
+    font-size: 1.8em;
+    border-bottom: 3px solid #000000; /* Linha preta forte para separar */
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+.noticia {
+    background-color: #F8F8F8; /* Fundo levemente cinza para destacar o bloco */
+    border-left: 5px solid #FE0000; /* Borda lateral vermelha (detalhe tricolor!) */
+    padding: 15px;
+    margin-bottom: 25px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.noticia h3 {
+    color: #000000; /* Título da notícia em preto */
+    margin-top: 0;
+}
+
+.noticia a {
+    color: #000000; /* Link "Leia a análise" em preto */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.noticia a:hover {
+    color: #FE0000; /* Mudar para vermelho ao passar o mouse */
+}
+
+/* -------------------------------------- */
+/* 4. RODAPÉ (Footer) */
+/* -------------------------------------- */
+footer {
+    background-color: #000000; /* Fundo preto (parte do Tricolor) */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+}
