@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>São Paulo FC - Notícias Dinâmicas Tricolor</title>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdHSTxXFpB2nS_wVA6x-s5S8gFerHHQs4",
+          authDomain: "meutricolor-f693e.firebaseapp.com",
+          projectId: "meutricolor-f693e",
+          storageBucket: "meutricolor-f693e.firebasestorage.app",
+          messagingSenderId: "327254753025",
+          appId: "1:327254753025:web:a041073dcb693245fca500",
+          measurementId: "G-BG9YG8BE9M"
+        };
+        
+        // Inicializa o Firebase e o Banco de Dados
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
+
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
