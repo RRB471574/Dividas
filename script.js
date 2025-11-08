@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     themeButton.textContent = '🌙 Mudar Tema';
     themeButton.id = 'theme-toggle-button';
     
-    // Estilos do botão (Mantidos aqui para garantir que aparece)
+    // Estilos do botão para garantir que ele apareça
     themeButton.style.position = 'fixed';
     themeButton.style.bottom = '20px'; 
     themeButton.style.right = '20px';
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==========================================
     
     function carregarDados() {
-        // Busca os dados das notícias
         fetch('data.json')
             .then(response => {
                 if (!response.ok) {
@@ -95,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('carrossel-container');
         if (!container || imagens.length === 0) return;
 
-        // Limpa o conteúdo e prepara o HTML do carrossel
         container.innerHTML = `
             <div id="slideshow-image-wrapper">
                 <img id="carrossel-imagem" src="" alt="Imagem do São Paulo FC" style="width: 100%; height: auto;">
@@ -107,23 +105,57 @@ document.addEventListener('DOMContentLoaded', function() {
         const legendaElemento = document.getElementById('carrossel-legenda');
         
         function mostrarProximaImagem() {
-            // Define o caminho e legenda da foto atual
             const foto = imagens[indiceAtual];
             imagemElemento.src = foto.src;
             legendaElemento.textContent = foto.legenda;
             
-            // Avança para a próxima foto
             indiceAtual = (indiceAtual + 1) % imagens.length;
         }
 
-        // Mostra a primeira imagem na hora
         mostrarProximaImagem(); 
-        
-        // Repete a cada 3 segundos (3000 milissegundos)
         setInterval(mostrarProximaImagem, 3000); 
     }
 
-    // Chama a função para iniciar o carrossel
     carregarCarrossel(); 
+    
+    
+    // ==========================================
+    // 4. FUNÇÃO DE CONTADOR REGRESSIVO (COUNTDOWN)
+    // ==========================================
+    
+    // Data do próximo jogo: Sábado (08/11/2025) às 21:00 (Fuso horário do Brasil)
+    const dataAlvo = new Date("November 8, 2025 21:00:00").getTime(); 
+
+    function atualizarContador() {
+        const agora = new Date().getTime();
+        const diferenca = dataAlvo - agora;
+
+        const container = document.getElementById('countdown-container');
+        if (!container) return;
+        
+        // Lógica de cálculo:
+        const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+        // Se o tempo acabou (jogo começou ou terminou)
+        if (diferenca < 0) {
+            clearInterval(intervaloContador); 
+            container.innerHTML = `<p style="text-align: center; font-size: 1.5em; color: #FE0000; font-weight: bold;">JOGO EM ANDAMENTO OU ENCERRADO!</p>`;
+        } else {
+            // Se o tempo ainda está correndo
+            container.innerHTML = `
+                <p style="text-align: center; font-size: 1.8em; color: #00008b; margin: 5px;">
+                    ${dias}d : ${horas}h : ${minutos}m : ${segundos}s
+                </p>
+                <p style="text-align: center; margin: 0;">Faltando para o jogo contra o **Red Bull Bragantino**</p>
+            `;
+        }
+    }
+
+    // Roda a função a cada 1 segundo
+    const intervaloContador = setInterval(atualizarContador, 1000);
+    atualizarContador(); 
 
 });
