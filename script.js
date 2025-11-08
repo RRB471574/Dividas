@@ -1,57 +1,13 @@
-// ==============================================================
-// 0. CONFIGURAÇÃO E INICIALIZAÇÃO DO FIREBASE (NOVA VERSÃO MODULAR)
-// A biblioteca é carregada via um import dinâmico para projetos estáticos
-// ==============================================================
+// O Firebase (variável 'database') é inicializado no index.html.
+// Este código JavaScript só deve começar a rodar depois que o HTML for carregado.
 
-// Coloque suas chaves de configuração aqui
-const firebaseConfig = {
-  apiKey: "AIzaSyCdHSTxXFpB2nS_wVA6x-s5S8gFerHHQs4",
-  authDomain: "meutricolor-f693e.firebaseapp.com",
-  projectId: "meutricolor-f693e",
-  storageBucket: "meutricolor-f693e.firebasestorage.app",
-  messagingSenderId: "327254753025",
-  databaseURL: "https://meutricolor-f693e-default-rtdb.firebaseio.com",
-  appId: "1:327254753025:web:a041073dcb693245fca500",
-  measurementId: "G-BG9YG8BE9M"
-};
-
-// -------------------------------------------------------------
-// FUNÇÃO DE INICIALIZAÇÃO DO APP - TUDO DEVE ESTAR AQUI DENTRO
-// -------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', async function() {
-
-    // Carregamento dinâmico das bibliotecas do Firebase
-    // Isso é necessário para usar a sintaxe modular (v9+) em projetos estáticos
-    let database;
-    try {
-        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js");
-        const { getDatabase, ref, onValue, set, runTransaction } = await import("https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js");
-
-        const app = initializeApp(firebaseConfig);
-        database = getDatabase(app);
-        
-        console.log("Firebase inicializado com sucesso!");
-        
-        // --- CHAME A FUNÇÃO PRINCIPAL DEPOIS DE INICIALIZAR O FIREBASE ---
-        iniciarTudo(database, ref, onValue, set, runTransaction);
-        
-    } catch (error) {
-        console.error("ERRO CRÍTICO: Falha ao carregar o Firebase SDK. A votação não funcionará.", error);
-        alert("Erro na votação: Verifique sua conexão ou a configuração do Firebase.");
-        
-        // Se falhar, pelo menos chama o resto do site sem a votação
-        iniciarTudo(null, null, null, null, null); 
-    }
-});
-
-
-// FUNÇÃO QUE CONTÉM TODA A LÓGICA DO SITE (Para garantir que só rode após o Firebase)
-function iniciarTudo(database, ref, onValue, set, runTransaction) {
+document.addEventListener('DOMContentLoaded', function() {
 
     // ==========================================
     // 1. FUNÇÕES DE TEMA (MODO CLARO/ESCURO)
-    // ... [código de tema] ...
+    // ==========================================
     
+    // Cria o botão de tema dinamicamente
     const themeButton = document.createElement('button');
     themeButton.textContent = '🌙 Mudar Tema';
     themeButton.id = 'theme-toggle-button';
@@ -77,7 +33,7 @@ function iniciarTudo(database, ref, onValue, set, runTransaction) {
 
     // ==========================================
     // 2. FUNÇÕES DE CARREGAMENTO DE NOTÍCIAS (Polling / "Tempo Real")
-    // ... [código de notícias] ...
+    // ==========================================
 
     function carregarDados() {
         fetch('data.json')
@@ -125,7 +81,7 @@ function iniciarTudo(database, ref, onValue, set, runTransaction) {
     
     // ==========================================
     // 3. FUNÇÕES DE CARROSSEL DE IMAGENS
-    // ... [código de carrossel] ...
+    // ==========================================
 
     function carregarCarrossel() {
         fetch('fotos.json')
@@ -169,7 +125,7 @@ function iniciarTudo(database, ref, onValue, set, runTransaction) {
     
     // ==========================================
     // 4. FUNÇÃO DE CONTADOR REGRESSIVO (COUNTDOWN)
-    // ... [código de countdown] ...
+    // ==========================================
     
     const dataAlvo = new Date("November 8, 2025 21:00:00").getTime(); 
 
@@ -204,7 +160,7 @@ function iniciarTudo(database, ref, onValue, set, runTransaction) {
     
     // ==========================================
     // 5. FUNÇÃO DO MASCOTE FALANTE
-    // ... [código do mascote] ...
+    // ==========================================
     
     const mensagens = [
         "A base é forte! Confie em Cotia!",
@@ -231,27 +187,22 @@ function iniciarTudo(database, ref, onValue, set, runTransaction) {
 
     
     // ==========================================
-    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (AGORA COM FIREBASE V9)
+    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (AGORA USANDO VARIÁVEL GLOBAL DO index.html)
     // ==========================================
 
-    if (database) {
-        const votoBotoes = document.querySelectorAll('.voto-btn');
-        const chaveVotoUnico = 'spfc_voto_dado';
-        const refVotos = ref(database, 'votos_spfc'); 
+    // A variável 'database' é criada no <script> do index.html.
+    const votoBotoes = document.querySelectorAll('.voto-btn');
+    const chaveVotoUnico = 'spfc_voto_dado'; 
 
-        // 0. Inicializa a estrutura de votos no Firebase (se ainda não existir)
-        set(refVotos, {
-            fogo: 0,
-            equilibrio: 0,
-            gelo: 0
-        }).catch(err => console.error("Falha ao inicializar o banco:", err)); // Inicializa a 0 na primeira rodada
-        
+    // Checa se a conexão com o Firebase está disponível (se 'database' foi criada)
+    if (typeof database !== 'undefined') { 
+        const refVotos = database.ref('votos_spfc'); 
+
         // 1. LÊ OS DADOS DO FIREBASE E ATUALIZA O GRÁFICO (Tempo Real)
-        onValue(refVotos, (snapshot) => {
-            const votosAtuais = snapshot.val();
-            if (votosAtuais) {
-                atualizarTermometro(votosAtuais);
-            }
+        // O Firebase inicializa o voto em 0 se ainda não existir
+        refVotos.on('value', (snapshot) => {
+            const votosAtuais = snapshot.val() || {fogo: 0, equilibrio: 0, gelo: 0};
+            atualizarTermometro(votosAtuais);
         });
 
         // 2. ATUALIZA O GRÁFICO NA TELA
@@ -283,16 +234,19 @@ function iniciarTudo(database, ref, onValue, set, runTransaction) {
 
             const tipoVoto = e.currentTarget.getAttribute('data-voto');
             
-            // Incrementa o voto (usando runTransaction para segurança)
-            runTransaction(ref(database, `votos_spfc/${tipoVoto}`), (currentVotes) => {
-                return (currentVotes || 0) + 1;
-            }).then(() => {
-                localStorage.setItem(chaveVotoUnico, 'sim');
-                alert('Seu voto foi registrado e atualizado para todos em tempo real!');
-                desabilitarVotacao();
-            }).catch(error => {
-                alert('Erro ao votar. Verifique o console do navegador.');
-                console.error("Erro ao enviar voto: ", error);
+            // Incrementa o voto (usando once('value') e set() para a lógica V8)
+            refVotos.child(tipoVoto).once('value', (snapshot) => {
+                const votoAtual = snapshot.val() || 0;
+                refVotos.child(tipoVoto).set(votoAtual + 1)
+                    .then(() => {
+                        localStorage.setItem(chaveVotoUnico, 'sim');
+                        alert('Seu voto foi registrado e atualizado para todos em tempo real!');
+                        desabilitarVotacao();
+                    })
+                    .catch((error) => {
+                        alert('Erro ao votar. Verifique o console do navegador.');
+                        console.error("Erro ao enviar voto: ", error);
+                    });
             });
         }
 
@@ -301,13 +255,18 @@ function iniciarTudo(database, ref, onValue, set, runTransaction) {
             votoBotoes.forEach(btn => btn.disabled = true);
         }
 
-        // 5. INICIALIZAÇÃO E CHECAGEM
+        // 5. INICIALIZAÇÃO E CHECAGEM (Adiciona o Event Listener)
         if (localStorage.getItem(chaveVotoUnico)) {
             desabilitarVotacao();
         } else {
             votoBotoes.forEach(btn => btn.addEventListener('click', lidarComVoto));
         }
+
+    } else {
+        console.error("Firebase NÃO está disponível. A variável 'database' não foi definida. Verifique o index.html.");
+        // Se a conexão falhar, apenas desabilita a votação
+        votoBotoes.forEach(btn => btn.disabled = true);
     }
 
 
-        }
+}); // Fim do document.addEventListener
