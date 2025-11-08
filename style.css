@@ -10,6 +10,7 @@
     --fundo-escuro: #121212;
     --texto-escuro: #E0E0E0;
     --azul-spfc: #00008b; /* Azul Escuro para destaque */
+    --azul-claro: #00BFFF; /* Azul claro para modo escuro */
 }
 
 /* 2. ESTILO GERAL (Corpo da Página - Tema Claro Padrão) */
@@ -131,19 +132,55 @@ footer {
     box-sizing: border-box;
 }
 
-/* -------------------------------------- */
-/* 7. ESTILO DO CONTADOR REGRESSIVO (NOVO) */
-/* -------------------------------------- */
+/* 7. ESTILO DO CONTADOR REGRESSIVO */
 #countdown-container {
-    /* O JS já define border-left: 5px solid blue; */
     padding: 20px;
 }
 
 #countdown-container p:first-child {
-    color: var(--azul-spfc); /* Cor azul para o relógio no tema claro */
+    color: var(--azul-spfc); 
     font-size: 2em !important;
     letter-spacing: 1px;
 }
+
+/* -------------------------------------- */
+/* 8. ESTILO DO MASCOTE FALANTE (O NOVO RECURSO) */
+/* -------------------------------------- */
+#mascote-falante-container {
+    position: fixed;
+    bottom: 80px; /* Acima do botão de tema */
+    left: 20px;
+    z-index: 999;
+    cursor: pointer;
+    text-align: center;
+}
+
+#mascote-imagem {
+    width: 80px; 
+    height: auto;
+    transition: transform 0.2s;
+}
+
+#mascote-imagem:hover {
+    transform: scale(1.05); 
+}
+
+#mascote-balao {
+    background-color: white;
+    color: var(--preto-spfc);
+    border: 2px solid var(--vermelho-spfc);
+    padding: 8px 12px;
+    border-radius: 15px;
+    position: absolute;
+    bottom: 70px; /* Acima da imagem */
+    left: 10px;
+    width: 150px;
+    opacity: 0; /* Começa escondido */
+    transition: opacity 0.5s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 0.9em;
+}
+
 
 /* ###################################### */
 /* #         MODO ESCURO (DARK MODE)    # */
@@ -178,7 +215,13 @@ body.dark-mode footer {
     background-color: #0a0a0a;
 }
 
-/* Correção para o relógio no modo escuro */
+/* Ajustes no Modo Escuro */
 body.dark-mode #countdown-container p:first-child {
-    color: #00BFFF !important; /* Azul mais claro para o relógio */
+    color: var(--azul-claro) !important; 
+}
+
+body.dark-mode #mascote-balao {
+    background-color: #2a2a2a; 
+    color: var(--texto-escuro);
+    border-color: var(--azul-claro);
 }
