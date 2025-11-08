@@ -9,6 +9,7 @@
     --texto-claro: #333333;
     --fundo-escuro: #121212;
     --texto-escuro: #E0E0E0;
+    --azul-spfc: #00008b; /* Azul Escuro para destaque */
 }
 
 /* 2. ESTILO GERAL (Corpo da Página - Tema Claro Padrão) */
@@ -98,9 +99,7 @@ footer {
     margin-top: 40px;
 }
 
-/* -------------------------------------- */
-/* 6. ESTILO DO CARROSSEL DE IMAGENS (NOVO) */
-/* -------------------------------------- */
+/* 6. ESTILO DO CARROSSEL DE IMAGENS */
 #carrossel-container {
     margin-bottom: 40px;
     overflow: hidden; 
@@ -116,8 +115,8 @@ footer {
 #carrossel-imagem {
     display: block; 
     height: auto;
-    width: 100%; /* Garante que a imagem preencha o contêiner */
-    min-height: 200px; /* Altura mínima para não sumir se a foto falhar */
+    width: 100%; 
+    min-height: 200px;
 }
 
 #carrossel-legenda {
@@ -132,6 +131,19 @@ footer {
     box-sizing: border-box;
 }
 
+/* -------------------------------------- */
+/* 7. ESTILO DO CONTADOR REGRESSIVO (NOVO) */
+/* -------------------------------------- */
+#countdown-container {
+    /* O JS já define border-left: 5px solid blue; */
+    padding: 20px;
+}
+
+#countdown-container p:first-child {
+    color: var(--azul-spfc); /* Cor azul para o relógio no tema claro */
+    font-size: 2em !important;
+    letter-spacing: 1px;
+}
 
 /* ###################################### */
 /* #         MODO ESCURO (DARK MODE)    # */
@@ -164,4 +176,9 @@ body.dark-mode .noticia a {
 
 body.dark-mode footer {
     background-color: #0a0a0a;
+}
+
+/* Correção para o relógio no modo escuro */
+body.dark-mode #countdown-container p:first-child {
+    color: #00BFFF !important; /* Azul mais claro para o relógio */
 }
