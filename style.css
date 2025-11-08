@@ -1,5 +1,18 @@
 /* -------------------------------------- */
-/* 1. ESTILO GERAL (Corpo da Página) */
+/* 1. VARIÁVEIS DE COR TRICOLOR */
+/* -------------------------------------- */
+:root {
+    --vermelho-spfc: #FE0000;
+    --preto-spfc: #000000;
+    --branco-spfc: #FFFFFF;
+    --fundo-claro: #F8F8F8;
+    --texto-claro: #333333;
+    --fundo-escuro: #121212;
+    --texto-escuro: #E0E0E0;
+}
+
+/* -------------------------------------- */
+/* 2. ESTILO GERAL (Corpo da Página - Tema Claro Padrão) */
 /* -------------------------------------- */
 body {
     /* Fonte limpa e padrão */
@@ -7,29 +20,30 @@ body {
     /* Remove margens extras do navegador */
     margin: 0; 
     /* Fundo branco (a cor principal do clube) */
-    background-color: #FFFFFF; 
-    /* Cor padrão do texto (preto, para contraste) */
-    color: #333333; 
-    line-height: 1.6; /* Espaçamento entre linhas para facilitar a leitura */
+    background-color: var(--branco-spfc); 
+    /* Cor padrão do texto (preto) */
+    color: var(--texto-claro); 
+    line-height: 1.6; 
+    transition: background-color 0.4s, color 0.4s; /* Transição suave para a mudança de tema */
 }
 
 /* Centraliza o conteúdo principal */
 .container {
     width: 90%;
-    max-width: 1100px; /* Limita o tamanho em telas muito grandes */
-    margin: 30px auto; /* Centraliza na tela e dá um espaço em cima/embaixo */
+    max-width: 1100px; 
+    margin: 30px auto; 
     padding: 20px;
 }
 
 /* -------------------------------------- */
-/* 2. CABEÇALHO (Header e Navegação) */
+/* 3. CABEÇALHO (Header e Navegação) */
 /* -------------------------------------- */
 header {
-    background-color: #FE0000; /* Vermelho forte! */
+    background-color: var(--vermelho-spfc); /* Vermelho forte! */
     color: white;
     padding: 25px 0;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
 }
 
 header h1 {
@@ -41,59 +55,100 @@ header h1 {
 nav a {
     color: white;
     margin: 0 20px;
-    text-decoration: none; /* Remove o sublinhado */
+    text-decoration: none; 
     font-weight: bold;
     padding-bottom: 3px;
-    transition: color 0.3s; /* Transição suave */
+    transition: color 0.3s; 
 }
 
 /* Efeito ao passar o mouse */
 nav a:hover {
-    color: #000000; /* Fica preto ao passar o mouse */
-    border-bottom: 2px solid #000000; /* Linha preta embaixo */
+    color: var(--preto-spfc); 
+    border-bottom: 2px solid var(--preto-spfc); 
 }
 
 /* -------------------------------------- */
-/* 3. NOTÍCIAS e DESTAQUES */
+/* 4. NOTÍCIAS e DESTAQUES */
 /* -------------------------------------- */
 h2 {
-    color: #FE0000; /* Título em vermelho */
+    color: var(--vermelho-spfc); /* Título em vermelho */
     font-size: 1.8em;
-    border-bottom: 3px solid #000000; /* Linha preta forte para separar */
+    border-bottom: 3px solid var(--preto-spfc); /* Linha preta forte para separar */
     padding-bottom: 10px;
     margin-top: 40px;
 }
 
 .noticia {
-    background-color: #F8F8F8; /* Fundo levemente cinza para destacar o bloco */
-    border-left: 5px solid #FE0000; /* Borda lateral vermelha (detalhe tricolor!) */
+    background-color: var(--fundo-claro); /* Fundo levemente cinza */
+    border-left: 5px solid var(--vermelho-spfc); /* Borda lateral vermelha (detalhe tricolor!) */
     padding: 15px;
     margin-bottom: 25px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.4s, border-left 0.4s;
 }
 
 .noticia h3 {
-    color: #000000; /* Título da notícia em preto */
+    color: var(--preto-spfc); 
     margin-top: 0;
 }
 
 .noticia a {
-    color: #000000; /* Link "Leia a análise" em preto */
+    color: var(--preto-spfc); 
     text-decoration: none;
     font-weight: bold;
 }
 
 .noticia a:hover {
-    color: #FE0000; /* Mudar para vermelho ao passar o mouse */
+    color: var(--vermelho-spfc); 
 }
 
 /* -------------------------------------- */
-/* 4. RODAPÉ (Footer) */
+/* 5. RODAPÉ (Footer) */
 /* -------------------------------------- */
 footer {
-    background-color: #000000; /* Fundo preto (parte do Tricolor) */
+    background-color: var(--preto-spfc); 
     color: white;
     text-align: center;
     padding: 15px 0;
     margin-top: 40px;
+}
+
+
+/* ###################################### */
+/* #         MODO ESCURO (DARK MODE)    # */
+/* ###################################### */
+
+/* 1. Mudar o corpo e o texto principal */
+body.dark-mode {
+    background-color: var(--fundo-escuro); 
+    color: var(--texto-escuro); 
+}
+
+/* 2. Mudar o cabeçalho */
+body.dark-mode header {
+    background-color: #720000; /* Vermelho escuro */
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+/* 3. Mudar os títulos */
+body.dark-mode h2 {
+    color: var(--texto-escuro); /* Títulos em branco */
+    border-bottom: 3px solid var(--vermelho-spfc); /* Linha vermelha de destaque */
+}
+
+/* 4. Mudar o bloco de notícia */
+body.dark-mode .noticia {
+    background-color: #1E1E1E; /* Notícias em cinza escuro */
+    border-left: 5px solid var(--texto-escuro); /* Borda lateral clara */
+    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .noticia h3,
+body.dark-mode .noticia a {
+    color: var(--vermelho-spfc); /* Links e subtítulos em vermelho para contraste */
+}
+
+/* 5. Mudar o rodapé */
+body.dark-mode footer {
+    background-color: #0a0a0a;
 }
