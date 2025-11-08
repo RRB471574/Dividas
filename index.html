@@ -19,9 +19,11 @@
           measurementId: "G-BG9YG8BE9M"
         };
         
-        // Inicializa o Firebase e o Banco de Dados
+        // Inicializa o Firebase (App)
         const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        
+        // CORREÇÃO: Inicializa o Banco de Dados (Realtime Database)
+        const database = app.database(); 
     </script>
 
     <link rel="stylesheet" href="style.css"> 
