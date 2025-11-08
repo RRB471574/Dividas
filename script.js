@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     themeButton.textContent = '🌙 Mudar Tema';
     themeButton.id = 'theme-toggle-button';
     
-    // Estilos do botão para garantir que ele apareça
+    // Estilos do botão (Mantidos aqui para garantir que ele apareça)
     themeButton.style.position = 'fixed';
     themeButton.style.bottom = '20px'; 
     themeButton.style.right = '20px';
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 4. FUNÇÃO DE CONTADOR REGRESSIVO (COUNTDOWN)
     // ==========================================
     
-    // Data do próximo jogo: Sábado (08/11/2025) às 21:00 (Fuso horário do Brasil)
+    // Data do próximo jogo: Sábado (08/11/2025) às 21:00 (Hora de Brasília)
     const dataAlvo = new Date("November 8, 2025 21:00:00").getTime(); 
 
     function atualizarContador() {
@@ -157,5 +157,39 @@ document.addEventListener('DOMContentLoaded', function() {
     // Roda a função a cada 1 segundo
     const intervaloContador = setInterval(atualizarContador, 1000);
     atualizarContador(); 
+    
+    
+    // ==========================================
+    // 5. FUNÇÃO DO MASCOTE FALANTE (O "ALGO DIFERENTE")
+    // ==========================================
+    
+    const mensagens = [
+        "A base é forte! Confie em Cotia!",
+        "Tricolor, o time da fé, o resto é detalhe!",
+        "Não se esqueça: 3 mundiais, 3 Libertadores!",
+        "O MorumBIS é nosso! Eu acredito!",
+        "Saudades do Telê... Mas o futuro é nosso!",
+        "A história é gigante. E o próximo título é logo ali!"
+    ];
+
+    const mascoteContainer = document.getElementById('mascote-falante-container');
+    const balaoElement = document.getElementById('mascote-balao');
+    
+    if (mascoteContainer) {
+        mascoteContainer.addEventListener('click', function() {
+            // 1. Escolhe uma mensagem aleatória
+            const indice = Math.floor(Math.random() * mensagens.length);
+            balaoElement.textContent = mensagens[indice];
+
+            // 2. Mostra o balão
+            balaoElement.style.opacity = '1';
+
+            // 3. Esconde o balão após 4 segundos
+            setTimeout(() => {
+                balaoElement.style.opacity = '0';
+            }, 4000);
+        });
+    }
+
 
 });
