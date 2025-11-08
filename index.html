@@ -17,18 +17,17 @@
           storageBucket: "meutricolor-f693e.firebasestorage.app",
           messagingSenderId: "327254753025",
           
-          // CORREÇÃO CRÍTICA: databaseURL correta para o Realtime Database
+          // databaseURL correta para o Realtime Database
           databaseURL: "https://meutricolor-f693e-default-rtdb.firebaseio.com", 
           
           appId: "1:327254753025:web:a041073dcb693245fca500",
           measurementId: "G-BG9YG8BE9M"
         };
         
-        // Inicializa o Firebase (App)
-        const app = firebase.initializeApp(firebaseConfig);
+        // CORREÇÃO CRÍTICA: Inicializa o Firebase e força a variável a ser GLOBAL (usando window.)
+        window.app = firebase.initializeApp(firebaseConfig);
+        window.database = window.app.database(); 
         
-        // Inicializa o Banco de Dados, criando a variável GLOBAL 'database'
-        const database = app.database(); 
         console.log("Firebase inicializado com sucesso!"); // Para confirmar no console
     </script>
 
