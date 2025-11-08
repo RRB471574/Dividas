@@ -1,33 +1,40 @@
-// 1. Espera a página carregar completamente antes de rodar o código.
+// O evento 'DOMContentLoaded' é o mais importante! Ele garante que o script só
+// tente manipular (criar/achar) elementos depois que o HTML estiver pronto.
 document.addEventListener('DOMContentLoaded', function() {
     
-    // 2. Cria um botão para o usuário mudar o tema.
-    // O ideal seria colocar um <button> no HTML, mas vamos criá-lo via JS para simplificar.
+    // 1. CRIAÇÃO E ADIÇÃO DO BOTÃO DE TEMA
     const themeButton = document.createElement('button');
     themeButton.textContent = '🌙 Mudar Tema';
     themeButton.id = 'theme-toggle-button';
     
-    // Estilo básico para o botão aparecer bem na tela
+    // Estilos do botão (copie e cole isso no seu style.css se preferir, 
+    // mas deixamos aqui para garantir que o botão aparece)
     themeButton.style.position = 'fixed';
-    themeButton.style.top = '10px';
-    themeButton.style.right = '10px';
-    themeButton.style.padding = '10px';
-    themeButton.style.backgroundColor = '#000000'; // Fundo preto
+    themeButton.style.bottom = '20px'; // Mudei para baixo, mais discreto
+    themeButton.style.right = '20px';
+    themeButton.style.padding = '12px 20px';
+    themeButton.style.backgroundColor = '#000000';
     themeButton.style.color = 'white';
-    themeButton.style.border = 'none';
+    themeButton.style.border = '2px solid #FE0000'; // Borda vermelha
+    themeButton.style.borderRadius = '5px';
     themeButton.style.cursor = 'pointer';
+    themeButton.style.fontWeight = 'bold';
     themeButton.style.zIndex = '1000';
     
-    // Adiciona o botão no topo da página
+    // Adiciona o botão ao corpo do documento
     document.body.appendChild(themeButton);
 
-    // 3. Função que faz a mudança de tema
+    // 2. FUNÇÃO QUE ALTERNA O TEMA
     function toggleTheme() {
-        // Se o <body> tem a classe 'dark-mode', ele remove. Se não tem, ele adiciona.
+        // Esta linha é o coração do código. Ela procura a tag <body>
+        // e, se ela tiver a classe 'dark-mode', remove. Se não tiver, adiciona.
         document.body.classList.toggle('dark-mode'); 
     }
 
-    // 4. Adiciona um "ouvinte" ao botão. Quando ele é clicado, a função 'toggleTheme' roda.
+    // 3. LIGAÇÃO DO EVENTO (Clique)
     themeButton.addEventListener('click', toggleTheme);
 
+    // DICA EXTRA: Para manter o tema que o usuário escolheu ao recarregar a página,
+    // você precisaria adicionar um código para salvar essa preferência
+    // usando o localStorage do navegador.
 });
