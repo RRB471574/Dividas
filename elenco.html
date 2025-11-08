@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>São Paulo FC - Elenco Tricolor</title>
+    <title>São Paulo FC - Estatísticas do Elenco</title>
+    <!-- Usa o mesmo estilo tricolor -->
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
     <header>
-        <h1>⚽ O Nosso Elenco 🔴⚪⚫</h1>
+        <h1>⚽ Elenco e Estatísticas 🔴⚪⚫</h1>
         <nav>
             <a href="index.html">🏠 Início</a>
             <a href="index.html">📰 Notícias Quentes</a>
             <a href="elenco.html">⚽ Elenco</a>
-            <a href="historia.html">📜 História</a> </nav>
+            <a href="historia.html">📜 História</a>
+        </nav>
     </header>
 
     <div class="container">
         
-        <h2>🛡️ Jogadores do Time Principal</h2>
+        <h2>🛡️ Plantel Principal Detalhado</h2>
         
+        <!-- Contêiner da Tabela -->
         <div id="elenco-container">
-            <p>Carregando lista de craques...</p>
+            <table id="tabela-elenco">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Posição</th>
+                        <th>Nacionalidade</th>
+                        <th>Altura</th>
+                        <th>Idade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- O JavaScript vai preencher a tabela aqui -->
+                    <tr><td colspan="6">Carregando dados dos jogadores...</td></tr>
+                </tbody>
+            </table>
         </div>
         
     </div>
@@ -31,7 +49,9 @@
         <p>Desenvolvido com o Coração. © 2025 - Site Não Oficial do SPFC.</p>
     </footer>
 
+    <!-- Script que calcula a idade e monta a tabela -->
     <script src="script-elenco.js"></script> 
 
 </body>
 </html>
+
