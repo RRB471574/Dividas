@@ -1,8 +1,57 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
+// ==============================================================
+// 0. CONFIGURAÇÃO E INICIALIZAÇÃO DO FIREBASE (NOVA VERSÃO MODULAR)
+// A biblioteca é carregada via um import dinâmico para projetos estáticos
+// ==============================================================
+
+// Coloque suas chaves de configuração aqui
+const firebaseConfig = {
+  apiKey: "AIzaSyCdHSTxXFpB2nS_wVA6x-s5S8gFerHHQs4",
+  authDomain: "meutricolor-f693e.firebaseapp.com",
+  projectId: "meutricolor-f693e",
+  storageBucket: "meutricolor-f693e.firebasestorage.app",
+  messagingSenderId: "327254753025",
+  databaseURL: "https://meutricolor-f693e-default-rtdb.firebaseio.com",
+  appId: "1:327254753025:web:a041073dcb693245fca500",
+  measurementId: "G-BG9YG8BE9M"
+};
+
+// -------------------------------------------------------------
+// FUNÇÃO DE INICIALIZAÇÃO DO APP - TUDO DEVE ESTAR AQUI DENTRO
+// -------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', async function() {
+
+    // Carregamento dinâmico das bibliotecas do Firebase
+    // Isso é necessário para usar a sintaxe modular (v9+) em projetos estáticos
+    let database;
+    try {
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js");
+        const { getDatabase, ref, onValue, set, runTransaction } = await import("https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js");
+
+        const app = initializeApp(firebaseConfig);
+        database = getDatabase(app);
+        
+        console.log("Firebase inicializado com sucesso!");
+        
+        // --- CHAME A FUNÇÃO PRINCIPAL DEPOIS DE INICIALIZAR O FIREBASE ---
+        iniciarTudo(database, ref, onValue, set, runTransaction);
+        
+    } catch (error) {
+        console.error("ERRO CRÍTICO: Falha ao carregar o Firebase SDK. A votação não funcionará.", error);
+        alert("Erro na votação: Verifique sua conexão ou a configuração do Firebase.");
+        
+        // Se falhar, pelo menos chama o resto do site sem a votação
+        iniciarTudo(null, null, null, null, null); 
+    }
+});
+
+
+// FUNÇÃO QUE CONTÉM TODA A LÓGICA DO SITE (Para garantir que só rode após o Firebase)
+function iniciarTudo(database, ref, onValue, set, runTransaction) {
+
     // ==========================================
     // 1. FUNÇÕES DE TEMA (MODO CLARO/ESCURO)
-    // ==========================================
+    // ... [código de tema] ...
+    
     const themeButton = document.createElement('button');
     themeButton.textContent = '🌙 Mudar Tema';
     themeButton.id = 'theme-toggle-button';
@@ -26,11 +75,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     themeButton.addEventListener('click', toggleTheme);
 
-    
     // ==========================================
     // 2. FUNÇÕES DE CARREGAMENTO DE NOTÍCIAS (Polling / "Tempo Real")
-    // ==========================================
-    
+    // ... [código de notícias] ...
+
     function carregarDados() {
         fetch('data.json')
             .then(response => {
@@ -77,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ==========================================
     // 3. FUNÇÕES DE CARROSSEL DE IMAGENS
-    // ==========================================
+    // ... [código de carrossel] ...
 
     function carregarCarrossel() {
         fetch('fotos.json')
@@ -121,9 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ==========================================
     // 4. FUNÇÃO DE CONTADOR REGRESSIVO (COUNTDOWN)
-    // ==========================================
+    // ... [código de countdown] ...
     
-    // Data do próximo jogo: Sábado (08/11/2025) às 21:00 (Hora de Brasília)
     const dataAlvo = new Date("November 8, 2025 21:00:00").getTime(); 
 
     function atualizarContador() {
@@ -133,18 +180,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('countdown-container');
         if (!container) return;
         
-        // Lógica de cálculo:
         const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
         const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
         const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
 
-        // Se o tempo acabou (jogo começou ou terminou)
         if (diferenca < 0) {
             clearInterval(intervaloContador); 
             container.innerHTML = `<p style="text-align: center; font-size: 1.5em; color: #FE0000; font-weight: bold;">JOGO EM ANDAMENTO OU ENCERRADO!</p>`;
         } else {
-            // Se o tempo ainda está correndo
             container.innerHTML = `
                 <p style="text-align: center; font-size: 1.8em; color: #00008b; margin: 5px;">
                     ${dias}d : ${horas}h : ${minutos}m : ${segundos}s
@@ -154,14 +198,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Roda a função a cada 1 segundo
     const intervaloContador = setInterval(atualizarContador, 1000);
     atualizarContador(); 
     
     
     // ==========================================
-    // 5. FUNÇÃO DO MASCOTE FALANTE (O "ALGO DIFERENTE")
-    // ==========================================
+    // 5. FUNÇÃO DO MASCOTE FALANTE
+    // ... [código do mascote] ...
     
     const mensagens = [
         "A base é forte! Confie em Cotia!",
@@ -177,14 +220,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (mascoteContainer) {
         mascoteContainer.addEventListener('click', function() {
-            // 1. Escolhe uma mensagem aleatória
             const indice = Math.floor(Math.random() * mensagens.length);
             balaoElement.textContent = mensagens[indice];
-
-            // 2. Mostra o balão
             balaoElement.style.opacity = '1';
-
-            // 3. Esconde o balão após 4 segundos
             setTimeout(() => {
                 balaoElement.style.opacity = '0';
             }, 4000);
@@ -193,82 +231,83 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     // ==========================================
-    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (Simplificada para tentar resolver o bug)
+    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (AGORA COM FIREBASE V9)
     // ==========================================
 
-    // A variável 'database' deve vir do script no index.html
-    const votoBotoes = document.querySelectorAll('.voto-btn');
-    const chaveVotoUnico = 'spfc_voto_dado'; // Chave para evitar votos repetidos
+    if (database) {
+        const votoBotoes = document.querySelectorAll('.voto-btn');
+        const chaveVotoUnico = 'spfc_voto_dado';
+        const refVotos = ref(database, 'votos_spfc'); 
 
-    // A variável 'database' foi criada no index.html e deve ser global aqui
-    // Se o index.html foi corrigido, esta linha deve funcionar:
-    const refVotos = database.ref('votos_spfc'); 
-
-    // 1. LÊ OS DADOS DO FIREBASE E ATUALIZA O GRÁFICO (Tempo Real)
-    refVotos.on('value', (snapshot) => {
-        const votosAtuais = snapshot.val();
-        if (votosAtuais) {
-            atualizarTermometro(votosAtuais);
-        }
-    });
-
-    // 2. ATUALIZA O GRÁFICO NA TELA
-    function atualizarTermometro(votos) {
-        const totalVotos = votos.fogo + votos.equilibrio + votos.gelo;
-
-        const calcularPercentual = (contagem) => 
-            totalVotos === 0 ? 0 : Math.round((contagem / totalVotos) * 100);
-
-        const percFogo = calcularPercentual(votos.fogo);
-        const percEquilibrio = calcularPercentual(votos.equilibrio);
-        const percGelo = calcularPercentual(votos.gelo);
-
-        // Atualiza as barras de progresso
-        document.getElementById('barra-fogo').style.width = percFogo + '%';
-        document.getElementById('perc-fogo').textContent = percFogo + '%';
-        document.getElementById('barra-equilibrio').style.width = percEquilibrio + '%';
-        document.getElementById('perc-equilibrio').textContent = percEquilibrio + '%';
-        document.getElementById('barra-gelo').style.width = percGelo + '%';
-        document.getElementById('perc-gelo').textContent = percGelo + '%';
-    }
-
-
-    // 3. LIDA COM O CLIQUE DO USUÁRIO (ENVIA O VOTO PARA O FIREBASE)
-    function lidarComVoto(e) {
-        if (localStorage.getItem(chaveVotoUnico)) {
-            alert('Você já expressou seu sentimento! A votação é única.');
-            return;
-        }
-
-        const tipoVoto = e.currentTarget.getAttribute('data-voto');
+        // 0. Inicializa a estrutura de votos no Firebase (se ainda não existir)
+        set(refVotos, {
+            fogo: 0,
+            equilibrio: 0,
+            gelo: 0
+        }).catch(err => console.error("Falha ao inicializar o banco:", err)); // Inicializa a 0 na primeira rodada
         
-        // ENVIO MAIS SIMPLES: Aumenta o valor atual do Firebase em 1
-        refVotos.child(tipoVoto).once('value', (snapshot) => {
-            const votoAtual = snapshot.val() || 0;
-            refVotos.child(tipoVoto).set(votoAtual + 1)
-                .then(() => {
-                    localStorage.setItem(chaveVotoUnico, 'sim'); // Marca que o usuário votou
-                    alert('Seu voto foi registrado e atualizado para todos em tempo real!');
-                    desabilitarVotacao();
-                })
-                .catch((error) => {
-                    alert('Erro ao votar. Verifique o console do navegador para detalhes.');
-                    console.error("Erro ao enviar voto: ", error);
-                });
+        // 1. LÊ OS DADOS DO FIREBASE E ATUALIZA O GRÁFICO (Tempo Real)
+        onValue(refVotos, (snapshot) => {
+            const votosAtuais = snapshot.val();
+            if (votosAtuais) {
+                atualizarTermometro(votosAtuais);
+            }
         });
+
+        // 2. ATUALIZA O GRÁFICO NA TELA
+        function atualizarTermometro(votos) {
+            const totalVotos = votos.fogo + votos.equilibrio + votos.gelo;
+
+            const calcularPercentual = (contagem) => 
+                totalVotos === 0 ? 0 : Math.round((contagem / totalVotos) * 100);
+
+            const percFogo = calcularPercentual(votos.fogo);
+            const percEquilibrio = calcularPercentual(votos.equilibrio);
+            const percGelo = calcularPercentual(votos.gelo);
+
+            document.getElementById('barra-fogo').style.width = percFogo + '%';
+            document.getElementById('perc-fogo').textContent = percFogo + '%';
+            document.getElementById('barra-equilibrio').style.width = percEquilibrio + '%';
+            document.getElementById('perc-equilibrio').textContent = percEquilibrio + '%';
+            document.getElementById('barra-gelo').style.width = percGelo + '%';
+            document.getElementById('perc-gelo').textContent = percGelo + '%';
+        }
+
+
+        // 3. LIDA COM O CLIQUE DO USUÁRIO (ENVIA O VOTO PARA O FIREBASE)
+        function lidarComVoto(e) {
+            if (localStorage.getItem(chaveVotoUnico)) {
+                alert('Você já expressou seu sentimento! A votação é única.');
+                return;
+            }
+
+            const tipoVoto = e.currentTarget.getAttribute('data-voto');
+            
+            // Incrementa o voto (usando runTransaction para segurança)
+            runTransaction(ref(database, `votos_spfc/${tipoVoto}`), (currentVotes) => {
+                return (currentVotes || 0) + 1;
+            }).then(() => {
+                localStorage.setItem(chaveVotoUnico, 'sim');
+                alert('Seu voto foi registrado e atualizado para todos em tempo real!');
+                desabilitarVotacao();
+            }).catch(error => {
+                alert('Erro ao votar. Verifique o console do navegador.');
+                console.error("Erro ao enviar voto: ", error);
+            });
+        }
+
+        // 4. DESABILITA OS BOTÕES
+        function desabilitarVotacao() {
+            votoBotoes.forEach(btn => btn.disabled = true);
+        }
+
+        // 5. INICIALIZAÇÃO E CHECAGEM
+        if (localStorage.getItem(chaveVotoUnico)) {
+            desabilitarVotacao();
+        } else {
+            votoBotoes.forEach(btn => btn.addEventListener('click', lidarComVoto));
+        }
     }
 
-    // 4. DESABILITA OS BOTÕES
-    function desabilitarVotacao() {
-        votoBotoes.forEach(btn => btn.disabled = true);
-    }
 
-    // 5. INICIALIZAÇÃO E CHECAGEM (Verifica se o usuário já votou)
-    if (localStorage.getItem(chaveVotoUnico)) {
-        desabilitarVotacao();
-    } else {
-        votoBotoes.forEach(btn => btn.addEventListener('click', lidarComVoto));
-    }
-
-    
-}); // Fim do document.addEventListener
+        }
