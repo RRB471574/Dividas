@@ -179,77 +179,69 @@ footer {
     font-size: 0.9em;
 }
 
-/* -------------------------------------- */
-/* 9. ESTILO DO TERMÔMETRO DA TORCIDA (NOVO) */
-/* -------------------------------------- */
 
-/* Estilo para os botões de voto */
-.voto-btn {
+/* -------------------------------------- */
+/* 9. ESTILO DA TABELA DE ESTATÍSTICAS (NOVO) */
+/* -------------------------------------- */
+#tabela-elenco {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#tabela-elenco th, #tabela-elenco td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9em;
+}
+
+#tabela-elenco th {
     background-color: var(--vermelho-spfc);
     color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.1s;
-    font-size: 0.9em;
+    text-transform: uppercase;
 }
 
-.voto-btn:hover {
-    background-color: #CC0000; 
+/* Linhas zebradas para melhor leitura */
+#tabela-elenco tbody tr:nth-child(even) {
+    background-color: #f2f2f2; 
 }
 
-/* Estilo da barra de votação */
-#termometro-resultado {
-    padding: 10px 0;
+/* Efeito ao passar o mouse */
+#tabela-elenco tbody tr:hover {
+    background-color: #e0e0e0; 
 }
 
-.barra-votacao {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-    gap: 10px; /* Espaçamento entre os elementos */
-}
+/* Ajuste de responsividade (para telas menores) */
+@media (max-width: 600px) {
+    #tabela-elenco th, #tabela-elenco td {
+        display: block; 
+        width: 100%;
+        box-sizing: border-box;
+    }
 
-.barra-votacao .label {
-    width: 100px;
-    font-weight: bold;
-    font-size: 0.9em;
-}
+    #tabela-elenco thead {
+        display: none; 
+    }
 
-.barra-progresso {
-    flex-grow: 1; 
-    height: 20px;
-    background-color: #E0E0E0; /* Fundo cinza para o trilho da barra */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.barra {
-    height: 100%;
-    width: 0%; 
-    transition: width 0.5s ease-out;
-}
-
-/* Cores específicas para as barras */
-#barra-fogo {
-    background-color: #FF8C00; /* Laranja Vívido */
-}
-#barra-equilibrio {
-    background-color: #1E90FF; /* Azul Médio */
-}
-#barra-gelo {
-    background-color: #555555; /* Cinza Escuro */
-}
-
-.porcentagem {
-    width: 40px;
-    font-weight: bold;
-    font-size: 0.9em;
-    text-align: right;
+    #tabela-elenco tbody tr {
+        margin-bottom: 15px;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Leve sombra nos blocos mobile */
+    }
+    
+    /* Apenas para celular: adiciona o título da coluna antes do conteúdo */
+    #tabela-elenco tbody td:before {
+        content: attr(data-label); 
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        width: 40%;
+    }
 }
 
 
@@ -297,10 +289,17 @@ body.dark-mode #mascote-balao {
     border-color: var(--azul-claro);
 }
 
-body.dark-mode .voto-btn {
+body.dark-mode #tabela-elenco th {
     background-color: #720000;
 }
-body.dark-mode .barra-progresso {
-    background-color: #333;
-    border-color: #444;
+body.dark-mode #tabela-elenco tbody tr {
+    background-color: #2a2a2a;
+    color: var(--texto-escuro);
+    border-bottom: 1px solid #444;
+}
+body.dark-mode #tabela-elenco tbody tr:nth-child(even) {
+    background-color: #1e1e1e; /* Cinza escuro para zebrado */
+}
+body.dark-mode #tabela-elenco tbody tr:hover {
+    background-color: #3a3a3a; 
 }
