@@ -193,22 +193,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     // ==========================================
-    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (VOTAÇÃO)
+    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (AGORA EM TEMPO REAL COM FIREBASE)
     // ==========================================
 
+    // Certifique-se de que 'database' está definida globalmente no index.html
+    // Caso contrário, use: const database = firebase.database();
+
     const votoBotoes = document.querySelectorAll('.voto-btn');
-    const chaveVoto = 'spfc_voto_dado'; // Chave para saber se o usuário já votou
-    const chaveContagem = 'spfc_votos_contagem'; // Chave para armazenar os votos
+    const chaveVotoUnico = 'spfc_voto_dado'; // Chave para evitar votos repetidos na mesma sessão
+    const refVotos = database.ref('votos_spfc'); // Onde os votos serão salvos no Firebase
 
-    // Inicializa a contagem total de votos
-    let votos = JSON.parse(localStorage.getItem(chaveContagem)) || {
-        fogo: 0,
-        equilibrio: 0,
-        gelo: 0
-    };
+    // Inicializa a estrutura de votos no Firebase (se ainda não existir)
+    // Garante que o banco comece com zero se for a primeira vez
+    refVotos.once('value').then((snapshot) => {
+        if (!snapshot.exists() || snapshot.val() === null) {
+            refVotos.set({
+                fogo: 0,
+                equilibrio: 0,
+                gelo: 0
+            });
+        }
+    });
 
-    // 1. ATUALIZA O GRÁFICO NA TELA
-    function atualizarTermometro() {
+    // 1. LÊ OS DADOS DO FIREBASE E ATUALIZA O GRÁFICO (Tempo Real)
+    // 'on' garante que o gráfico atualize sempre que houver um novo voto
+    refVotos.on('value', (snapshot) => {
+        const votosAtuais = snapshot.val();
+        if (votosAtuais) {
+            atualizarTermometro(votosAtuais);
+        }
+    });
+
+
+    // 2. ATUALIZA O GRÁFICO NA TELA COM OS DADOS FINAIS
+    function atualizarTermometro(votos) {
         const totalVotos = votos.fogo + votos.equilibrio + votos.gelo;
 
         // Função para calcular porcentagem com segurança
@@ -230,41 +248,44 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('perc-gelo').textContent = percGelo + '%';
     }
 
-    // 2. LIDA COM O CLIQUE DO USUÁRIO
+
+    // 3. LIDA COM O CLIQUE DO USUÁRIO (ENVIA O VOTO PARA O FIREBASE)
     function lidarComVoto(e) {
-        if (localStorage.getItem(chaveVoto)) {
-            alert('Você já expressou seu sentimento! Volte amanhã para mudar.');
+        if (localStorage.getItem(chaveVotoUnico)) {
+            alert('Você já expressou seu sentimento! A votação é única por dispositivo/sessão.');
             return;
         }
 
         const tipoVoto = e.currentTarget.getAttribute('data-voto');
         
-        // Adiciona 1 voto ao tipo escolhido
-        votos[tipoVoto]++;
-        localStorage.setItem(chaveContagem, JSON.stringify(votos));
-        localStorage.setItem(chaveVoto, 'sim'); // Marca que o usuário votou
-
-        // Atualiza a visualização e desabilita botões
-        atualizarTermometro();
-        desabilitarVotacao();
-        alert('Seu voto foi registrado! Obrigado por participar.');
+        // Usa o Firebase Transaction para aumentar o contador com segurança
+        refVotos.child(tipoVoto).transaction((votoAtual) => {
+            // Se o valor for nulo ou zero, começa do 0, senão incrementa
+            return (votoAtual || 0) + 1; 
+        }, (error, committed) => {
+            if (committed) {
+                localStorage.setItem(chaveVotoUnico, 'sim'); // Marca que o usuário votou
+                alert('Seu voto foi registrado e atualizado para todos em tempo real!');
+                desabilitarVotacao();
+            } else if (error) {
+                 alert('Erro ao votar. Verifique se o Realtime Database está ativo.');
+                 console.error(error);
+            }
+        });
     }
 
-    // 3. DESABILITA OS BOTÕES E MOSTRA O RESULTADO FINAL
+    // 4. DESABILITA OS BOTÕES
     function desabilitarVotacao() {
         votoBotoes.forEach(btn => btn.disabled = true);
-        // Opcional: Mudar cor do botão que foi clicado
     }
 
-    // 4. INICIALIZAÇÃO
-    if (localStorage.getItem(chaveVoto)) {
+    // 5. INICIALIZAÇÃO E CHECAGEM (Verifica se o usuário já votou)
+    if (localStorage.getItem(chaveVotoUnico)) {
         desabilitarVotacao();
     } else {
         votoBotoes.forEach(btn => btn.addEventListener('click', lidarComVoto));
     }
+
     
-    // Mostra os resultados iniciais
-    atualizarTermometro();
-
-
-});
+}); // Fim do document.addEventListener
+        
