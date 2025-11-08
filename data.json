@@ -1,0 +1,23 @@
+{
+    "manchete": {
+        "titulo": "60 Desfalques em 2025: Pablo Maia e Marcos Antônio se juntam à lista",
+        "resumo": "O São Paulo chegou a uma marca preocupante de 60 desfalques por problemas físicos no ano. O técnico Hernán Crespo perdeu mais dois volantes titulares.",
+        "link": "#"
+    },
+    "ultimasNoticias": [
+        {
+            "titulo": "É Decisão: São Paulo enfrenta o Bragantino na Vila Belmiro",
+            "resumo": "O Tricolor joga a 33ª rodada do Brasileirão neste sábado (08/11) às 21h. Jogo na Vila Belmiro exige 'sangue nos olhos'.",
+            "link": "#"
+        },
+        {
+            "titulo": "Negócio Fechado: Rodrigo Nestor vendido ao Bahia",
+            "resumo": "A diretoria confirmou a venda do meia Rodrigo Nestor. O valor milionário entra nos cofres, mas levanta debate sobre a prioridade: títulos ou finanças?",
+            "link": "#"
+        }
+    ],
+    "opiniao": {
+        "titulo": "Opinião: É hora de focar nos que ficam!",
+        "resumo": "A solução está no CT de Cotia e na força dos jogadores que estão 100%. O time precisa de raça e união para garantir a vaga internacional!"
+    }
+}
