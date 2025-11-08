@@ -15,6 +15,10 @@
           projectId: "meutricolor-f693e",
           storageBucket: "meutricolor-f693e.firebasestorage.app",
           messagingSenderId: "327254753025",
+          
+          // CORREÇÃO CRÍTICA: databaseURL para o Realtime Database (SDK v8)
+          databaseURL: "https://meutricolor-f693e-default-rtdb.firebaseio.com", 
+          
           appId: "1:327254753025:web:a041073dcb693245fca500",
           measurementId: "G-BG9YG8BE9M"
         };
@@ -22,7 +26,7 @@
         // Inicializa o Firebase (App)
         const app = firebase.initializeApp(firebaseConfig);
         
-        // CORREÇÃO: Inicializa o Banco de Dados (Realtime Database)
+        // Inicializa o Banco de Dados (Realtime Database)
         const database = app.database(); 
     </script>
 
