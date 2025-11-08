@@ -1,29 +1,11 @@
 {
     "jogadores": [
-        {
-            "nome": "Rafael",
-            "posicao": "Goleiro",
-            "numero": 1
-        },
-        {
-            "nome": "Calleri",
-            "posicao": "Atacante",
-            "numero": 9
-        },
-        {
-            "nome": "Lucas Moura",
-            "posicao": "Meia-Atacante",
-            "numero": 7
-        },
-        {
-            "nome": "Arboleda",
-            "posicao": "Zagueiro",
-            "numero": 5
-        },
-        {
-            "nome": "Pablo Maia",
-            "posicao": "Volante",
-            "numero": 29
-        }
+        { "nome": "Rafael", "posicao": "Goleiro", "numero": 1, "nascimento": "1989-06-23", "altura": "1.86m", "nacionalidade": "Brasil" },
+        { "nome": "Calleri", "posicao": "Atacante", "numero": 9, "nascimento": "1993-09-23", "altura": "1.81m", "nacionalidade": "Argentina" },
+        { "nome": "Lucas Moura", "posicao": "Meia-Atacante", "numero": 7, "nascimento": "1992-08-13", "altura": "1.72m", "nacionalidade": "Brasil" },
+        { "nome": "Arboleda", "posicao": "Zagueiro", "numero": 5, "nascimento": "1991-10-22", "altura": "1.87m", "nacionalidade": "Equador" },
+        { "nome": "Pablo Maia", "posicao": "Volante", "numero": 29, "nascimento": "2002-01-10", "altura": "1.78m", "nacionalidade": "Brasil" },
+        { "nome": "Luiz Gustavo", "posicao": "Volante", "numero": 16, "nascimento": "1987-07-23", "altura": "1.87m", "nacionalidade": "Brasil" },
+        { "nome": "Ferreirinha", "posicao": "Ponta", "numero": 47, "nascimento": "1997-12-31", "altura": "1.75m", "nacionalidade": "Brasil" }
     ]
 }
