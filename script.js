@@ -1,18 +1,14 @@
-// O Firebase (variável 'database') é inicializado no index.html.
-// Este código JavaScript só deve começar a rodar depois que o HTML for carregado.
-
 document.addEventListener('DOMContentLoaded', function() {
-
+    
     // ==========================================
     // 1. FUNÇÕES DE TEMA (MODO CLARO/ESCURO)
     // ==========================================
     
-    // Cria o botão de tema dinamicamente
     const themeButton = document.createElement('button');
     themeButton.textContent = '🌙 Mudar Tema';
     themeButton.id = 'theme-toggle-button';
     
-    // Estilos do botão (Mantidos aqui para garantir que ele apareça)
+    // Estilos do botão
     themeButton.style.position = 'fixed';
     themeButton.style.bottom = '20px'; 
     themeButton.style.right = '20px';
@@ -31,10 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     themeButton.addEventListener('click', toggleTheme);
 
+    
     // ==========================================
     // 2. FUNÇÕES DE CARREGAMENTO DE NOTÍCIAS (Polling / "Tempo Real")
     // ==========================================
-
+    
     function carregarDados() {
         fetch('data.json')
             .then(response => {
@@ -187,86 +184,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     // ==========================================
-    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (AGORA USANDO VARIÁVEL GLOBAL DO index.html)
+    // 6. FUNÇÃO DE PESQUISA SIMPLES (FILTRO DE NOTÍCIAS)
     // ==========================================
+    
+    const campoPesquisa = document.getElementById('campo-pesquisa');
 
-    // A variável 'database' é criada no <script> do index.html.
-    const votoBotoes = document.querySelectorAll('.voto-btn');
-    const chaveVotoUnico = 'spfc_voto_dado'; 
-
-    // Checa se a conexão com o Firebase está disponível (se 'database' foi criada)
-    if (typeof database !== 'undefined') { 
-        const refVotos = database.ref('votos_spfc'); 
-
-        // 1. LÊ OS DADOS DO FIREBASE E ATUALIZA O GRÁFICO (Tempo Real)
-        // O Firebase inicializa o voto em 0 se ainda não existir
-        refVotos.on('value', (snapshot) => {
-            const votosAtuais = snapshot.val() || {fogo: 0, equilibrio: 0, gelo: 0};
-            atualizarTermometro(votosAtuais);
-        });
-
-        // 2. ATUALIZA O GRÁFICO NA TELA
-        function atualizarTermometro(votos) {
-            const totalVotos = votos.fogo + votos.equilibrio + votos.gelo;
-
-            const calcularPercentual = (contagem) => 
-                totalVotos === 0 ? 0 : Math.round((contagem / totalVotos) * 100);
-
-            const percFogo = calcularPercentual(votos.fogo);
-            const percEquilibrio = calcularPercentual(votos.equilibrio);
-            const percGelo = calcularPercentual(votos.gelo);
-
-            document.getElementById('barra-fogo').style.width = percFogo + '%';
-            document.getElementById('perc-fogo').textContent = percFogo + '%';
-            document.getElementById('barra-equilibrio').style.width = percEquilibrio + '%';
-            document.getElementById('perc-equilibrio').textContent = percEquilibrio + '%';
-            document.getElementById('barra-gelo').style.width = percGelo + '%';
-            document.getElementById('perc-gelo').textContent = percGelo + '%';
-        }
-
-
-        // 3. LIDA COM O CLIQUE DO USUÁRIO (ENVIA O VOTO PARA O FIREBASE)
-        function lidarComVoto(e) {
-            if (localStorage.getItem(chaveVotoUnico)) {
-                alert('Você já expressou seu sentimento! A votação é única.');
-                return;
-            }
-
-            const tipoVoto = e.currentTarget.getAttribute('data-voto');
+    if (campoPesquisa) {
+        campoPesquisa.addEventListener('keyup', function() {
+            const termo = campoPesquisa.value.toLowerCase();
             
-            // Incrementa o voto (usando once('value') e set() para a lógica V8)
-            refVotos.child(tipoVoto).once('value', (snapshot) => {
-                const votoAtual = snapshot.val() || 0;
-                refVotos.child(tipoVoto).set(votoAtual + 1)
-                    .then(() => {
-                        localStorage.setItem(chaveVotoUnico, 'sim');
-                        alert('Seu voto foi registrado e atualizado para todos em tempo real!');
-                        desabilitarVotacao();
-                    })
-                    .catch((error) => {
-                        alert('Erro ao votar. Verifique o console do navegador.');
-                        console.error("Erro ao enviar voto: ", error);
-                    });
+            // Seleciona todos os blocos de notícia dinâmicos
+            const blocosNoticia = document.querySelectorAll('.container .noticia');
+
+            blocosNoticia.forEach(bloco => {
+                const textoDoBloco = bloco.textContent.toLowerCase();
+                
+                // Exibe ou esconde o bloco dependendo do termo
+                if (textoDoBloco.includes(termo) || termo === '') {
+                    bloco.style.display = 'block'; 
+                } else {
+                    bloco.style.display = 'none'; 
+                }
             });
-        }
-
-        // 4. DESABILITA OS BOTÕES
-        function desabilitarVotacao() {
-            votoBotoes.forEach(btn => btn.disabled = true);
-        }
-
-        // 5. INICIALIZAÇÃO E CHECAGEM (Adiciona o Event Listener)
-        if (localStorage.getItem(chaveVotoUnico)) {
-            desabilitarVotacao();
-        } else {
-            votoBotoes.forEach(btn => btn.addEventListener('click', lidarComVoto));
-        }
-
-    } else {
-        console.error("Firebase NÃO está disponível. A variável 'database' não foi definida. Verifique o index.html.");
-        // Se a conexão falhar, apenas desabilita a votação
-        votoBotoes.forEach(btn => btn.disabled = true);
+        });
     }
 
+    
+    // ==========================================
+    // 7. MÍDIAS SOCIAIS NO RODAPÉ
+    // ==========================================
+    const socialContainer = document.getElementById('social-links');
 
-}); // Fim do document.addEventListener
+    if (socialContainer) {
+        socialContainer.innerHTML = `
+            <a href="https://twitter.com/SaoPauloFC" target="_blank" style="color: white; margin: 0 10px; text-decoration: none; font-size: 24px;">
+                <i class="fab fa-twitter" style="color: #1DA1F2;"></i>
+            </a>
+            <a href="https://www.instagram.com/saopaulofc/" target="_blank" style="color: white; margin: 0 10px; text-decoration: none; font-size: 24px;">
+                <i class="fab fa-instagram" style="color: #E4405F;"></i>
+            </a>
+            <a href="https://www.youtube.com/user/saopaulofc" target="_blank" style="color: white; margin: 0 10px; text-decoration: none; font-size: 24px;">
+                <i class="fab fa-youtube" style="color: #FF0000;"></i>
+            </a>
+        `;
+        
+        // Adiciona a biblioteca Font Awesome para os ícones
+        const fontAwesomeLink = document.createElement('link');
+        fontAwesomeLink.rel = 'stylesheet';
+        fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+        document.head.appendChild(fontAwesomeLink);
+    }
+    
+
+});
