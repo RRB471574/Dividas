@@ -237,3 +237,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
 });
+// ... (mantenha o restante do código igual) ...
+
+    // ==========================================
+    // 7. MÍDIAS SOCIAIS NO RODAPÉ
+    // ==========================================
+    const socialContainer = document.getElementById('social-links');
+
+    if (socialContainer) {
+        socialContainer.innerHTML = `
+            <a href="https://twitter.com/SaoPauloFC" target="_blank" style="color: white; margin: 0 10px; text-decoration: none; font-size: 24px;">
+                <i class="fab fa-x-twitter" style="color: white;"></i> <!-- Ícone X/Twitter -->
+            </a>
+            <a href="https://www.instagram.com/saopaulofc/" target="_blank" style="color: white; margin: 0 10px; text-decoration: none; font-size: 24px;">
+                <i class="fab fa-instagram" style="color: #E4405F;"></i>
+            </a>
+            <a href="https://www.youtube.com/user/saopaulofc" target="_blank" style="color: white; margin: 0 10px; text-decoration: none; font-size: 24px;">
+                <i class="fab fa-youtube" style="color: #FF0000;"></i>
+            </a>
+        `;
+        
+        // Adiciona a biblioteca Font Awesome para os ícones
+        const fontAwesomeLink = document.createElement('link');
+        fontAwesomeLink.rel = 'stylesheet';
+        fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'; /* Versão mais nova */
+        document.head.appendChild(fontAwesomeLink);
+    }
+    
+
+});
