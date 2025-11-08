@@ -5,36 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>São Paulo FC - Notícias Dinâmicas Tricolor</title>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-    <script>
-        // Configuração do seu projeto Firebase, com a databaseURL corrigida
-        const firebaseConfig = {
-          apiKey: "AIzaSyCdHSTxXFpB2nS_wVA6x-s5S8gFerHHQs4",
-          authDomain: "meutricolor-f693e.firebaseapp.com",
-          projectId: "meutricolor-f693e",
-          storageBucket: "meutricolor-f693e.firebasestorage.app",
-          messagingSenderId: "327254753025",
-          
-          // databaseURL correta para o Realtime Database
-          databaseURL: "https://meutricolor-f693e-default-rtdb.firebaseio.com", 
-          
-          appId: "1:327254753025:web:a041073dcb693245fca500",
-          measurementId: "G-BG9YG8BE9M"
-        };
-        
-        // CORREÇÃO CRÍTICA: Inicializa o Firebase e força a variável a ser GLOBAL (usando window.)
-        window.app = firebase.initializeApp(firebaseConfig);
-        window.database = window.app.database(); 
-        
-        console.log("Firebase inicializado com sucesso!"); // Para confirmar no console
-    </script>
-
+    <!-- ATENÇÃO: TODOS OS SCRIPTS E CONFIGURAÇÕES DO FIREBASE FORAM REMOVIDOS -->
+    
+    <!-- CONEXÃO COM O ESTILO -->
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
+    <!-- Mascote Falante (O "algo diferente") -->
     <div id="mascote-falante-container">
         <img id="mascote-imagem" src="mascote.png" alt="Mascote do São Paulo"> 
         <div id="mascote-balao">Clique para uma Mensagem!</div>
@@ -52,55 +30,28 @@
 
     <div class="container">
         
+        <!-- CONTÊINER DO CARROSSEL -->
         <div id="carrossel-container">
-            </div>
+            <!-- Conteúdo injetado pelo script.js lendo fotos.json -->
+        </div>
         
+        <!-- CONTADOR REGRESSIVO -->
         <h2>⏰ Próximo Jogo: Falta...</h2>
         <div id="countdown-container" class="noticia" style="border-left: 5px solid blue;">
             <p style="text-align: center; font-size: 1.5em; font-weight: bold;">Carregando...</p>
         </div>
         
-        <h2>🔥 Termômetro da Torcida</h2>
-        
-        <div class="noticia" id="termometro-principal">
-            
-            <h3>Qual o seu sentimento sobre o time HOJE?</h3>
-            
-            <div id="voto-botoes" style="text-align: center; margin-bottom: 20px;">
-                <button data-voto="fogo" class="voto-btn">🔥 Fogo (Acreditando)</button>
-                <button data-voto="equilibrio" class="voto-btn">⚖️ Equilíbrio (Na Média)</button>
-                <button data-voto="gelo" class="voto-btn">🧊 Gelo (Preocupado)</button>
-            </div>
-            
-            <div id="termometro-resultado">
-                <p style="text-align: center; font-weight: bold;">Resultados em tempo real:</p>
-                
-                <div class="barra-votacao">
-                    <span class="label">🔥 Fogo</span>
-                    <div class="barra-progresso"><div id="barra-fogo" class="barra"></div></div>
-                    <span id="perc-fogo" class="porcentagem">0%</span>
-                </div>
-                
-                <div class="barra-votacao">
-                    <span class="label">⚖️ Equilíbrio</span>
-                    <div class="barra-progresso"><div id="barra-equilibrio" class="barra"></div></div>
-                    <span id="perc-equilibrio" class="porcentagem">0%</span>
-                </div>
-                
-                <div class="barra-votacao">
-                    <span class="label">🧊 Gelo</span>
-                    <div class="barra-progresso"><div id="barra-gelo" class="barra"></div></div>
-                    <span id="perc-gelo" class="porcentagem">0%</span>
-                </div>
-            </div>
-            
-        </div>
+        <!-- REMOVEMOS A VOTAÇÃO AQUI E FOCAMOS NO CONTEÚDO -->
+
+        <!-- SEÇÃO DE MANCHETE PRINCIPAL -->
         <h2>🚨 Manchete do Dia: Crise de Lesões Preocupa Crespo</h2>
         <div id="manchete-principal"></div>
 
+        <!-- SEÇÃO DE ÚLTIMAS NOTÍCIAS -->
         <h2>🗞️ Últimas do MorumBIS e do Campeonato</h2>
         <div id="ultimas-noticias-container"></div>
 
+        <!-- SEÇÃO DE OPINIÃO -->
         <h2>💬 Nosso Ponto de Vista</h2>
         <div id="opiniao-spfc"></div>
 
@@ -110,6 +61,7 @@
         <p>Desenvolvido com o Coração. © 2025 - Site Não Oficial do SPFC.</p>
     </footer>
 
+    <!-- CONEXÃO COM O JAVASCRIPT PRINCIPAL -->
     <script src="script.js"></script> 
 
 </body>
