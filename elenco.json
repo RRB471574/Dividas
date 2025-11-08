@@ -1,0 +1,29 @@
+{
+    "jogadores": [
+        {
+            "nome": "Rafael",
+            "posicao": "Goleiro",
+            "numero": 1
+        },
+        {
+            "nome": "Calleri",
+            "posicao": "Atacante",
+            "numero": 9
+        },
+        {
+            "nome": "Lucas Moura",
+            "posicao": "Meia-Atacante",
+            "numero": 7
+        },
+        {
+            "nome": "Arboleda",
+            "posicao": "Zagueiro",
+            "numero": 5
+        },
+        {
+            "nome": "Pablo Maia",
+            "posicao": "Volante",
+            "numero": 29
+        }
+    ]
+}
