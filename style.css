@@ -72,7 +72,7 @@ h2 {
     border-left: 5px solid var(--vermelho-spfc);
     padding: 15px;
     margin-bottom: 25px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Removido o box-shadow na imagem original */
     transition: background-color 0.4s, border-left 0.4s;
 }
 
@@ -231,7 +231,7 @@ footer {
         display: block;
         border: 1px solid #ccc;
         border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Leve sombra nos blocos mobile */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
     }
     
     /* Apenas para celular: adiciona o título da coluna antes do conteúdo */
@@ -266,7 +266,7 @@ body.dark-mode h2 {
 body.dark-mode .noticia {
     background-color: #1E1E1E; 
     border-left: 5px solid var(--texto-escuro); 
-    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Removido o box-shadow na imagem original */
 }
 
 body.dark-mode .noticia h3,
@@ -298,7 +298,7 @@ body.dark-mode #tabela-elenco tbody tr {
     border-bottom: 1px solid #444;
 }
 body.dark-mode #tabela-elenco tbody tr:nth-child(even) {
-    background-color: #1e1e1e; /* Cinza escuro para zebrado */
+    background-color: #1e1e1e; 
 }
 body.dark-mode #tabela-elenco tbody tr:hover {
     background-color: #3a3a3a; 
