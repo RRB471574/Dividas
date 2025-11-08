@@ -193,30 +193,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     // ==========================================
-    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (AGORA EM TEMPO REAL COM FIREBASE)
+    // 6. FUNÇÃO DO TERMÔMETRO DA TORCIDA (Simplificada para tentar resolver o bug)
     // ==========================================
 
-    // Certifique-se de que 'database' está definida globalmente no index.html
-    // Caso contrário, use: const database = firebase.database();
-
+    // A variável 'database' deve vir do script no index.html
     const votoBotoes = document.querySelectorAll('.voto-btn');
-    const chaveVotoUnico = 'spfc_voto_dado'; // Chave para evitar votos repetidos na mesma sessão
-    const refVotos = database.ref('votos_spfc'); // Onde os votos serão salvos no Firebase
+    const chaveVotoUnico = 'spfc_voto_dado'; // Chave para evitar votos repetidos
 
-    // Inicializa a estrutura de votos no Firebase (se ainda não existir)
-    // Garante que o banco comece com zero se for a primeira vez
-    refVotos.once('value').then((snapshot) => {
-        if (!snapshot.exists() || snapshot.val() === null) {
-            refVotos.set({
-                fogo: 0,
-                equilibrio: 0,
-                gelo: 0
-            });
-        }
-    });
+    // A variável 'database' foi criada no index.html e deve ser global aqui
+    // Se o index.html foi corrigido, esta linha deve funcionar:
+    const refVotos = database.ref('votos_spfc'); 
 
     // 1. LÊ OS DADOS DO FIREBASE E ATUALIZA O GRÁFICO (Tempo Real)
-    // 'on' garante que o gráfico atualize sempre que houver um novo voto
     refVotos.on('value', (snapshot) => {
         const votosAtuais = snapshot.val();
         if (votosAtuais) {
@@ -224,12 +212,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-
-    // 2. ATUALIZA O GRÁFICO NA TELA COM OS DADOS FINAIS
+    // 2. ATUALIZA O GRÁFICO NA TELA
     function atualizarTermometro(votos) {
         const totalVotos = votos.fogo + votos.equilibrio + votos.gelo;
 
-        // Função para calcular porcentagem com segurança
         const calcularPercentual = (contagem) => 
             totalVotos === 0 ? 0 : Math.round((contagem / totalVotos) * 100);
 
@@ -240,10 +226,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Atualiza as barras de progresso
         document.getElementById('barra-fogo').style.width = percFogo + '%';
         document.getElementById('perc-fogo').textContent = percFogo + '%';
-
         document.getElementById('barra-equilibrio').style.width = percEquilibrio + '%';
         document.getElementById('perc-equilibrio').textContent = percEquilibrio + '%';
-
         document.getElementById('barra-gelo').style.width = percGelo + '%';
         document.getElementById('perc-gelo').textContent = percGelo + '%';
     }
@@ -252,25 +236,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3. LIDA COM O CLIQUE DO USUÁRIO (ENVIA O VOTO PARA O FIREBASE)
     function lidarComVoto(e) {
         if (localStorage.getItem(chaveVotoUnico)) {
-            alert('Você já expressou seu sentimento! A votação é única por dispositivo/sessão.');
+            alert('Você já expressou seu sentimento! A votação é única.');
             return;
         }
 
         const tipoVoto = e.currentTarget.getAttribute('data-voto');
         
-        // Usa o Firebase Transaction para aumentar o contador com segurança
-        refVotos.child(tipoVoto).transaction((votoAtual) => {
-            // Se o valor for nulo ou zero, começa do 0, senão incrementa
-            return (votoAtual || 0) + 1; 
-        }, (error, committed) => {
-            if (committed) {
-                localStorage.setItem(chaveVotoUnico, 'sim'); // Marca que o usuário votou
-                alert('Seu voto foi registrado e atualizado para todos em tempo real!');
-                desabilitarVotacao();
-            } else if (error) {
-                 alert('Erro ao votar. Verifique se o Realtime Database está ativo.');
-                 console.error(error);
-            }
+        // ENVIO MAIS SIMPLES: Aumenta o valor atual do Firebase em 1
+        refVotos.child(tipoVoto).once('value', (snapshot) => {
+            const votoAtual = snapshot.val() || 0;
+            refVotos.child(tipoVoto).set(votoAtual + 1)
+                .then(() => {
+                    localStorage.setItem(chaveVotoUnico, 'sim'); // Marca que o usuário votou
+                    alert('Seu voto foi registrado e atualizado para todos em tempo real!');
+                    desabilitarVotacao();
+                })
+                .catch((error) => {
+                    alert('Erro ao votar. Verifique o console do navegador para detalhes.');
+                    console.error("Erro ao enviar voto: ", error);
+                });
         });
     }
 
@@ -288,4 +272,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
 }); // Fim do document.addEventListener
-        
