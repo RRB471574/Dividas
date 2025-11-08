@@ -9,11 +9,10 @@
     --texto-claro: #333333;
     --fundo-escuro: #121212;
     --texto-escuro: #E0E0E0;
-    --azul-spfc: #00008b; /* Azul Escuro para destaque */
-    --azul-claro: #00BFFF; /* Azul claro para modo escuro */
+    --azul-spfc: #00008b;
 }
 
-/* 2. ESTILO GERAL (Corpo da Página - Tema Claro Padrão) */
+/* 2. ESTILO GERAL */
 body {
     font-family: 'Arial', sans-serif; 
     margin: 0; 
@@ -30,9 +29,9 @@ body {
 .container {
     width: 90%;
     max-width: 1100px; 
-    margin: 15px auto; /* Reduzi a margem superior */
+    margin: 15px auto;
     padding: 0 20px;
-    flex: 1; /* Permite que o conteúdo empurre o footer para baixo */
+    flex: 1;
 }
 
 /* 3. CABEÇALHO E NAVEGAÇÃO */
@@ -66,7 +65,7 @@ h2 {
     font-size: 1.8em;
     border-bottom: 3px solid var(--preto-spfc);
     padding-bottom: 10px;
-    margin-top: 30px; /* Mais espaço acima dos títulos */
+    margin-top: 30px;
 }
 
 .noticia {
@@ -75,7 +74,7 @@ h2 {
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 4px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     transition: background-color 0.4s, border-left 0.4s;
 }
 
@@ -85,7 +84,10 @@ footer {
     color: white;
     text-align: center;
     padding: 20px 0;
-    margin-top: auto; /* Garante que fique no rodapé */
+    padding-bottom: 50px; /* Aumenta o padding para liberar a área dos botões */
+    margin-top: auto;
+    position: relative;
+    z-index: 1000; /* Garante que o rodapé e seus links estejam acima */
 }
 
 #social-links a {
@@ -98,7 +100,7 @@ footer {
     transform: scale(1.2);
 }
 
-/* 6. ESTILO DA TABELA DE ELENCO (NOVO) */
+/* 6. ESTILO DA TABELA DE ELENCO */
 #tabela-elenco {
     width: 100%;
     border-collapse: collapse;
@@ -129,71 +131,68 @@ footer {
 }
 
 #tabela-elenco tbody tr:hover {
-    background-color: #ffeaea; /* Fundo vermelho claro ao passar o mouse */
+    background-color: #ffeaea;
 }
 
-/* Ocultar cabeçalho e usar data-label no Mobile */
+/* MOBILE RESPONSIVO (Tabela) */
 @media screen and (max-width: 600px) {
-    #tabela-elenco thead {
-        display: none;
-    }
-
+    #tabela-elenco thead { display: none; }
     #tabela-elenco, #tabela-elenco tbody, #tabela-elenco tr, #tabela-elenco td {
-        display: block;
-        width: 100%;
+        display: block; width: 100%;
     }
-    
     #tabela-elenco tr {
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-    
     #tabela-elenco td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        border: none;
-        border-bottom: 1px dashed #eee;
+        text-align: right; padding-left: 50%; position: relative; border: none; border-bottom: 1px dashed #eee;
     }
-    
-    #tabela-elenco td:last-child {
-        border-bottom: 0;
-    }
+    #tabela-elenco td:last-child { border-bottom: 0; }
     
     #tabela-elenco td::before {
         content: attr(data-label);
-        position: absolute;
-        left: 10px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        font-weight: bold;
-        text-align: left;
+        position: absolute; left: 10px; width: 45%; padding-right: 10px;
+        white-space: nowrap; font-weight: bold; text-align: left;
         color: var(--vermelho-spfc);
     }
 }
 
 
-/* 7. ESTILOS DE COMPONENTES ANTIGOS */
-#carrossel-imagem {
-    max-width: 100%;
+/* 7. ESTILOS DE COMPONENTES DE INTERAÇÃO */
+
+/* ESTILO DA BARRA DE PESQUISA */
+#barra-pesquisa input {
+    margin-top: 10px;
+    font-size: 1em;
 }
-#countdown-container p:first-child {
-    color: var(--azul-spfc); 
-    font-size: 2em !important;
-    letter-spacing: 1px;
-}
+
+/* CORREÇÃO DO MASCOTE: ÁREA DE CLIQUE E POSICIONAMENTO */
 #mascote-falante-container {
     position: fixed;
     bottom: 80px; 
-    left: 10px;
-    z-index: 999;
+    left: 10px; 
+    z-index: 1001; 
     cursor: pointer;
+    width: 70px; /* Tamanho do contêiner reduzido para mobile */
+    height: 70px;
+    overflow: visible;
 }
-#mascote-imagem { width: 70px; height: auto; }
-#mascote-balao { /* ... estilos do balão ... */ }
+
+#mascote-imagem { width: 100%; height: auto; }
+
+/* Garante que o balão de fala não atrapalhe os cliques */
+#mascote-balao {
+    z-index: 1002;
+    pointer-events: none; /* ESSENCIAL: Permite clicar ATRAVÉS do balão */
+}
+
+/* Botão Mudar Tema: Prioridade máxima de clique */
+#theme-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000; /* Mais alto que todos */
+}
 
 
 /* ###################################### */
@@ -208,22 +207,9 @@ body.dark-mode h2 { color: var(--texto-escuro); border-bottom: 3px solid var(--v
 body.dark-mode .noticia { background-color: #1E1E1E; border-left: 5px solid var(--texto-escuro); }
 body.dark-mode footer { background-color: #0a0a0a; }
 
-body.dark-mode #tabela-elenco thead {
-    background-color: #720000;
-}
-body.dark-mode #tabela-elenco tbody tr {
-    background-color: #2a2a2a;
-    color: var(--texto-escuro);
-}
-body.dark-mode #tabela-elenco tbody tr:nth-child(even) {
-    background-color: #1a1a1a;
-}
-body.dark-mode #tabela-elenco tbody tr:hover {
-    background-color: #400000; /* Vermelho escuro ao passar o mouse */
-}
-body.dark-mode #tabela-elenco td {
-    border-bottom: 1px solid #444;
-}
-body.dark-mode #tabela-elenco td::before {
-    color: var(--vermelho-spfc);
-}
+body.dark-mode #tabela-elenco thead { background-color: #720000; }
+body.dark-mode #tabela-elenco tbody tr { background-color: #2a2a2a; color: var(--texto-escuro); }
+body.dark-mode #tabela-elenco tbody tr:nth-child(even) { background-color: #1a1a1a; }
+body.darkode #tabela-elenco tbody tr:hover { background-color: #400000; }
+body.dark-mode #tabela-elenco td { border-bottom: 1px solid #444; }
+body.dark-mode #tabela-elenco td::before { color: var(--vermelho-spfc); }
